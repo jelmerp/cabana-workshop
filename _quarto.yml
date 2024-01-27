@@ -1,0 +1,47 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Feb '24 CABANAnet/STC-CGIAR workshop - Jelmer's material"
+  site-url: https://jelmerp.github.io/cabana-workshop
+  repo-url: https://github.com/jelmerp/cabana-workshop
+  page-navigation: true
+  back-to-top-navigation: true
+  navbar:
+    left:
+      - href: index.qmd
+        icon: house
+        text: " "
+      - text: "Wed, Feb 7"
+        menu: 
+          - text: "Supercomputing and OSC"
+          - text: "VS Code"
+          - text: "Unix shell refresher"
+      - text: "Thu, Feb 8"
+        menu: 
+          - text: "Bacterial genome analysis (slides)"
+          - text: "Shell scripts, batch jobs, and loops"
+          - text: "Intro to Bactopia"
+          - text: "Running Bactopia"
+          - text: "Interpeting the Bactopia results"
+    right:
+      - text: About
+        href: about.qmd
+    tools:
+      - icon: github
+        menu:
+          - text: Source Code
+            url:  https://github.com/jelmerp/cabana-workshop
+          - text: Report an Issue
+            url:  https://github.com/jelmerp/cabana-workshop/issues/new
+format:
+  html:
+    theme: yeti
+    css: styles.css
+    toc: true
+    number-sections: true
+    grid:
+      body-width: 900px
+
+editor: visual
