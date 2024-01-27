@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jelmer Poelstra">
+<meta name="dcterms.date" content="2024-01-27">
 
-<title>CABANAnet/STC-CGIAR workshop - Feb ’24 CABANAnet/STC-CGIAR workshop</title>
+<title>CABANAnet/STC-CGIAR workshop - Opening a Unix Shell at OSC</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -89,7 +125,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> <i class="bi bi-house" role="img">
+    <a class="nav-link" href="./index.html"> <i class="bi bi-house" role="img">
 </i> 
 <span class="menu-text"> </span></a>
   </li>  
@@ -167,8 +203,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#modules" id="toc-modules" class="nav-link active" data-scroll-target="#modules">Modules</a></li>
-  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
+  <li><a href="#open-a-unix-shell-at-the-ohio-supercomputer-center-osc" id="toc-open-a-unix-shell-at-the-ohio-supercomputer-center-osc" class="nav-link active" data-scroll-target="#open-a-unix-shell-at-the-ohio-supercomputer-center-osc">Open a Unix shell at the Ohio Supercomputer Center (OSC)</a></li>
+  <li><a href="#copy-the-software-carpentry-data-set" id="toc-copy-the-software-carpentry-data-set" class="nav-link" data-scroll-target="#copy-the-software-carpentry-data-set">Copy the Software Carpentry data set</a></li>
   </ul>
 </nav>
     </div>
@@ -177,15 +213,26 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Feb ’24 CABANAnet/STC-CGIAR workshop</h1>
-<p class="subtitle lead">Jelmer’s material</p>
+<h1 class="title">Opening a Unix Shell at OSC</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jelmer Poelstra </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 27, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -196,74 +243,74 @@ ul.task-list li input[type="checkbox"] {
 
 
 <hr style="height:1pt; visibility:hidden;">
-<section id="modules" class="level3">
-<h3 class="anchored" data-anchor-id="modules">Modules</h3>
-<table class="table">
-<colgroup>
-<col style="width: 15%">
-<col style="width: 19%">
-<col style="width: 65%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Day</th>
-<th>Time</th>
-<th>Topic and link</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Wed Feb 7<sup>th</sup></strong></td>
-<td>08:00-08:45</td>
-<td>Intro to supercomputing / OSC</td>
-</tr>
-<tr class="even">
-<td></td>
-<td>08:45-09:00</td>
-<td>VS Code</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>09:00-09:50</td>
-<td>Unix shell refresher</td>
-</tr>
-<tr class="even">
-<td></td>
-<td>10:10-12:00</td>
-<td>FASTQ files and quality control</td>
-</tr>
-<tr class="odd">
-<td><strong>Thu Feb 8<sup>th</sup></strong></td>
-<td>08:00-09:00</td>
-<td>Intro to bacterial genome analysis</td>
-</tr>
-<tr class="even">
-<td></td>
-<td>09:00-11:00</td>
-<td>Scaling up with shell scripts, batch jobs and loops</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>11:00-12:00</td>
-<td>Intro to the Bactopia workflow</td>
-</tr>
-<tr class="even">
-<td></td>
-<td>13:00-14:30</td>
-<td>Running the Bactopia workflow</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>14:50-16:30</td>
-<td>Interpreting the Bactopia results</td>
-</tr>
-</tbody>
-</table>
+<section id="open-a-unix-shell-at-the-ohio-supercomputer-center-osc" class="level2">
+<h2 class="anchored" data-anchor-id="open-a-unix-shell-at-the-ohio-supercomputer-center-osc">Open a Unix shell at the Ohio Supercomputer Center (OSC)</h2>
+<ol type="1">
+<li><p>If you haven’t already: <strong>create an OSC account</strong> by following the link in the email you received from OSC.</p></li>
+<li><p>Go to <a href="https://ondemand.osc.edu" class="uri">https://ondemand.osc.edu</a> and <strong>log in</strong>.</p>
+<p>Once you are logged in, you should see a landing page similar to the one below:</p>
+<p align="center">
+</p><p><img src="img/ondemand_home.png" width="95%"></p>
+<p></p></li>
+<li><p>Click on the <strong>Clusters</strong> dropdown menu in the top blue bar, and then on <strong>Pitzer Shell Access</strong>:</p></li>
+</ol>
+<p align="center">
+</p><p><img src="img/ondemand_shell_select.png" width="50%"></p>
+<p></p>
+<ol start="4" type="1">
+<li>This should open a new browser tab that looks approximately like this:</li>
+</ol>
+<p align="center">
+</p><p><img src="img/ondemand_shell-pitzer.png" width="95%"></p>
+<p></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Your screen will be slightly different from the screenshot above:
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>You should see even more “welcome messages” (which is everything except for the last line), and some of these are personalized, so they will differ for you.</p></li>
+<li><p>The last line in the screenshot (<code>jelmer@pitzer-login04 ~]$</code>) is your shell “<strong>prompt</strong>”, which is personalized as well:</p>
+<ul>
+<li>You will see your own username (not <code>jelmer</code>) before the <code>@</code></li>
+<li>You may be on a different “login node” so may e.g.&nbsp;see <code>@pitzer-login03</code></li>
+</ul></li>
+</ul>
+</div>
+</div>
 <p><br></p>
 </section>
-<section id="homework" class="level3">
-<h3 class="anchored" data-anchor-id="homework">Homework</h3>
-<p>If you have very limited or no experience with R and/or the Unix shell, please see <a href="./homework.html">this page</a>.</p>
+<section id="copy-the-software-carpentry-data-set" class="level2">
+<h2 class="anchored" data-anchor-id="copy-the-software-carpentry-data-set">Copy the Software Carpentry data set</h2>
+<p>If you opened a shell in order to do the <a href="./homework.html">Unix shell homework</a>, then please also perform the following step:</p>
+<ul>
+<li>Copy and paste the following code in your Unix shell, and then press <kbd>Enter</kbd> (this will create a folder (directory) called “Desktop” in your home directory, and will copy the Software Carpentry dataset into the new Desktop folder):</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> Desktop</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> /fs/scratch/PAS2250/cabana/homework/shell/shell-lesson-data Desktop/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>After doing this, you should be able to <strong>skip</strong> everything on the Software Carpentry <a href="https://swcarpentry.github.io/shell-novice/index.html">“Summary and Setup” page</a>.</li>
+</ul>
+<p><br></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+If you run into any problems, don’t hesitate to email <a href="poelstra.1@osu.edu">Jelmer Poelstra</a>.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+<p><br> <br></p>
 
 
 </section>

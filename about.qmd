@@ -4,6 +4,6 @@ title: "About this website"
 
 This website contains the teaching materials of Jelmer Poelstra (MCIC Wooster, Ohio State University) in the CABANAnet/STC-CGIAR workshop Latin American workshop on high throughput sequencing for plant pathogen identification and analysis.
 
-This workshop was held from Feb 5^th^ to Feb 9^th^ in Chachapoyas, Peru.
+This workshop was held from Feb 5^th^ to Feb 9^th^, 2024, in Chachapoyas, Peru.
 
 The source code for this website can be found at <https://github.com/jelmerp/cabana-workshop>.

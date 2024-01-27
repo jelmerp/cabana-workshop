@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Feb '24 CABANAnet/STC-CGIAR workshop - Jelmer's material"
+  title: "CABANAnet/STC-CGIAR workshop"
   site-url: https://jelmerp.github.io/cabana-workshop
   repo-url: https://github.com/jelmerp/cabana-workshop
   page-navigation: true
@@ -13,12 +13,14 @@ website:
       - href: index.qmd
         icon: house
         text: " "
-      - text: "Wed, Feb 7"
+      - text: "Homework"
+        href: homework.qmd
+      - text: "Wed Feb 7"
         menu: 
           - text: "Supercomputing and OSC"
           - text: "VS Code"
           - text: "Unix shell refresher"
-      - text: "Thu, Feb 8"
+      - text: "Thu Feb 8"
         menu: 
           - text: "Bacterial genome analysis (slides)"
           - text: "Shell scripts, batch jobs, and loops"
@@ -28,6 +30,10 @@ website:
     right:
       - text: About
         href: about.qmd
+      - text: Reference Pages
+        menu: 
+          - text: Opening a Unix Shell at OSC
+            href: open_shell.qmd
     tools:
       - icon: github
         menu:

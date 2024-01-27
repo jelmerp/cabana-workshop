@@ -1,0 +1,44 @@
+---
+title: "R and Unix Shell Homework"
+author: Jelmer Poelstra
+date: 2024-01-27
+number-sections: false
+---
+
+<hr style="height:1pt; visibility:hidden;" />
+
+**If you have very limited or no experience with R and/or the Unix shell**[^1], please go through the following homework before you need these skills in the workshop on Wednesday.
+
+[^1]: The Unix shell is also known as the "terminal" or "command line".
+
+*If you do have some experience with R and the Unix shell*, we would suggest that you at least take a look at the material below, to check that you are familiar with most or all of its contents.
+
+## R
+
+Please work your way through the Data Carpentry "XX" lesson...
+
+<br>
+
+## Unix Shell
+
+Please work your way through the [Software Carpentry "Shell Novice" lesson](https://swcarpentry.github.io/shell-novice/) up until and including at least episode 3 ("Working With Files and Directories").
+
+You can optionally make your way through the remaining episodes, but that content will in part be taught in the workshop itself, and in part not be used at all.
+
+<hr style="height:1pt; visibility:hidden;" />
+
+::: callout-tip
+#### Using Windows?
+
+If your computer uses the Windows operating system, you will not have a Unix shell installed by default[^2]. To go through the lesson above, you have two options:
+
+1.  **Install a Unix shell**\
+    Follow the instructions in the Software Carpentry lesson that I linked to above (and here is a direct link to the [installation instructions](https://carpentries.github.io/workshop-template/install_instructions/#shell)). If this fails for you, please use the next option instead.
+
+2.  **Use a Unix shell at the Ohio Supercomputer Center (OSC)**\
+    Follow [these instructions elsewhere on this website](open_shell.qmd).
+:::
+
+[^2]: If you have a Mac or Linux computer, you *should* have a Unix shell installed.
+
+<br> <br>
