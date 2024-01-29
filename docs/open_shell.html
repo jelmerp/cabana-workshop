@@ -129,10 +129,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </i> 
 <span class="menu-text"> </span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./homework.html"> 
-<span class="menu-text">Homework</span></a>
-  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-wed-feb-7" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Wed Feb 7</span>
@@ -157,21 +153,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
-<span class="menu-text">About</span></a>
-  </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-reference-pages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Reference Pages</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-other-pages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Other Pages</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-reference-pages">    
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-other-pages">    
+        <li>
+    <a class="dropdown-item" href="./homework.html">
+ <span class="dropdown-text">Homework</span></a>
+  </li>  
         <li>
     <a class="dropdown-item" href="./open_shell.html">
  <span class="dropdown-text">Opening a Unix Shell at OSC</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./rstudio.html">
+ <span class="dropdown-text">Starting an RStudio session at OSC</span></a>
+  </li>  
+        <li class="dropdown-header">Overview of common Unix shell commands</li>
     </ul>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
@@ -242,27 +247,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<hr style="height:1pt; visibility:hidden;">
+<p><br></p>
+<p><em>If you’re going to use a Unix shell at OSC for your <a href="./homework.html">homework</a>,</em> <em>make sure to also run the step at the bottom of this page,</em> <em>to copy the data set for the Software Carpentry lession.</em></p>
+<p><br></p>
 <section id="open-a-unix-shell-at-the-ohio-supercomputer-center-osc" class="level2">
 <h2 class="anchored" data-anchor-id="open-a-unix-shell-at-the-ohio-supercomputer-center-osc">Open a Unix shell at the Ohio Supercomputer Center (OSC)</h2>
 <ol type="1">
 <li><p>If you haven’t already: <strong>create an OSC account</strong> by following the link in the email you received from OSC.</p></li>
 <li><p>Go to <a href="https://ondemand.osc.edu" class="uri">https://ondemand.osc.edu</a> and <strong>log in</strong>.</p>
 <p>Once you are logged in, you should see a landing page similar to the one below:</p>
-<p align="center">
-</p><p><img src="img/ondemand_home.png" width="95%"></p>
-<p></p></li>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/ondemand_home.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div></li>
 <li><p>Click on the <strong>Clusters</strong> dropdown menu in the top blue bar, and then on <strong>Pitzer Shell Access</strong>:</p></li>
 </ol>
-<p align="center">
-</p><p><img src="img/ondemand_shell_select.png" width="50%"></p>
-<p></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/ondemand_shell_select.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
+</figure>
+</div>
 <ol start="4" type="1">
 <li>This should open a new browser tab that looks approximately like this:</li>
 </ol>
-<p align="center">
-</p><p><img src="img/ondemand_shell-pitzer.png" width="95%"></p>
-<p></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/ondemand_shell-pitzer.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+<hr style="height:1pt; visibility:hidden;">
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -274,8 +288,8 @@ Your screen will be slightly different from the screenshot above:
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><p>You should see even more “welcome messages” (which is everything except for the last line), and some of these are personalized, so they will differ for you.</p></li>
-<li><p>The last line in the screenshot (<code>jelmer@pitzer-login04 ~]$</code>) is your shell “<strong>prompt</strong>”, which is personalized as well:</p>
+<li>You should see even more “welcome messages” (which is everything except for the last line), and some of these are personalized, so they will differ for you.</li>
+<li>The last line in the screenshot (<code>jelmer@pitzer-login04 ~]$</code>) is your shell “<strong>prompt</strong>”, which is personalized as well:
 <ul>
 <li>You will see your own username (not <code>jelmer</code>) before the <code>@</code></li>
 <li>You may be on a different “login node” so may e.g.&nbsp;see <code>@pitzer-login03</code></li>
@@ -287,16 +301,14 @@ Your screen will be slightly different from the screenshot above:
 </section>
 <section id="copy-the-software-carpentry-data-set" class="level2">
 <h2 class="anchored" data-anchor-id="copy-the-software-carpentry-data-set">Copy the Software Carpentry data set</h2>
-<p>If you opened a shell in order to do the <a href="./homework.html">Unix shell homework</a>, then please also perform the following step:</p>
+<p>If you opened a shell at OSC to do the <a href="./homework.html">Unix shell homework</a>, then please also perform the following step:</p>
 <ul>
-<li>Copy and paste the following code in your Unix shell, and then press <kbd>Enter</kbd> (this will create a folder (directory) called “Desktop” in your home directory, and will copy the Software Carpentry dataset into the new Desktop folder):</li>
+<li><strong>Copy and paste the following code in your Unix shell, and then press <kbd>Enter</kbd>:</strong></li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> Desktop</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> /fs/scratch/PAS2250/cabana/homework/shell/shell-lesson-data Desktop/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li>After doing this, you should be able to <strong>skip</strong> everything on the Software Carpentry <a href="https://swcarpentry.github.io/shell-novice/index.html">“Summary and Setup” page</a>.</li>
-</ul>
-<p><br></p>
+<p>The above code created a folder (directory) called “Desktop” in your home directory, and copied the Software Carpentry dataset into the new Desktop folder. Now, you should be able to <strong>skip</strong> everything on the Software Carpentry <a href="https://swcarpentry.github.io/shell-novice/index.html">“Summary and Setup” page</a>.</p>
+<hr style="height:1pt; visibility:hidden;">
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

@@ -5,7 +5,13 @@ date: 2024-01-27
 number-sections: false
 ---
 
-<hr style="height:1pt; visibility:hidden;" />
+<br>
+
+_If you're going to use a Unix shell at OSC for your [homework](homework.qmd),_
+_make sure to also run the step at the bottom of this page,_
+_to copy the data set for the Software Carpentry lession._
+
+<br>
 
 ## Open a Unix shell at the Ohio Supercomputer Center (OSC)
 
@@ -14,36 +20,25 @@ number-sections: false
 2.  Go to <https://ondemand.osc.edu> and **log in**.
 
     Once you are logged in, you should see a landing page similar to the one below:
-
-    <p align="center">
-
-    <img src="img/ondemand_home.png" width="95%"/>
-
-    </p>
+    
+    ![](img/ondemand_home.png){fig-align="center" width="90%"}
 
 3.  Click on the **Clusters** dropdown menu in the top blue bar, and then on **Pitzer Shell Access**:
 
-<p align="center">
-
-<img src="img/ondemand_shell_select.png" width="50%"/>
-
-</p>
+![](img/ondemand_shell_select.png){fig-align="center" width="50%"}
 
 4.  This should open a new browser tab that looks approximately like this:
 
-<p align="center">
+![](img/ondemand_shell-pitzer.png){fig-align="center" width="90%"}
 
-<img src="img/ondemand_shell-pitzer.png" width="95%"/>
-
-</p>
+<hr style="height:1pt; visibility:hidden;" />
 
 ::: callout-tip
 #### Your screen will be slightly different from the screenshot above:
 
--   You should see even more "welcome messages" (which is everything except for the last line), and some of these are personalized, so they will differ for you.
-
+-   You should see even more "welcome messages" (which is everything except for the last line),
+    and some of these are personalized, so they will differ for you.
 -   The last line in the screenshot (`jelmer@pitzer-login04 ~]$`) is your shell "**prompt**", which is personalized as well:
-
     -   You will see your own username (not `jelmer`) before the `@`
     -   You may be on a different "login node" so may e.g. see `@pitzer-login03`
 :::
@@ -52,18 +47,21 @@ number-sections: false
 
 ## Copy the Software Carpentry data set
 
-If you opened a shell in order to do the [Unix shell homework](homework.qmd), then please also perform the following step:
+If you opened a shell at OSC to do the [Unix shell homework](homework.qmd),
+then please also perform the following step:
 
--   Copy and paste the following code in your Unix shell, and then press <kbd>Enter</kbd> (this will create a folder (directory) called "Desktop" in your home directory, and will copy the Software Carpentry dataset into the new Desktop folder):
+-   **Copy and paste the following code in your Unix shell, and then press <kbd>Enter</kbd>:**
 
 ``` bash
 mkdir Desktop
 cp -r /fs/scratch/PAS2250/cabana/homework/shell/shell-lesson-data Desktop/
 ```
 
--   After doing this, you should be able to **skip** everything on the Software Carpentry ["Summary and Setup" page](https://swcarpentry.github.io/shell-novice/index.html).
+The above code created a folder (directory) called "Desktop" in your home directory,
+and copied the Software Carpentry dataset into the new Desktop folder.
+Now, you should be able to **skip** everything on the Software Carpentry ["Summary and Setup" page](https://swcarpentry.github.io/shell-novice/index.html).
 
-<br>
+<hr style="height:1pt; visibility:hidden;" />
 
 ::: callout-note
 #### If you run into any problems, don't hesitate to email [Jelmer Poelstra](poelstra.1@osu.edu).

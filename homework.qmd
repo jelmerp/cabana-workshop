@@ -7,19 +7,40 @@ number-sections: false
 
 <hr style="height:1pt; visibility:hidden;" />
 
-**If you have very limited or no experience with R and/or the Unix shell**[^1], please go through the following homework before you need these skills in the workshop on Wednesday.
-
-[^1]: The Unix shell is also known as the "terminal" or "command line".
+**If you have very limited or no experience with R and/or the Unix shell**,
+please go through the following homework before you need these skills in the workshop on Wednesday.
 
 *If you do have some experience with R and the Unix shell*, we would suggest that you at least take a look at the material below, to check that you are familiar with most or all of its contents.
 
+<hr style="height:1pt; visibility:hidden;" />
+
 ## R
 
-Please work your way through the Data Carpentry "XX" lesson...
+Please work your way through the first part of the Data Carpentry
+["Data Analysis and Visualisation in R for Ecologists" lesson](https://datacarpentry.org/R-ecology-lesson/index.html).
+Specifically, go through:
+
+- The [introductory page](https://datacarpentry.org/R-ecology-lesson/index.html)
+- The first lesson (["Before we start"](https://datacarpentry.org/R-ecology-lesson/00-before-we-start.html))
+- The second lesson (["Introduction to R"](https://datacarpentry.org/R-ecology-lesson/01-intro-to-r.html))
+- The third lesson (["Starting with data"](https://datacarpentry.org/R-ecology-lesson/02-starting-with-data.html)) --- until (not including) the ["Formatting dates" section](https://datacarpentry.org/R-ecology-lesson/02-starting-with-data.html#formatting-dates).
+
+<hr style="height:1pt; visibility:hidden;" />
+
+::: callout-tip
+#### Having trouble installing R or RStudio?
+You should be able to install R and RStudio regardless of your operating system
+(Windows, Mac, or Linux), and the Carpentry lesson contain instructions on how to do so.
+
+But in case you are having trouble, you can also use R and RStudio through your browser
+with the Ohio Supercomputer Center (OSC).
+To start an RStudio session at OSC,
+follow [these instructions elsewhere on this website](rstudio.qmd).
+:::
 
 <br>
 
-## Unix Shell
+## Unix shell
 
 Please work your way through the [Software Carpentry "Shell Novice" lesson](https://swcarpentry.github.io/shell-novice/) up until and including at least episode 3 ("Working With Files and Directories").
 

@@ -13,8 +13,6 @@ website:
       - href: index.qmd
         icon: house
         text: " "
-      - text: "Homework"
-        href: homework.qmd
       - text: "Wed Feb 7"
         menu: 
           - text: "Supercomputing and OSC"
@@ -28,12 +26,17 @@ website:
           - text: "Running Bactopia"
           - text: "Interpeting the Bactopia results"
     right:
+      - text: Other Pages
+        menu:
+          - text: "Homework"
+            href: homework.qmd
+          - text: "Opening a Unix Shell at OSC"
+            href: open_shell.qmd
+          - text: "Starting an RStudio session at OSC"
+            href: rstudio.qmd
+          - text: "Overview of common Unix shell commands"
       - text: About
         href: about.qmd
-      - text: Reference Pages
-        menu: 
-          - text: Opening a Unix Shell at OSC
-            href: open_shell.qmd
     tools:
       - icon: github
         menu:

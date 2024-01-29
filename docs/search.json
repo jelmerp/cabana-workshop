@@ -1,17 +1,45 @@
 [
   {
-    "objectID": "open_shell.html#open-a-unix-shell-at-the-ohio-supercomputer-center-osc",
-    "href": "open_shell.html#open-a-unix-shell-at-the-ohio-supercomputer-center-osc",
-    "title": "Opening a Unix Shell at OSC",
-    "section": "Open a Unix shell at the Ohio Supercomputer Center (OSC)",
-    "text": "Open a Unix shell at the Ohio Supercomputer Center (OSC)\n\nIf you haven’t already: create an OSC account by following the link in the email you received from OSC.\nGo to https://ondemand.osc.edu and log in.\nOnce you are logged in, you should see a landing page similar to the one below:\n\n\n\nClick on the Clusters dropdown menu in the top blue bar, and then on Pitzer Shell Access:\n\n\n\n\n\nThis should open a new browser tab that looks approximately like this:\n\n\n\n\n\n\n\n\n\n\nYour screen will be slightly different from the screenshot above:\n\n\n\n\nYou should see even more “welcome messages” (which is everything except for the last line), and some of these are personalized, so they will differ for you.\nThe last line in the screenshot (jelmer@pitzer-login04 ~]$) is your shell “prompt”, which is personalized as well:\n\nYou will see your own username (not jelmer) before the @\nYou may be on a different “login node” so may e.g. see @pitzer-login03"
+    "objectID": "rstudio.html#steps-to-start-an-rstudio-session-at-osc",
+    "href": "rstudio.html#steps-to-start-an-rstudio-session-at-osc",
+    "title": "Starting an RStudio session at OSC",
+    "section": "Steps to start an RStudio session at OSC",
+    "text": "Steps to start an RStudio session at OSC\n\nIf you haven’t already: create an OSC account by following the link in the email you received from the Ohio Supercomputer Center (OSC).\nLog in to OSC at https://ondemand.osc.edu\nClick on Interactive Apps (top bar) and then RStudio Server (all the way at the bottom)\nFill out the form as follows:\n\nCluster: Pitzer\nR version: 4.3.0\nProject: PAS2250\nNumber of hours: 4\nNode type: any\nNumber of cores: 2\n\n\n\n\nClick to see a screenshot\n\n\n\n\n\n\n\n\nClick the big blue Launch button at the bottom\nNow, you should be sent to a new page with a box at the top for your RStudio Server “job”, which should initially be “Queued” (waiting to start).\n\n\n\nClick to see a screenshot\n\n\n\n\n\n\n\n\nYour job should start running very soon, with the top bar of the box turning green and saying “Running”.\n\n\n\nClick to see a screenshot\n\n\n\n\n\n\n\n\nClick Connect to RStudio Server at the bottom of the box, and an RStudio Server instance will open in a new browser tab. You’re ready to go!\n\n\n\n\n\n\n\n\nHaving trouble installing the tidyverse package?\n\n\n\nIf you are using RStudio at OSC and your tidyverse package installation fails, please load this package as follows (no installation needed):\n\ncustom_library &lt;- \"/fs/scratch/PAS2250/ENT6703/share/rlib\"\nlibrary(withr, lib.loc = custom_library)\nlibrary(tidyr, lib.loc = custom_library)\nlibrary(tidyverse, lib.loc = custom_library)"
   },
   {
-    "objectID": "open_shell.html#copy-the-software-carpentry-data-set",
-    "href": "open_shell.html#copy-the-software-carpentry-data-set",
-    "title": "Opening a Unix Shell at OSC",
-    "section": "Copy the Software Carpentry data set",
-    "text": "Copy the Software Carpentry data set\nIf you opened a shell in order to do the Unix shell homework, then please also perform the following step:\n\nCopy and paste the following code in your Unix shell, and then press Enter (this will create a folder (directory) called “Desktop” in your home directory, and will copy the Software Carpentry dataset into the new Desktop folder):\n\nmkdir Desktop\ncp -r /fs/scratch/PAS2250/cabana/homework/shell/shell-lesson-data Desktop/\n\nAfter doing this, you should be able to skip everything on the Software Carpentry “Summary and Setup” page.\n\n\n\n\n\n\n\n\nIf you run into any problems, don’t hesitate to email Jelmer Poelstra."
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About this website",
+    "section": "",
+    "text": "This website contains the teaching materials of Jelmer Poelstra (MCIC Wooster, Ohio State University) in the CABANAnet/STC-CGIAR workshop Latin American workshop on high throughput sequencing for plant pathogen identification and analysis.\nThis workshop was held from Feb 5th to Feb 9th, 2024, in Chachapoyas, Peru.\nThe source code for this website can be found at https://github.com/jelmerp/cabana-workshop.\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "homework.html",
+    "href": "homework.html",
+    "title": "R and Unix Shell Homework",
+    "section": "",
+    "text": "If you have very limited or no experience with R and/or the Unix shell, please go through the following homework before you need these skills in the workshop on Wednesday.\nIf you do have some experience with R and the Unix shell, we would suggest that you at least take a look at the material below, to check that you are familiar with most or all of its contents."
+  },
+  {
+    "objectID": "homework.html#r",
+    "href": "homework.html#r",
+    "title": "R and Unix Shell Homework",
+    "section": "R",
+    "text": "R\nPlease work your way through the first part of the Data Carpentry “Data Analysis and Visualisation in R for Ecologists” lesson. Specifically, go through:\n\nThe introductory page\nThe first lesson (“Before we start”)\nThe second lesson (“Introduction to R”)\nThe third lesson (“Starting with data”) — until (not including) the “Formatting dates” section.\n\n\n\n\n\n\n\n\nHaving trouble installing R or RStudio?\n\n\n\nYou should be able to install R and RStudio regardless of your operating system (Windows, Mac, or Linux), and the Carpentry lesson contain instructions on how to do so.\nBut in case you are having trouble, you can also use R and RStudio through your browser with the Ohio Supercomputer Center (OSC). To start an RStudio session at OSC, follow these instructions elsewhere on this website."
+  },
+  {
+    "objectID": "homework.html#unix-shell",
+    "href": "homework.html#unix-shell",
+    "title": "R and Unix Shell Homework",
+    "section": "Unix shell",
+    "text": "Unix shell\nPlease work your way through the Software Carpentry “Shell Novice” lesson up until and including at least episode 3 (“Working With Files and Directories”).\nYou can optionally make your way through the remaining episodes, but that content will in part be taught in the workshop itself, and in part not be used at all.\n\n\n\n\n\n\n\nUsing Windows?\n\n\n\nIf your computer uses the Windows operating system, you will not have a Unix shell installed by default1. To go through the lesson above, you have two options:\n\nInstall a Unix shell\nFollow the instructions in the Software Carpentry lesson that I linked to above (and here is a direct link to the installation instructions). If this fails for you, please use the next option instead.\nUse a Unix shell at the Ohio Supercomputer Center (OSC)\nFollow these instructions elsewhere on this website."
+  },
+  {
+    "objectID": "homework.html#footnotes",
+    "href": "homework.html#footnotes",
+    "title": "R and Unix Shell Homework",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nIf you have a Mac or Linux computer, you should have a Unix shell installed.↩︎"
   },
   {
     "objectID": "index.html",
@@ -21,38 +49,24 @@
     "text": "Modules\n\n\n\n\n\n\n\n\nDay\nTime\nTopic and link\n\n\n\n\nWed Feb 7th\n08:00-08:45\nIntro to supercomputing / OSC\n\n\n\n08:45-09:00\nVS Code\n\n\n\n09:00-09:50\nUnix shell refresher\n\n\n\n10:10-12:00\nFASTQ files and quality control\n\n\nThu Feb 8th\n08:00-09:00\nIntro to bacterial genome analysis\n\n\n\n09:00-11:00\nScaling up with shell scripts, batch jobs and loops\n\n\n\n11:00-12:00\nIntro to the Bactopia workflow\n\n\n\n13:00-14:30\nRunning the Bactopia workflow\n\n\n\n14:50-16:30\nInterpreting the Bactopia results\n\n\n\n\n\n\nHomework\nIf you have very limited or no experience with R and/or the Unix shell, please see this page.\n\n\n\n\n Back to top"
   },
   {
-    "objectID": "homework.html",
-    "href": "homework.html",
-    "title": "R and Unix Shell Homework",
+    "objectID": "open_shell.html",
+    "href": "open_shell.html",
+    "title": "Opening a Unix Shell at OSC",
     "section": "",
-    "text": "If you have very limited or no experience with R and/or the Unix shell1, please go through the following homework before you need these skills in the workshop on Wednesday.\nIf you do have some experience with R and the Unix shell, we would suggest that you at least take a look at the material below, to check that you are familiar with most or all of its contents."
+    "text": "If you’re going to use a Unix shell at OSC for your homework, make sure to also run the step at the bottom of this page, to copy the data set for the Software Carpentry lession."
   },
   {
-    "objectID": "homework.html#r",
-    "href": "homework.html#r",
-    "title": "R and Unix Shell Homework",
-    "section": "R",
-    "text": "R\nPlease work your way through the Data Carpentry “XX” lesson…"
+    "objectID": "open_shell.html#open-a-unix-shell-at-the-ohio-supercomputer-center-osc",
+    "href": "open_shell.html#open-a-unix-shell-at-the-ohio-supercomputer-center-osc",
+    "title": "Opening a Unix Shell at OSC",
+    "section": "Open a Unix shell at the Ohio Supercomputer Center (OSC)",
+    "text": "Open a Unix shell at the Ohio Supercomputer Center (OSC)\n\nIf you haven’t already: create an OSC account by following the link in the email you received from OSC.\nGo to https://ondemand.osc.edu and log in.\nOnce you are logged in, you should see a landing page similar to the one below:\n\n\n\n\n\nClick on the Clusters dropdown menu in the top blue bar, and then on Pitzer Shell Access:\n\n\n\n\n\n\n\nThis should open a new browser tab that looks approximately like this:\n\n\n\n\n\n\n\n\n\n\n\n\n\nYour screen will be slightly different from the screenshot above:\n\n\n\n\nYou should see even more “welcome messages” (which is everything except for the last line), and some of these are personalized, so they will differ for you.\nThe last line in the screenshot (jelmer@pitzer-login04 ~]$) is your shell “prompt”, which is personalized as well:\n\nYou will see your own username (not jelmer) before the @\nYou may be on a different “login node” so may e.g. see @pitzer-login03"
   },
   {
-    "objectID": "homework.html#unix-shell",
-    "href": "homework.html#unix-shell",
-    "title": "R and Unix Shell Homework",
-    "section": "Unix Shell",
-    "text": "Unix Shell\nPlease work your way through the Software Carpentry “Shell Novice” lesson up until and including at least episode 3 (“Working With Files and Directories”).\nYou can optionally make your way through the remaining episodes, but that content will in part be taught in the workshop itself, and in part not be used at all.\n\n\n\n\n\n\n\nUsing Windows?\n\n\n\nIf your computer uses the Windows operating system, you will not have a Unix shell installed by default2. To go through the lesson above, you have two options:\n\nInstall a Unix shell\nFollow the instructions in the Software Carpentry lesson that I linked to above (and here is a direct link to the installation instructions). If this fails for you, please use the next option instead.\nUse a Unix shell at the Ohio Supercomputer Center (OSC)\nFollow these instructions elsewhere on this website."
-  },
-  {
-    "objectID": "homework.html#footnotes",
-    "href": "homework.html#footnotes",
-    "title": "R and Unix Shell Homework",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nThe Unix shell is also known as the “terminal” or “command line”.↩︎\nIf you have a Mac or Linux computer, you should have a Unix shell installed.↩︎"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About this website",
-    "section": "",
-    "text": "This website contains the teaching materials of Jelmer Poelstra (MCIC Wooster, Ohio State University) in the CABANAnet/STC-CGIAR workshop Latin American workshop on high throughput sequencing for plant pathogen identification and analysis.\nThis workshop was held from Feb 5th to Feb 9th, 2024, in Chachapoyas, Peru.\nThe source code for this website can be found at https://github.com/jelmerp/cabana-workshop.\n\n\n\n Back to top"
+    "objectID": "open_shell.html#copy-the-software-carpentry-data-set",
+    "href": "open_shell.html#copy-the-software-carpentry-data-set",
+    "title": "Opening a Unix Shell at OSC",
+    "section": "Copy the Software Carpentry data set",
+    "text": "Copy the Software Carpentry data set\nIf you opened a shell at OSC to do the Unix shell homework, then please also perform the following step:\n\nCopy and paste the following code in your Unix shell, and then press Enter:\n\nmkdir Desktop\ncp -r /fs/scratch/PAS2250/cabana/homework/shell/shell-lesson-data Desktop/\nThe above code created a folder (directory) called “Desktop” in your home directory, and copied the Software Carpentry dataset into the new Desktop folder. Now, you should be able to skip everything on the Software Carpentry “Summary and Setup” page.\n\n\n\n\n\n\n\nIf you run into any problems, don’t hesitate to email Jelmer Poelstra."
   }
 ]

@@ -95,10 +95,6 @@ ul.task-list li input[type="checkbox"] {
 </i> 
 <span class="menu-text"> </span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./homework.html" aria-current="page"> 
-<span class="menu-text">Homework</span></a>
-  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-wed-feb-7" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Wed Feb 7</span>
@@ -123,21 +119,30 @@ ul.task-list li input[type="checkbox"] {
   </li>
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
-<span class="menu-text">About</span></a>
-  </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-reference-pages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Reference Pages</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-other-pages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Other Pages</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-reference-pages">    
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-other-pages">    
+        <li>
+    <a class="dropdown-item" href="./homework.html">
+ <span class="dropdown-text">Homework</span></a>
+  </li>  
         <li>
     <a class="dropdown-item" href="./open_shell.html">
  <span class="dropdown-text">Opening a Unix Shell at OSC</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./rstudio.html">
+ <span class="dropdown-text">Starting an RStudio session at OSC</span></a>
+  </li>  
+        <li class="dropdown-header">Overview of common Unix shell commands</li>
     </ul>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
@@ -170,7 +175,7 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#r" id="toc-r" class="nav-link active" data-scroll-target="#r">R</a></li>
-  <li><a href="#unix-shell" id="toc-unix-shell" class="nav-link" data-scroll-target="#unix-shell">Unix Shell</a></li>
+  <li><a href="#unix-shell" id="toc-unix-shell" class="nav-link" data-scroll-target="#unix-shell">Unix shell</a></li>
   </ul>
 </nav>
     </div>
@@ -209,15 +214,37 @@ ul.task-list li input[type="checkbox"] {
 
 
 <hr style="height:1pt; visibility:hidden;">
-<p><strong>If you have very limited or no experience with R and/or the Unix shell</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, please go through the following homework before you need these skills in the workshop on Wednesday.</p>
+<p><strong>If you have very limited or no experience with R and/or the Unix shell</strong>, please go through the following homework before you need these skills in the workshop on Wednesday.</p>
 <p><em>If you do have some experience with R and the Unix shell</em>, we would suggest that you at least take a look at the material below, to check that you are familiar with most or all of its contents.</p>
+<hr style="height:1pt; visibility:hidden;">
 <section id="r" class="level2">
 <h2 class="anchored" data-anchor-id="r">R</h2>
-<p>Please work your way through the Data Carpentry “XX” lesson…</p>
+<p>Please work your way through the first part of the Data Carpentry <a href="https://datacarpentry.org/R-ecology-lesson/index.html">“Data Analysis and Visualisation in R for Ecologists” lesson</a>. Specifically, go through:</p>
+<ul>
+<li>The <a href="https://datacarpentry.org/R-ecology-lesson/index.html">introductory page</a></li>
+<li>The first lesson (<a href="https://datacarpentry.org/R-ecology-lesson/00-before-we-start.html">“Before we start”</a>)</li>
+<li>The second lesson (<a href="https://datacarpentry.org/R-ecology-lesson/01-intro-to-r.html">“Introduction to R”</a>)</li>
+<li>The third lesson (<a href="https://datacarpentry.org/R-ecology-lesson/02-starting-with-data.html">“Starting with data”</a>) — until (not including) the <a href="https://datacarpentry.org/R-ecology-lesson/02-starting-with-data.html#formatting-dates">“Formatting dates” section</a>.</li>
+</ul>
+<hr style="height:1pt; visibility:hidden;">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Having trouble installing R or RStudio?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You should be able to install R and RStudio regardless of your operating system (Windows, Mac, or Linux), and the Carpentry lesson contain instructions on how to do so.</p>
+<p>But in case you are having trouble, you can also use R and RStudio through your browser with the Ohio Supercomputer Center (OSC). To start an RStudio session at OSC, follow <a href="./rstudio.html">these instructions elsewhere on this website</a>.</p>
+</div>
+</div>
 <p><br></p>
 </section>
 <section id="unix-shell" class="level2">
-<h2 class="anchored" data-anchor-id="unix-shell">Unix Shell</h2>
+<h2 class="anchored" data-anchor-id="unix-shell">Unix shell</h2>
 <p>Please work your way through the <a href="https://swcarpentry.github.io/shell-novice/">Software Carpentry “Shell Novice” lesson</a> up until and including at least episode 3 (“Working With Files and Directories”).</p>
 <p>You can optionally make your way through the remaining episodes, but that content will in part be taught in the workshop itself, and in part not be used at all.</p>
 <hr style="height:1pt; visibility:hidden;">
@@ -231,7 +258,7 @@ Using Windows?
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If your computer uses the Windows operating system, you will not have a Unix shell installed by default<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. To go through the lesson above, you have two options:</p>
+<p>If your computer uses the Windows operating system, you will not have a Unix shell installed by default<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. To go through the lesson above, you have two options:</p>
 <ol type="1">
 <li><p><strong>Install a Unix shell</strong><br>
 Follow the instructions in the Software Carpentry lesson that I linked to above (and here is a direct link to the <a href="https://carpentries.github.io/workshop-template/install_instructions/#shell">installation instructions</a>). If this fails for you, please use the next option instead.</p></li>
@@ -249,8 +276,7 @@ Follow <a href="./open_shell.html">these instructions elsewhere on this website<
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>The Unix shell is also known as the “terminal” or “command line”.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>If you have a Mac or Linux computer, you <em>should</em> have a Unix shell installed.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>If you have a Mac or Linux computer, you <em>should</em> have a Unix shell installed.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
