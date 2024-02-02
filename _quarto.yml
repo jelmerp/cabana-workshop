@@ -3,21 +3,28 @@ project:
   output-dir: docs
 
 website:
-  title: "CABANAnet/STC-CGIAR workshop"
+  title: "/STC-CGIAR workshop"
   site-url: https://jelmerp.github.io/cabana-workshop
   repo-url: https://github.com/jelmerp/cabana-workshop
   page-navigation: true
   back-to-top-navigation: true
+  favicon: "img/UNTRM_favicon.png"
   navbar:
+    logo: "img/CABANA_small.png"
     left:
       - href: index.qmd
         icon: house
         text: " "
       - text: "Wed Feb 7"
         menu: 
-          - text: "Supercomputing and OSC"
+          - text: "Supercomputing & OSC"
+            href: 01_osc.qmd
           - text: "VS Code"
+            href: 02_vscode.qmd
           - text: "Unix shell refresher"
+          - text: "FASTQ files and quality control"
+          - text: "_Phytophthora_ amplicon sequencing"
+            href: 05_amplicon.qmd
       - text: "Thu Feb 8"
         menu: 
           - text: "Bacterial genome analysis (slides)"
@@ -46,10 +53,12 @@ website:
             url:  https://github.com/jelmerp/cabana-workshop/issues/new
 format:
   html:
+    highlight-style: atom-one
     theme: yeti
     css: styles.css
     toc: true
     number-sections: true
+    number-depth: 3
     grid:
       body-width: 900px
 

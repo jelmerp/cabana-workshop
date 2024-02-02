@@ -11,66 +11,70 @@ editor_options:
 
 ## Steps to start an RStudio session at OSC
 
-1.  If you haven't already: **create an OSC account** by following the link in the email you received from
-    the Ohio Supercomputer Center (OSC).
+1.  If you haven't already: **create an OSC account** by following the link in the email you received from the Ohio Supercomputer Center (OSC).
 
-2. Log in to OSC at <https://ondemand.osc.edu>
+2.  Go to <https://ondemand.osc.edu> and **log in** --- use the simple username + password login on the left.
 
-3. Click on **`Interactive Apps`** (top bar) and then **`RStudio Server`** (all the way at the bottom)
+3.  Click on **`Interactive Apps`** (top bar) and then **`RStudio Server`** (all the way at the bottom)
 
-4. Fill out the form as follows:
-   - Cluster: **`Pitzer`**
-   - R version: **`4.3.0`**
-   - Project: **`PAS2250`**
-   - Number of hours: **`4`**
-   - Node type: **`any`**
-   - Number of cores: **`2`**
+4.  Fill out the form as follows:
 
-<details><summary>_Click to see a screenshot_</summary>
+    -   Cluster: **`Pitzer`**
+    -   R version: **`4.3.0`**
+    -   Project: **`PAS2250`**
+    -   Number of hours: **`4`**
+    -   Node type: **`any`**
+    -   Number of cores: **`2`**
+
+<details>
+
+<summary>*Click to see a screenshot*</summary>
 
 ![](/img/rstudio_form.png){fig-align="center" width="50%"}
 
 </details>
-   
-5. Click the big blue **`Launch`** button at the bottom
 
-6. Now, you should be sent to a new page with a box at the top for your RStudio
-   Server "job", which should initially be "Queued" (waiting to start).
+5.  Click the big blue **`Launch`** button at the bottom
 
-<details><summary>_Click to see a screenshot_</summary>
+6.  Now, you should be sent to a new page with a box at the top for your RStudio Server "job", which should initially be "Queued" (waiting to start).
+
+<details>
+
+<summary>*Click to see a screenshot*</summary>
 
 ![](/img/rstudio_queued.png){fig-align="center" width="70%"}
 
 </details>
 
-7. Your job should start running very soon,
-   with the top bar of the box turning green and saying "Running".
+7.  Your job should start running very soon, with the top bar of the box turning green and saying "Running".
 
-<details><summary>_Click to see a screenshot_</summary>
+<details>
+
+<summary>*Click to see a screenshot*</summary>
 
 ![](/img/rstudio_running.png){fig-align="center" width="70%"}
 
 </details>
 
-8. Click **`Connect to RStudio Server`** at the bottom of the box,
-   and an RStudio Server instance will open in a new browser tab.
-   You're ready to go!
+8.  Click **`Connect to RStudio Server`** at the bottom of the box, and an RStudio Server instance will open in a new browser tab. You're ready to go!
 
 <hr style="height:1pt; visibility:hidden;" />
 
 ::: callout-important
-#### Having trouble installing the _tidyverse_ package?
+#### Having trouble installing the *tidyverse* package?
 
-If you are using RStudio at OSC and your _tidyverse_ package installation fails,
-please load this package as follows (no installation needed):
+If you are using RStudio at OSC for your [homework](homework.qmd),
+and the installation of the *tidyverse* package (or another package)
+with `install.packages()` fails, please load the packages that the Carpentries lesson uses as follows
+(no installation needed):
 
 ```{r, eval=FALSE}
 custom_library <- "/fs/scratch/PAS2250/ENT6703/share/rlib"
-library(withr, lib.loc = custom_library)
-library(tidyr, lib.loc = custom_library)
 library(tidyverse, lib.loc = custom_library)
+library(hexbin, lib.loc = libdir)
+library(patchwork, lib.loc = libdir)
+library(RSQLite, lib.loc = libdir)
 ```
-
 :::
 
 <br>

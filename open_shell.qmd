@@ -17,7 +17,8 @@ _to copy the data set for the Software Carpentry lession._
 
 1.  If you haven't already: **create an OSC account** by following the link in the email you received from OSC.
 
-2.  Go to <https://ondemand.osc.edu> and **log in**.
+2.  Go to <https://ondemand.osc.edu> and **log in** ---
+    use the simple username + password login on the left.
 
     Once you are logged in, you should see a landing page similar to the one below:
     

@@ -1,0 +1,372 @@
+---
+title: "Intro to the Ohio Supercomputer Center (OSC)"
+pagetitle: "OSC Intro"
+author: Jelmer Poelstra
+date: 2024-02-07
+execute: 
+  eval: false
+knitr:
+  opts_chunk:
+    out.width: "85%"
+    class-output: bash-out
+editor_options: 
+  chunk_output_type: console
+---
+
+------
+
+<hr style="height:1pt; visibility:hidden;" />
+
+<p align="center"><img src=img/osc_logo.png width="70%"></p>
+
+<br>
+
+## Introduction
+
+### Computational infrastructure overview
+
+Due in large part to the amount of data involved, a laptop or desktop computer is often not sufficient to work with genomics data.
+
+Additionally, most of the specialized programs that help you analyze your data can only be run through a "command-line interface".
+
+Therefore, a typical computational infrastructure to do what we may call "command-line genomics" involves:
+
+1.  A **supercomputer**[^1] --- in our case, the Ohio Supercomputer Center (OSC) _[this session]_
+2.  A **text editor** --- I recommend and will demonstrate VS Code _[next session]_
+3.  The **Unix shell** (terminal) _[third session]_
+4.  **R** (or perhaps Python) for interactive statistical analysis and visualization _[this afternoon]_
+
+[^1]: Cloud computing is an alternative, but won't be covered here.
+
+**This session** will provide an introduction to supercomputers in general and to
+the Ohio Supercomputer Center (OSC) specifically.
+In all of today's and tomorrow's sessions at this workshop, we'll continue to work at OSC,
+so you will get a fair bit of experience with working at a supercomputer.
+
+<hr style="height:1pt; visibility:hidden;" />
+
+### Supercomputers
+
+A **supercomputer** (also known as a "compute cluster" or simply a "**cluster**")
+consists of many computers that are connected by a high-speed network,
+and that can be accessed remotely by its users.
+In more general terms,
+supercomputers provide high-performance computing (**HPC**) resources.
+
+This is what Owens, one of the OSC supercomputers, physically looks like:
+
+<p align="center"><img src="img/owens.jpg" width="50%"/></p>
+
+Here are some possible reasons to use a supercomputer instead of your own laptop
+or desktop:
+
+- Your analyses take a long time to run, need large numbers of CPUs, or a large amount of memory.
+- You need to run some analyses many times.
+- You need to store a lot of data.
+- Your analyses require specialized hardware, such as GPUs.
+- Your analyses require software available only for the Linux operating system, but you use Windows.
+
+When you're working with genomic data, many of these reasons typically apply.
+This can make it hard or simply impossible to do all your
+work on your personal workstation, and supercomputers provide a solution.
+
+::: {.callout-note collapse="true"}
+#### Side note: What works differently on a supercomputer like at OSC? *(Click to expand)*
+
+Compared to command-line computing on a laptop or desktop, the following aspects are different when working on a supercomputer like at OSC:
+
+-   **Login versus compute nodes**\
+    "Login nodes", the nodes you end up on after logging in, are not meant for heavy computing and you have to *request access to "compute nodes"* to run most analyses.
+-   **"Non-interactive" computing is common**\
+    It is common to write and "submit" scripts to a queue instead of running programs interactively.
+-   **Software**\
+    You generally can't install "the regular way", and a lot of installed software needs to be "loaded" (as we'll see today).
+-   **Operating system**\
+    Supercomputers run on the Linux operating system
+:::
+
+<hr style="height:1pt; visibility:hidden;" />
+
+### The Ohio Supercomputer Center (OSC)
+
+The Ohio Supercomputer Center (OSC) is a facility provided by the state of Ohio in the US.
+It has two supercomputers, lots of storage space, and an excellent infrastructure
+for accessing these resources.
+
+OSC has **three main websites** --- we will mostly or only use the first:
+
+- **<https://ondemand.osc.edu>**: A web portal to use OSC resources through your browser (_login needed_).
+- <https://my.osc.edu>: A site to manage your account and OSC Projects you are an admin for (_login needed_).
+- <https://osc.edu>: General website with information about the supercomputers, installed software, and usage.
+
+::: callout-note
+#### OSC Projects
+Access to OSC's computing power and storage space goes through OSC "Projects".
+
+- A project can be tied to a research project or lab,
+  or be educational like the project `PAS2250` you have been added to.
+- Each project has a budget in terms of "compute hours" and storage space.
+- As a user, it's possible to be a member of multiple different projects.
+:::
+
+<br>
+
+## The structure of a supercomputer center
+
+### Terminology
+
+Let's start with some terminology, going from smaller things to bigger things:
+
+- **Core / Processor / CPU / Thread**\
+  Components of a computer (node) that can each (semi-)indendepently be asked to perform
+  a computing task like running a bioinformatics program.
+  For our purposes, we can treat these terms as synonyms.
+- **Node**\
+  A single computer that is a part of a supercomputer and has dozens of cores^[I.e., these nodes tend to be more powerful than a personal laptop or desktop].
+- **Supercomputer / Cluster**\
+  A collection of computers connected by a high-speed network.
+  OSC has two: "Pitzer" and "Owens".
+- **Supercomputer Center**\
+  A facility like OSC that has one or more supercomputers.
+
+<p align="center"><img src=img/terminology.png width="85%"></p>
+
+### Supercomputer components
+
+We can think of a supercomputer as having three main parts:
+
+- **File Systems**: Where files are stored (these are shared between the two clusters!)
+- **Login Nodes**: The handful of computers everyone shares after logging in
+- **Compute Nodes**: The many computers you can reserve to run your analyses
+
+<p align="center"><img src=img/cluster_overview_ed.png width="85%"></p>
+
+Let's take those in order.
+
+<hr style="height:1pt; visibility:hidden;" />
+
+#### File systems
+
+OSC has several distinct file systems --- we will only see the following two:
+
+| File system   | Located within        | Quota                 | Backed up?    | Auto-purged?          | One for each... |
+|---------------|-----------------------|-----------------------|---------------|-----------------------|-----------------|
+| **Home**      | `/users/`             | 500 GB / 1 M files    | Yes           | No                    | User            |
+| **Scratch**   | `/fs/scratch/`   | 100 TB                | No            | After 90 days         | OSC Project     |
+
+In today's and tomorrow's sessions, we will be working in the scratch directory
+of the OSC Project `PAS2250`: `/fs/scratch/PAS2250`^[If you'd be doing research on OSC, though,
+you would mostly interact with the **Project directories**:
+this is because for most files, you'll want a permanent and backed-up location
+(i.e., not Scratch or Compute storage),
+and the Home directory offers relatively limited storage as well as challenges
+with file sharing.].
+
+::: {.callout-note}
+#### Unix terminology and environment variables
+We'll talk about all of this more in upcoming sessions,
+but to clarify some of the terms and concepts mentioned here:
+
+- "**Directory**" (or "**dir**" for short) is a commonly used term in Unix that
+  just means "folder".
+- In the "Located within" column in the table above,
+  the leading forward slash **`/`** signifies the system's
+  **"root" (top-level) directory**,
+  and forward slashes are also used to _separate directories_
+  (unlike in Windows, which uses backslashes).
+:::
+
+::: {.callout-tip}
+#### File Systems are shared among the clusters
+While OSC's current two clusters, **Owens** and **Pitzer**,
+are largely separate, they do share the same File System.
+This means that you can access your files in the _exact same way_ regardless
+of which supercomputer you have connected to.
+:::
+
+<hr style="height:1pt; visibility:hidden;" />
+
+#### Login Nodes
+
+Login nodes are set aside as an initial landing spot for everyone who logs in to a supercomputer.
+There are only a handful of them on each supercomputer,
+and they are shared among everyone and cannot be "reserved".
+
+As such, login nodes are meant only to do things like organizing your files
+and creating scripts for compute jobs, and are **_not_ meant for any serious computing**,
+which should be done on the compute nodes.
+
+<hr style="height:1pt; visibility:hidden;" />
+
+#### Compute Nodes
+
+Data processing and analysis is done on compute nodes.
+You can only use compute nodes after putting in a **request** for resources (a "job").
+A _job scheduler_^[OSC uses the Slurm job scheduler] will then assign resources to your request.
+
+::: {.callout-note}
+#### Interactive and batch use of compute nodes
+
+Requests for compute node jobs can be made through the OnDemand website
+or with commands like `srun` and `sbatch`.
+
+Jobs can either be **interactive** (like running Rstudio or interactive shell jobs)
+or be a "**batch**" job (sending a script away to be run on a compute node).
+Only with interactive jobs do you "move" to a compute node yourself.
+:::
+
+Compute nodes come in different shapes and sizes.
+You mostly don't have to worry about this but sometimes non-standard nodes
+are need, such as when you need a lot of RAM memory or need GPUs^[GPUs are e.g. used for Nanopore basecalling].
+
+<br>
+
+## OSC OnDemand
+
+The OSC OnDemand web portal allows you to use a web browser to access OSC resources such as:
+
+-   A **file browser** where you can also create and rename folders and files, etc.
+-   A **Unix shell**
+-   A host of "**Interactive Apps**": programs such as RStudio, Jupyter, VS Code and QGIS.
+
+
+{{< fa user-edit >}} **Go to <https://ondemand.osc.edu> and log in** (use the box on the left-hand side)
+
+You should see a landing page similar to the one below:
+
+<p align="center"><img src=img/ondemand_home.png width="90%"></p>
+
+We will now go through some of the dropdown menus in the **blue bar along the top**.
+
+<hr style="height:1pt; visibility:hidden;" />
+
+### **Files**: File system access
+
+Hovering over the **Files** dropdown menu gives a list of directories that you have access to. If your account is brand new, and you were added to `PAS2250`, you should only have two directories listed^[If you had been added to another project than `PAS2250`, you would have had at least 3: `PAS2250` does not have a "project dir", but most projects do]:
+
+1.  A **Home** directory (starts with `/users/`)
+3.  A project "**scratch**" directory (starts with `/fs/scratch/`) `PAS2250`
+
+Select the `PAS2250` scratch directory, `/fs/scratch/PAS2250`,
+where we'll be working today and next week:
+
+![](img/ondemand_files_PAS2250.png){fig-align="center" width="45%"}
+
+Once there, you should see a list of directories and files (here: just a single dir), and you can click on the directories to explore the contents further:
+
+![](img/ondemand_files_PAS2250_2.png){fig-align="center" width="95%"}
+
+This interface is **much like the file browser on your own computer**, so you can also create, delete, move and copy files and folders, and even upload (from your computer to OSC) and download (from OSC your computer) files[^1] --- see the buttons across the top.
+[^1]: Though this is not meant for large (\>1 GB) transfers. Different methods are available for those but are outside the scope of this introductions.
+
+::: exercise
+{{< fa user-edit >}} **Your Turn**: Create your own folder
+
+-   Click your way into `ENT6703` within `/fs/scratch/PAS2250` if you're not already there.
+-   You should (at least) see directories/folders named `share` and `jelmer`.
+-   Create your own folder by clicking the `New Directory` button at the top.
+-   Please give it the **exact same name as your OSC username** (including any capitalization).
+
+*(You can see what your username is by looking at the right side of the blue top bar:)*
+
+![](img/username.png){fig-align="center" width="40%"}
+
+:::
+
+<hr style="height:1pt; visibility:hidden;" />
+
+### **Clusters**: Unix shell access
+
+::: {.callout-note collapse="true"}
+#### Side note: **Clusters** > **System Status**
+
+Moving on to "**Clusters**", 
+we'll start with the item at the bottom of that dropdown menu, "**System Status**":
+
+![](img/ondemand_systemstatus_select.png){fig-align="center" width="50%"}
+
+This page shows an overview of the current usage of the two clusters,
+which might help to decide which cluster you want to use and
+set some expectations for compute job waiting times:
+
+![](img/ondemand_systemstatus.png){fig-align="center" width="90%"}
+:::
+
+Interacting with a supercomputer is most commonly done using a Unix shell, and we'll learn about the basics of doing so soon. Under the **Clusters** dropdown menu, you can access a Unix shell either on Owens or Pitzer:
+
+![](img/ondemand_shell_select.png){fig-align="center" width="50%"}
+
+I'm selecting a shell on the Pitzer supercomputer, which will open a new browser tab looking like this:
+
+![](img/ondemand_shell2.png){fig-align="center" width="95%"}
+
+However, from now on, we'll be accessing a Unix shell **inside the VS Code text editor**, which also gives us some additional functionality in a user-friendly way.
+
+<hr style="height:1pt; visibility:hidden;" />
+
+### Interactive Apps
+
+We can access programs with Graphical User Interfaces (GUIs; point-and-click interfaces) via the **Interactive Apps** dropdown menu ---
+let's select VS Code using the "Code Server" button:
+
+![](img/ondemand_vscode_select.png){fig-align="center" width="32%"}
+
+Because Interactive Apps like VS Code and RStudio **run on compute nodes** (not login nodes), which need to be "reserved", we have to fill out a form and specify the following details (see also the screenshot below):
+
+| Option                                                                 | Value                                                                                                           |
+|-------------------------------------------|-----------------------------|
+| The OSC `Project` that should be billed for the compute resource usage | `PAS2250`                                                                                                       |
+| The `Number of hours` we want to make a reservation for[^4]            | `10`                                                                                                             |
+| The `Working Directory`[^5] for the program                            | your newly-created personal folder in `/fs/scratch/PAS2250/cabana` (e.g. `/fs/scratch/PAS2250/cabana/jelmer`) |
+| The `Codeserver Version`                                               | `4.8`                                                                                                           |
+
+[^4]: Note that we'll be kicked off as soon as that amount of time has passed!
+
+[^5]: This will be your starting location in the file system, we'll talk more about working dirs in a little bit.
+
+![](img/ondemand_vscode_form2.png){fig-align="center" width="50%"}
+
+Click on **Launch** at the bottom, which will send your request to the "compute job" scheduler. First, your job will be "*Queued*" — that is, waiting for the job scheduler to allocate resources on the compute nodes to it:
+
+![](img/ondemand_vscode_queued.png){fig-align="center" width="75%"}
+
+Your job is typically granted resources within a few seconds (the card will then say "*Starting*"), and be ready for usage ("*Running*") in another couple of seconds:
+
+![](img/ondemand_vscode_running.png){fig-align="center" width="75%"}
+
+Then, click on the blue **Connect to VS Code** button to open VS Code in a new browser tab.
+When VS Code opens, you may get these two pop-ups --- click "Yes" (and check the box) and "Don't Show Again", respectively:
+
+::: columns
+::: {.column width="52%"}
+
+![](img/vscode-trust2.png){fig-align="center" width="90%"}
+
+:::
+
+::: {.column width="48%"}
+
+![](img/vscode-git.png){fig-align="center" width="90%"}
+
+:::
+:::
+
+<br>
+
+## Further reading
+
+### OSC's learning resources {-}
+
+-   [An extended version of this introduction](https://mcic-osu.github.io/rnaseq-intro/modules/A01_osc.html)
+-   [OSC's online asynchronous courses](https://www.osc.edu/supercomputing/training)
+-   [OSC's new User Resource Guide](https://www.osc.edu/resources/getting_started/new_user_resource_guide)
+    
+<hr style="height:1pt; visibility:hidden;" />
+
+### Acknowledgements {-}
+
+This page uses material from an
+[OSC Introduction written by Mike Sovic](https://mcic-osu.github.io/cl-workshop-22/modules/02-osc.html)
+and from OSC's Kate Cahill [Software Carpentry introduction to OSC](https://khill42.github.io/OSC_IntroHPC>).
+
+<hr style="height:1pt; visibility:hidden;" />

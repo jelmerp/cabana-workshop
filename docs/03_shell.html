@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jelmer Poelstra">
+<meta name="dcterms.date" content="2024-02-07">
+
+<title>Unix shell</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./img/UNTRM_favicon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./img/CABANA_small.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">/STC-CGIAR workshop</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> <i class="bi bi-house" role="img">
+</i> 
+<span class="menu-text"> </span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-wed-feb-7" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Wed Feb 7</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-wed-feb-7">    
+        <li>
+    <a class="dropdown-item" href="./01_osc.html">
+ <span class="dropdown-text">Supercomputing &amp; OSC</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./02_vscode.html">
+ <span class="dropdown-text">VS Code</span></a>
+  </li>  
+        <li class="dropdown-header">Unix shell refresher</li>
+        <li class="dropdown-header">FASTQ files and quality control</li>
+        <li>
+    <a class="dropdown-item" href="./05_amplicon.html">
+ <span class="dropdown-text"><em>Phytophthora</em> amplicon sequencing</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-thu-feb-8" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Thu Feb 8</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-thu-feb-8">    
+        <li class="dropdown-header">Bacterial genome analysis (slides)</li>
+        <li class="dropdown-header">Shell scripts, batch jobs, and loops</li>
+        <li class="dropdown-header">Intro to Bactopia</li>
+        <li class="dropdown-header">Running Bactopia</li>
+        <li class="dropdown-header">Interpeting the Bactopia results</li>
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-other-pages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Other Pages</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-other-pages">    
+        <li>
+    <a class="dropdown-item" href="./homework.html">
+ <span class="dropdown-text">Homework</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./open_shell.html">
+ <span class="dropdown-text">Opening a Unix Shell at OSC</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rstudio.html">
+ <span class="dropdown-text">Starting an RStudio session at OSC</span></a>
+  </li>  
+        <li class="dropdown-header">Overview of common Unix shell commands</li>
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/jelmerp/cabana-workshop">
+            Source Code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/jelmerp/cabana-workshop/issues/new">
+            Report an Issue
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview-setting-up" id="toc-overview-setting-up" class="nav-link active" data-scroll-target="#overview-setting-up"><span class="header-section-number">1</span> Overview &amp; setting up</a></li>
+  <li><a href="#recap-of-the-basics" id="toc-recap-of-the-basics" class="nav-link" data-scroll-target="#recap-of-the-basics"><span class="header-section-number">2</span> Recap of the basics</a>
+  <ul class="collapse">
+  <li><a href="#the-prompt" id="toc-the-prompt" class="nav-link" data-scroll-target="#the-prompt"><span class="header-section-number">2.1</span> The prompt</a></li>
+  <li><a href="#a-few-simple-commands-date-whoami-pwd" id="toc-a-few-simple-commands-date-whoami-pwd" class="nav-link" data-scroll-target="#a-few-simple-commands-date-whoami-pwd"><span class="header-section-number">2.2</span> A few simple commands: <code>date</code>, <code>whoami</code>, <code>pwd</code></a></li>
+  <li><a href="#cd-and-command-actions-arguments" id="toc-cd-and-command-actions-arguments" class="nav-link" data-scroll-target="#cd-and-command-actions-arguments"><span class="header-section-number">2.3</span> <code>cd</code> and command actions &amp; arguments</a></li>
+  <li><a href="#ls-and-command-options" id="toc-ls-and-command-options" class="nav-link" data-scroll-target="#ls-and-command-options"><span class="header-section-number">2.4</span> <code>ls</code> and command <em>options</em></a></li>
+  <li><a href="#a-few-more-general-shell-tips" id="toc-a-few-more-general-shell-tips" class="nav-link" data-scroll-target="#a-few-more-general-shell-tips"><span class="header-section-number">2.5</span> A few more general shell tips</a></li>
+  <li><a href="#paths" id="toc-paths" class="nav-link" data-scroll-target="#paths"><span class="header-section-number">2.6</span> Paths</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Unix Shell refresher</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jelmer Poelstra </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 7, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><br></p>
+<section id="overview-setting-up" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="overview-setting-up"><span class="header-section-number">1</span> Overview &amp; setting up</h2>
+<p>Many of the things you typically do by pointing and clicking can alternatively be done by typing commands. The Unix shell allows you to interact with computers via commands.</p>
+<p>Working effectively on a remote supercomputer tends to simply <em>require</em> using a command line interface. But there are more <strong>advantages to doing command line computing</strong> than just allowing you to work on a supercomputer, such as:</p>
+<ul>
+<li>Working efficiently with large files</li>
+<li>Achieving better reproducibility in research</li>
+<li>Performing general computing tasks more efficiently (once you get the hang of it…)</li>
+<li>Making it easier to repeat similar tasks across files, samples, and projects</li>
+<li>For bioinformatics, being able to use (the latest) command-line programs directly without having to depend on “GUI wrappers” written by third parties, that often cost money and also lag behind in functionality</li>
+</ul>
+<section id="starting-a-vs-code-session-in-osc-ondemand" class="level4">
+<h4 class="anchored" data-anchor-id="starting-a-vs-code-session-in-osc-ondemand">Starting a VS Code session in OSC OnDemand</h4>
+<p><strong>We’ll use a Unix shell at OSC inside VS Code</strong>. You should have an active VS Code session in the folder <code>/fs/scratch/PAS2250/cabana/&lt;user&gt;</code>, and with an open Terminal — if not, see the instructions in the dropdown box right below.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Starting VS Code at OSC - with a Terminal <em>(Click to expand)</em>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Log in to OSC’s OnDemand portal at <a href="https://ondemand.osc.edu" class="uri">https://ondemand.osc.edu</a>.</li>
+<li>In the blue top bar, select <code>Interactive Apps</code> and then near the bottom of the dropdown menu, click <code>Code Server</code>.</li>
+<li>In the form that appears on a new page:
+<ul>
+<li>Select OSC project <code>PAS2250</code></li>
+<li>The starting directory: <code>/fs/scratch/PAS2250/cabana/&lt;user&gt;</code></li>
+<li><code>Number of hours</code>: <code>10</code></li>
+<li>Click <code>Launch</code>.</li>
+</ul></li>
+<li>On the next page, once the top bar of the box has turned green and says <code>Runnning</code>, click <code>Connect to VS Code</code>.</li>
+<li>Open a Terminal by clicking &nbsp; <i class="fa-solid fa-bars" aria-label="bars"></i> &nbsp; =&gt; <code>Terminal</code> =&gt; <code>New Terminal</code>. (Or use one of the keyboard shortcuts: <kbd>Ctrl</kbd>+<kbd>`</kbd> (backtick) or <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>.)</li>
+<li>Type <code>pwd</code> to check where you are. If you are not in <code>/fs/scratch/PAS2250/cabana/&lt;user&gt;</code>, click <code>Open folder...</code> in the <code>Welcome</code> tab, or &nbsp; <i class="fa-solid fa-bars" aria-label="bars"></i> &nbsp; =&gt; &nbsp; <code>File</code> &nbsp; =&gt; &nbsp; <code>Open Folder</code>, then type/select <code>/fs/scratch/PAS2250/cabana/&lt;user&gt;</code> and press Ok.</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Some Unix shell terminology
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We’re going to focus on the practice of doing command line computing here, and not get too bogged down in terminology, but let’s highlight a few interrelated terms you’re likely to run across:</p>
+<ul>
+<li><strong>Command Line</strong> — the most general term, an interface where you type commands</li>
+<li><strong>Terminal</strong> — the program/app/window that can run a Unix shell</li>
+<li><strong>Shell</strong> — a command line interface to your computer</li>
+<li><strong>Unix Shell</strong> — the types of shells on Unix family (Linux + Mac) computers</li>
+<li><strong>Bash</strong> — the specific Unix shell language that is most common on Unix computers</li>
+</ul>
+<p>While it might not fly for a computer science class, for day-to-day computing/bioinformatics, you’ll probably hear all these terms used somewhat interchangeably.</p>
+</div>
+</div>
+<p><br></p>
+</section>
+</section>
+<section id="recap-of-the-basics" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="recap-of-the-basics"><span class="header-section-number">2</span> Recap of the basics</h2>
+<section id="the-prompt" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="the-prompt"><span class="header-section-number">2.1</span> The prompt</h3>
+<p>Inside your terminal, the “prompt” indicates that the shell is ready for a command. What is shown exactly varies a bit across shells and can also be customized, but our prompts at OSC should show the following:</p>
+<pre class="bash-in-nocolor"><code>[&lt;username&gt;@&lt;node-name&gt; &lt;working-dir&gt;]$</code></pre>
+<p>For example:</p>
+<pre class="bash-in-nocolor"><code>[jelmer@p0080 jelmer]$ </code></pre>
+<p>We type our commands after the dollar sign, and then press <kbd>Enter</kbd> to execute the command. When the command has finished executing, we’ll get our prompt back and can type a new command.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+How shell code is shown on this website
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>The gray boxes like the ones shown above will be used to show the command line expressions that you should type.</p></li>
+<li><p>In upcoming boxes, the prompt itself (<code>[...]$</code>) will not be shown, but only the command line expressions that you type. This is to save space and to allow you for copy-and-pasting (but I recommend typing!).</p></li>
+<li><p>Paler gray boxes (below the boxes with command have &amp; with italic text) show the <em>output</em> of commands.</p></li>
+</ul>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="a-few-simple-commands-date-whoami-pwd" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="a-few-simple-commands-date-whoami-pwd"><span class="header-section-number">2.2</span> A few simple commands: <code>date</code>, <code>whoami</code>, <code>pwd</code></h3>
+<p>The Unix shell comes with hundreds of “commands”: small programs that perform specific actions. If you’re familiar with R or Python, a Unix command is like an R/Python function.</p>
+<p>Let’s start with a few simple commands:</p>
+<ul>
+<li>The <code>date</code> command prints the current date and time:</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>Fri Jan 26 14:31:51 EST 2024</code></pre>
+<ul>
+<li>The <code>whoami</code> (who-am-i) command prints your username:</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">whoami</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>jelmer</code></pre>
+<ul>
+<li>The <code>pwd</code> (Print Working Directory) command prints the path to the directory you are currently located in:</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>/fs/scratch/PAS2250/cabana/jelmer</code></pre>
+<p>All 3 of those commands provided us with some output. That output was <strong>printed to screen</strong>, which is the default behavior for nearly every Unix command.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Working directory and paths
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>When working in a Unix shell, you are always “in” a specific directory and this is called your <strong>working directory</strong>.</li>
+<li>In a <strong>path</strong> (= location of a file or directory) such as that output by <code>pwd</code>, directories are separated by forward slashes <strong><code>/</code></strong>. (And a <em>leading</em> forward slash, if present, indicates the computer’s <em>root directory</em>.)</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+General shell tips
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Everything in the shell is <strong>case-sensitive</strong>, including commands and file names.</li>
+<li><strong>Avoid spaces</strong> in file and directory names! Use e.g.&nbsp;underscores or capitalization to distinguish words.</li>
+</ul>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="cd-and-command-actions-arguments" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="cd-and-command-actions-arguments"><span class="header-section-number">2.3</span> <code>cd</code> and command actions &amp; arguments</h3>
+<p>In the above three command line expressions:</p>
+<ul>
+<li>We merely typed a command and nothing else</li>
+<li>The command provided some information, which was printed to screen</li>
+</ul>
+<p>But many commands perform an <strong>action</strong> other than providing information. For example, you can use the command <strong><code>cd</code></strong> to Change Directory (i.e.&nbsp;change your <em>working</em> dir). And like many commands that perform an action, <code>cd</code> normally has <strong>no output</strong> at all.</p>
+<p>Let’s use <code>cd</code> to move to another directory by specifying the <em>path</em> to that directory after the <code>cd</code> command:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2250/cabana/share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>/fs/scratch/PAS2250/cabana/share</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+I will demonstrate “tab completion”!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+<p>In more abstract terms, what we did above was to provide <code>cd</code> with an <strong>argument</strong>, namely the path of the dir to move to. Arguments generally tell commands what file or directory to operate on.</p>
+<p>As we’ve seen, then, <code>cd</code> gives no output when it succesfully changed the working directory. But let’s also see what happens when it does not succeed — it gives an error:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/Scratch/PAS2250</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>bash: cd: /fs/Scratch/PAS2250: No such file or directory</code></pre>
+<details>
+<summary>
+<strong>Your Turn</strong>: What was the problem with the path we specified? <em>(Click to see the answer)</em>
+</summary>
+<p>We used a capital S in <code>/Scratch/</code> — this should have been <code>/scratch/</code>.</p>
+<p>As pointed out above, paths (dir and file specifications) are <strong>case-sensitive</strong> on Unix systems!</p>
+</details>
+<hr style="height:1pt; visibility:hidden;">
+</section>
+<section id="ls-and-command-options" class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="ls-and-command-options"><span class="header-section-number">2.4</span> <code>ls</code> and command <em>options</em></h3>
+<section id="the-default-behavior-of-ls" class="level4">
+<h4 class="anchored" data-anchor-id="the-default-behavior-of-ls">The default behavior of <code>ls</code></h4>
+<p>The <code>ls</code> command, short for “list”, will list files and directories:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>data  README.md</code></pre>
+<p><em>(You should still be in <code>/fs/scratch/PAS2250/cabana/share</code>. If not, <code>cd</code> there first.)</em></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Side note: <code>ls</code> output colors <em>(click to expand)</em>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Unfortunately, the <code>ls</code> output shown above does not show the different colors you should see in your shell — here are some of the most common ones:</p>
+<ul>
+<li>Entries in <span style="color: #0328fc">blue</span> are directories (like <code>data</code> and <code>metadata</code> above)</li>
+<li>Entries in black are regular files (like <code>README.md</code> above)</li>
+<li>Entries in <span style="color: #d92118">red</span> are compressed files (we’ll see an example soon).</li>
+</ul>
+</div>
+</div>
+</div>
+<p>This default way that <code>ls</code> shows the output can be changed by providing <code>ls</code> with <strong>options</strong>.</p>
+</section>
+<section id="options-to-ls" class="level4">
+<h4 class="anchored" data-anchor-id="options-to-ls">Options (to <code>ls</code>)</h4>
+<p>In general, whereas arguments tell a command <em>what to operate on</em>, options will <em>modify its behavior</em>. For example, we can call <code>ls</code> with the <strong>option <code>-l</code></strong> (a dash followed by a lowercase L):</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>total 17
+drwxr-xr-x 5 jelmer PAS0471 4096 Jan 21 12:39 data
+-rw-r--r-- 1 jelmer PAS0471 1502 Jan 22 11:04 README.md</code></pre>
+<p>Notice that it lists the same items as our first <code>ls</code> call above, but <strong>printed in a different format</strong>: one item per line, with additional information included, such as the date and time each file was last modified, and the file sizes in bytes (to the left of the date).</p>
+<p>Let’s add another option, <code>-h</code>:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>total 17K
+drwxr-xr-x 5 jelmer PAS0471 4.0K Jan 21 12:39 data
+-rw-r--r-- 1 jelmer PAS0471 1.5K Jan 22 11:04 README.md</code></pre>
+<details>
+<summary>
+<strong>Your Turn</strong>: What is different about the output, and what do you think that means? <em>(Click to see the answer)</em>
+</summary>
+<p>The only difference is in the format of the column reporting the sizes of the items listed.</p>
+<p>We now have “Human-readable filesizes” (hence <code>-h</code>), where sizes on the scale of kilobytes will be shown with <code>K</code>s, of megabytes with <code>M</code>s, and of gigabytes with <code>G</code>s. That can be really useful especially for very large files.</p>
+</details>
+<p>Conveniently, options can be pasted together as follows:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="combining-options-and-arguments" class="level4">
+<h4 class="anchored" data-anchor-id="combining-options-and-arguments">Combining options and arguments</h4>
+<p>Arguments to <code>ls</code> should be <strong>dirs or files to operate on</strong>. For example, if we wanted to see what’s inside the <code>data</code> dir, instead of inside our working dir, we could type:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>fastq  meta  ref</code></pre>
+<p>The <code>data</code> dir appears to contain three (sub)dirs with different kinds of data. We’ll talk in detail about that later, but for now let’s look inside the <code>fastq</code> dir:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data/fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>ERR10802863_R1.fastq.gz  ERR10802865_R2.fastq.gz  ERR10802868_R1.fastq.gz  ERR10802870_R2.fastq.gz  ERR10802875_R1.fastq.gz  ERR10802877_R2.fastq.gz  ERR10802880_R1.fastq.gz  ERR10802882_R2.fastq.gz  ERR10802885_R1.fastq.gz
+ERR10802863_R2.fastq.gz  ERR10802866_R1.fastq.gz  ERR10802868_R2.fastq.gz  ERR10802871_R1.fastq.gz  ERR10802875_R2.fastq.gz  ERR10802878_R1.fastq.gz  ERR10802880_R2.fastq.gz  ERR10802883_R1.fastq.gz  ERR10802885_R2.fastq.gz
+ERR10802864_R1.fastq.gz  ERR10802866_R2.fastq.gz  ERR10802869_R1.fastq.gz  ERR10802871_R2.fastq.gz  ERR10802876_R1.fastq.gz  ERR10802878_R2.fastq.gz  ERR10802881_R1.fastq.gz  ERR10802883_R2.fastq.gz  ERR10802886_R1.fastq.gz
+ERR10802864_R2.fastq.gz  ERR10802867_R1.fastq.gz  ERR10802869_R2.fastq.gz  ERR10802874_R1.fastq.gz  ERR10802876_R2.fastq.gz  ERR10802879_R1.fastq.gz  ERR10802881_R2.fastq.gz  ERR10802884_R1.fastq.gz  ERR10802886_R2.fastq.gz
+ERR10802865_R1.fastq.gz  ERR10802867_R2.fastq.gz  ERR10802870_R1.fastq.gz  ERR10802874_R2.fastq.gz  ERR10802877_R1.fastq.gz  ERR10802879_R2.fastq.gz  ERR10802882_R1.fastq.gz  ERR10802884_R2.fastq.gz</code></pre>
+<p>Ah, FASTQ files! These contain our sequence data, and we’ll go and explore them in a bit.</p>
+<p>Finally, we can <strong>combine options and arguments</strong>, and let’s do so take a closer look at our dir with FASTQ files — now the <code>-h</code> option is especially useful and allows us see that the FASTQ files are 21-22 Mb in size:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>total 941M
+-rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:34 ERR10802863_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802863_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:34 ERR10802864_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802864_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802865_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802865_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:34 ERR10802866_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802866_R2.fastq.gz
+[...output truncated...]</code></pre>
+<details>
+<summary>
+<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn</strong>: List the files in the <code>data/ref</code> dir. What are the file sizes? <em>(Click for the solution)</em>
+</summary>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/ref</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>total 670M
+-rw-r--r-- 1 jelmer PAS0471 547M Jan 20 22:34 GCF_016801865.2.fna
+-rw-r--r-- 1 jelmer PAS0471 123M Jan 20 22:34 GCF_016801865.2.gtf</code></pre>
+<p>The <code>.fna</code> file (this is the genome assembly nucleotide FASTA file) is 547 Mb (not bases but bytes!), and the <code>.gtf</code> file (this is the annotation file) is 123 Mb.</p>
+</details>
+<hr style="height:1pt; visibility:hidden;">
+</section>
+</section>
+<section id="a-few-more-general-shell-tips" class="level3" data-number="2.5">
+<h3 data-number="2.5" class="anchored" data-anchor-id="a-few-more-general-shell-tips"><span class="header-section-number">2.5</span> A few more general shell tips</h3>
+<ul>
+<li><p><strong>Command history:</strong> If you hit the <kbd>⇧</kbd> (up arrow) once, you’ll retrieve your most recent command, and if you keep hitting it, you’ll go further back. The<kbd>⇩</kbd> (down arrow) will go the other way: towards the present.</p></li>
+<li><p>Your cursor can be anywhere on a line (not just at the end) when you press <kbd>Enter</kbd> to execute a command!</p></li>
+<li><p>If your <strong>prompt is missing</strong>, the shell is either still busy executing your command, or you typed an incomplete command. To abort in either of these two scenarios, press <kbd>Ctrl</kbd>+<kbd>C</kbd> and you’ll get your prompt back.</p></li>
+<li><p>Anything that comes after a <code>#</code> is considered a comment instead of code!</p></li>
+</ul>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This entire line is a comment - you can run it and nothing will happen</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span>    <span class="co"># 'pwd' will be executed but everything after the '#' is ignored</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>/fs/scratch/PAS2250/cabana/jelmer</code></pre>
+<hr style="height:1pt; visibility:hidden;">
+<details>
+<summary>
+<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn</strong>: Move into your personal directory, and then back into the <code>share</code> dir <em>(Click for the solution)</em>
+</summary>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2250/cabana/jelmer</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2250/cabana/share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>
+<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn</strong>: Use the command history (arrows) to repeat the previous exercise without typing anything.
+</summary>
+</details>
+<hr style="height:1pt; visibility:hidden;">
+<details>
+<summary>
+<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn (Bonus)</strong>: Two periods <code>..</code> means the directory “one level up” (towards the computer’s root dir): running <code>cd ..</code> will move you one dir level up. Try to make use of this move into your personal dir and back to <code>share</code> again, instead of using the “full paths” like above. <em>(Click for the solution)</em>
+</summary>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../jelmer</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A little more detail about this, for those that are interested:</p>
+<ul>
+<li><p>Paths that start with a <code>/</code>, i.e.&nbsp;paths that start from the computer’s root directory, are called “absolute” or “full paths” (you can think of them as GPS coordinates, they work regardless of where you are located).</p></li>
+<li><p>Paths that do not start with <code>/</code> (are always supposed to) start from your current working directory and are called “relative paths”. We’ve used them above with <code>ls data</code> and <code>ls data/fastq</code>. The <code>..</code>, then, is a mechanism to go “up” in the dir hierarchy when using a relative path! They work more like directions along the lines of “take the second left” in the sense that they depend on your current location.</p></li>
+</ul>
+</details>
+<details>
+<summary>
+<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn (Bonus)</strong>: Practice aborting commands (<em>Click for the instructions</em>)
+</summary>
+<p>To simulate a long-running command that we may want to abort, we can use the <code>sleep</code> command, which will make the computer wait for a specified amount of time until giving your prompt back:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 60s</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Run that command and instead of waiting for the full 60 seconds, press <kbd>Ctrl</kbd> + <kbd>C</kbd> to get your prompt back sooner!</p>
+<p>Or, an example of an incomplete command (an opening parenthesis <code>(</code>):</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Run the code above, see what happens, and press <kbd>Ctrl</kbd> + <kbd>C</kbd> to get your prompt back.</p>
+</details>
+<p><br></p>
+</section>
+<section id="paths" class="level3" data-number="2.6">
+<h3 data-number="2.6" class="anchored" data-anchor-id="paths"><span class="header-section-number">2.6</span> Paths</h3>
+<p>“Paths” specify the locations of files or dirs on a computer, and there are two distinct ways of specifying them:</p>
+<ul>
+<li><p><strong>Absolute (full) paths</strong><br>
+These always start from the root directory of the computer, which is represented by a <em><strong>leading <code>/</code></strong></em>, such as in <code>/fs/scratch/PAS2250/</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p></li>
+<li><p><strong>Relative paths</strong><br>
+These start from your current working directory. When we typed <code>ls data</code> earlier, we indicated that we wanted to show the contents of the <code>data</code> directory located inside our current working directory<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p></li>
+</ul>
+<p>There are a couple of “shortcuts” available for relative paths:</p>
+<ul>
+<li><p><strong><code>.</code></strong> (a single period)<br>
+This is another way of representing the current working directory. Therefore, for instance, <code>ls ./data</code> is functionally the same as <code>ls data</code>.</p></li>
+<li><p><strong><code>..</code></strong> (two periods)<br>
+This means one level up in the directory hierarchy, with “up” meaning towards the root directory.</p></li>
+</ul>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ..               <span class="co"># One level up, listing /fs/ess/PAS0471/demo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>202307_rnaseq</code></pre>
+<p>This pattern can be continued all the way to the root of the computer, so <code>../..</code> would list files two levels up:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ../..            <span class="co"># Two levels up, listing /fs/ess/PAS0471</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>aarevalo       conroy      frederico       Nisha     osu8947              ross
+acl            containers  hsiangyin       osu10028  osu9207              Saranga
+Almond_Genome  danraywill  jelmer          osu10436  osu9207_Lubell_bkup  Shonna
+amine1         data        jelmer_osu5685  osu5685   osu9390              SLocke
+ap_soumya      demo        jlhartman       osu6702   osu9453              sochina
+audreyduff     dhanashree  linda           osu8107   osu9657
+bahodge11      edwin       Maggie          osu8468   pipeline
+calconey       ferdinand   mcic-scripts    osu8548   poonam
+camila         Fiama       Menuka          osu8618   raees
+Cecilia        Flye        nghi            osu8900   rawalranjana44</code></pre>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+These shortcuts work with all commands
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>All of the above shortcuts are <em>general shell shortcuts</em> that work with <strong>any</strong> command that takes a path.</p>
+<p>Also: <strong><code>~</code></strong> represents your Home directory, so <code>cd ~</code> would move there and <code>ls ~</code> would list the files there.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Many bioinformatics programs are basically specialized commands
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In many ways, you can think of using a command-line bioinformatics program as using just another command. Therefore, our general skills with Unix commands will very much extend to using command-line bioinformatics tools!</p>
+</div>
+</div>
+<p><br></p>
+
+
+</section>
+</section>
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p> Absolute paths are like GPS coordinates to specify a geographic location on earth: they will provide location information regardless of where we are ourselves.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Relative paths are more like directions to a location that say things like “turn left” — these instructions depend on our current location.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

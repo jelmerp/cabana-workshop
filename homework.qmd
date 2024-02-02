@@ -7,8 +7,7 @@ number-sections: false
 
 <hr style="height:1pt; visibility:hidden;" />
 
-**If you have very limited or no experience with R and/or the Unix shell**,
-please go through the following homework before you need these skills in the workshop on Wednesday.
+**If you have very limited or no experience with R and/or the Unix shell**, please go through the following homework before you need these skills in the workshop on Wednesday.
 
 *If you do have some experience with R and the Unix shell*, we would suggest that you at least take a look at the material below, to check that you are familiar with most or all of its contents.
 
@@ -16,26 +15,21 @@ please go through the following homework before you need these skills in the wor
 
 ## R
 
-Please work your way through the first part of the Data Carpentry
-["Data Analysis and Visualisation in R for Ecologists" lesson](https://datacarpentry.org/R-ecology-lesson/index.html).
-Specifically, go through:
+Please work your way through the first part of the Data Carpentry ["Data Analysis and Visualisation in R for Ecologists" lesson](https://datacarpentry.org/R-ecology-lesson/index.html). Specifically, go through:
 
-- The [introductory page](https://datacarpentry.org/R-ecology-lesson/index.html)
-- The first lesson (["Before we start"](https://datacarpentry.org/R-ecology-lesson/00-before-we-start.html))
-- The second lesson (["Introduction to R"](https://datacarpentry.org/R-ecology-lesson/01-intro-to-r.html))
-- The third lesson (["Starting with data"](https://datacarpentry.org/R-ecology-lesson/02-starting-with-data.html)) --- until (not including) the ["Formatting dates" section](https://datacarpentry.org/R-ecology-lesson/02-starting-with-data.html#formatting-dates).
+-   The [introductory page](https://datacarpentry.org/R-ecology-lesson/index.html)
+-   The first lesson (["Before we start"](https://datacarpentry.org/R-ecology-lesson/00-before-we-start.html))
+-   The second lesson (["Introduction to R"](https://datacarpentry.org/R-ecology-lesson/01-intro-to-r.html))
+-   The third lesson (["Starting with data"](https://datacarpentry.org/R-ecology-lesson/02-starting-with-data.html)) --- until (not including) the ["Formatting dates" section](https://datacarpentry.org/R-ecology-lesson/02-starting-with-data.html#formatting-dates).
 
 <hr style="height:1pt; visibility:hidden;" />
 
 ::: callout-tip
 #### Having trouble installing R or RStudio?
-You should be able to install R and RStudio regardless of your operating system
-(Windows, Mac, or Linux), and the Carpentry lesson contain instructions on how to do so.
 
-But in case you are having trouble, you can also use R and RStudio through your browser
-with the Ohio Supercomputer Center (OSC).
-To start an RStudio session at OSC,
-follow [these instructions elsewhere on this website](rstudio.qmd).
+You should be able to install R and RStudio regardless of your operating system (Windows, Mac, or Linux), and the Carpentry lesson contain instructions on how to do so.
+
+But in case you are having trouble, you can also use R and RStudio through your browser with the Ohio Supercomputer Center (OSC). To start an RStudio session at OSC, follow [these instructions elsewhere on this website](rstudio.qmd).
 :::
 
 <br>
@@ -51,7 +45,7 @@ You can optionally make your way through the remaining episodes, but that conten
 ::: callout-tip
 #### Using Windows?
 
-If your computer uses the Windows operating system, you will not have a Unix shell installed by default[^2]. To go through the lesson above, you have two options:
+If your computer uses the Windows operating system, you will not have a Unix shell installed by default[^1]. To go through the lesson above, you have two options:
 
 1.  **Install a Unix shell**\
     Follow the instructions in the Software Carpentry lesson that I linked to above (and here is a direct link to the [installation instructions](https://carpentries.github.io/workshop-template/install_instructions/#shell)). If this fails for you, please use the next option instead.
@@ -60,6 +54,6 @@ If your computer uses the Windows operating system, you will not have a Unix she
     Follow [these instructions elsewhere on this website](open_shell.qmd).
 :::
 
-[^2]: If you have a Mac or Linux computer, you *should* have a Unix shell installed.
+[^1]: If you have a Mac or Linux computer, you *should* have a Unix shell installed.
 
 <br> <br>

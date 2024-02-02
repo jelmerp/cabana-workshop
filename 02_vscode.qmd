@@ -1,0 +1,160 @@
+---
+title: "The VS Code text editor"
+pagetitle: "VS Code"
+author: Jelmer Poelstra
+date: 2024-02-07
+execute: 
+  eval: false
+knitr:
+  opts_chunk:
+    out.width: "85%"
+    class-output: bash-out
+editor_options: 
+  chunk_output_type: console
+---
+
+<br>
+
+## What is VS Code?
+
+VS Code is basically a fancy text editor.
+Its full name is Visual Studio Code but at OSC it is also referred to as Code Server.
+
+To emphasize the additional functionality relative to basic text editors like Notepad and TextEdit, editors like VS Code are also referred to as "**IDEs**": *Integrated Development Environments*. The RStudio program is another good example of an IDE. For our purposes:
+
+-   VS code will be our IDE for Unix shell code
+-   RStudio will be our IDE for R
+
+<hr style="height:1pt; visibility:hidden;" />
+
+## Connecting to VS Code
+
+We saw on the previous page ([link](01_osc.html#interactive-apps)) how to
+start a VS Code session at OSC, and you should have one active now.
+
+:::{.callout-note collapse="true"}
+##### Starting VS Code at OSC - Instructions in brief _(Click to expand)_
+1. Log in to OSC's OnDemand portal at <https://ondemand.osc.edu>.
+2. In the blue top bar, select `Interactive Apps`
+   and then near the bottom of the dropdown menu, click `Code Server`.
+3. In the form that appears on a new page:
+   - Select OSC project `PAS2250`
+   - The starting directory: `/fs/scratch/PAS2250/ENT6703/<your_personal_dir>`
+   - `Number of hours`: `10`
+   - Click `Launch`.
+4. On the next page, once the top bar of the box has turned green
+   and says `Runnning`, click `Connect to VS Code`.
+:::
+
+<hr style="height:1pt; visibility:hidden;" />
+
+## The VS Code User Interface
+
+![](img/vscode-welcome_ed.png){fig-align="center" width="80%"}
+
+#### Side bars
+
+The **Activity Bar** (narrow side bar) on the far left has:
+
+-   A {{< fa bars >}} ("hamburger menu"), which has menu items like `File` that you often find in a top bar.
+-   A {{< fa cog >}} (cog wheel icon) in the bottom, through which you can mainly access *settings*.
+-   Icons to toggle **(wide) Side Bar** options --- but we'll only use the default selection, the *Explorer* (file browser)
+
+#### Editor pane and `Welcome` document
+
+The main part of the VS Code is the **editor pane**. Here, we can open files like scripts and other types of text files, and images. (Whenever you open VS Code, an editor tab with a `Welcome` document is automatically opened. This provides some help and some shortcuts like to recently opened files and folders.)
+
+#### Terminal (with a Unix shell)
+
+{{< fa user-edit >}} **Open a terminal** by clicking   {{< fa bars >}}   =\> `Terminal` =\> `New Terminal`.
+
+<hr style="height:1pt; visibility:hidden;" />
+
+::: exercise
+
+#### {{< fa user-edit >}} **Your Turn**: Try a few color themes
+
+1.  Access the "Color Themes" option by clicking <i class="fa fa-cog"></i> =\> `Color Theme`.
+2.  Try out a few themes and see what you like!
+
+:::
+
+<br>
+
+## A folder as a starting point  
+
+Conveniently, VS Code takes a specific folder (directory) as a 
+**starting point in all parts of the program**:
+
+- In the file explorer in the side bar
+- In the terminal
+- When saving files in the editor pane.
+
+Your should already be in the appropriate folder (`/fs/scratch/PAS2250/cabana/<user>`),
+but if you wanted to switch folder, you could click
+&nbsp; {{< fa bars >}} &nbsp; => &nbsp; `File` &nbsp; => &nbsp; `Open Folder`.
+
+:::{.callout-note}
+
+#### Some VS Code tips and tricks
+
+- **Resizing panes**\
+  You can resize panes (the terminal, editor, and side bar) by hovering
+  your cursor over the borders and then dragging. 
+
+- **The Command Palette**\
+  To access all the menu options that are available in VS Code,
+  the so-called "Command Palette" can be handy,
+  especially if you know what you are looking for.
+  To access the Command Palette, click
+  &nbsp; <i class="fa fa-cog"></i> &nbsp; and then `Command Palette`
+  (or press <kbd>F1</kbd> or
+  <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>).
+
+- **Keyboard shortcuts**\
+  For a single-page PDF overview of keyboard shortcuts for your operating system:
+  &nbsp; {{< fa bars >}} &nbsp; => &nbsp; `Help` &nbsp; =>
+  &nbsp; `Keyboard Shortcut Reference`.
+  (Or for direct links to these PDFs:
+  [Windows](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf) /
+  [Mac](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf) /
+  [Linux](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf).)
+  A couple of useful keyboard shortcuts are highlighted below.
+
+:::
+
+::: {.callout-note collapse="true"}
+#### Useful keyboard shortcuts _(Click to expand)_
+
+Working with keyboard shortcuts for common operations can be a lot faster than using your mouse.
+Below are some useful ones for VS Code
+(for Mac, in some case, you'll have to replace <kbd>Ctrl</kbd> with <kbd>⌘</kbd>):
+
+- *Open a terminal*: <kbd>Ctrl</kbd>+<kbd>\`</kbd> (backtick) or
+  <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>.
+
+- *Toggle between the terminal and the editor pane*:
+  <kbd>Ctrl</kbd>+<kbd>`</kbd> and <kbd>Ctrl</kbd>+<kbd>1</kbd>.
+
+- *Toggle the (wide) Side Bar*: <kbd>Ctrl</kbd>+<kbd>B</kbd> 
+
+- *Line actions*:
+  
+  - <kbd>Ctrl</kbd>+<kbd>X</kbd> / <kbd>C</kbd> will **cut/copy the entire line**
+    where the cursor is, when nothing is selected (!)
+  
+  - <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd> will **delete a line**
+
+  - <kbd>Alt</kbd>+<kbd>⬆</kbd>/<kbd>⬇</kbd> will **move lines** up or down.
+
+- *Multiple cursors*: Press & hold <kbd>Ctrl</kbd>+<kbd>Shift</kbd>,
+  then <kbd>⬆</kbd>/<kbd>⬇</kbd> arrows to add cursors upwards or downwards.
+
+- *Toggle line comment* ("comment out" code, and removing those comment signs):
+  <kbd>Ctrl</kbd>+<kbd>/</kbd>
+
+- *Split the editor window vertically*: <kbd>Ctrl</kbd>+<kbd>\\</kbd>
+  (See also the options in
+   &nbsp; {{< fa bars >}} &nbsp; `View` => `Editor Layout`)
+
+:::
