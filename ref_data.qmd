@@ -1,0 +1,176 @@
+---
+title: "Data management"
+author: Jelmer Poelstra
+date: 2024-02-07
+execute: 
+  eval: false
+knitr:
+  opts_chunk:
+    out.width: "85%"
+    class-output: bash-out
+editor_options: 
+  chunk_output_type: console
+---
+
+<br>
+
+## Making your valuable data read-only
+
+Your raw FASTQ data is extremely invaluable as it contains the result
+of your experiment and was produced by an expensive sequencing process.
+You'll always want to keep these files around, and will for example
+also need to **make them publicly available** when you publish your results
+(they are typically deposited at the **[NCBI's SRA](https://www.ncbi.nlm.nih.gov/sra)**).
+
+You should therefore always have at least one backup copy of your data,
+and store data in supercomputer location that is backed-up (like the `/fs/ess` dirs at OSC).
+
+Even with those automatic back-ups and extra copies,
+it's still good practice to be careful with every copy of your data.
+File removal with (e.g.) `rm` is permanent and irreversible,
+so to avoid disaster after an accidental removal,
+**it's a good idea to "write-protect" your FASTQ files**
+(or, phrased differently, to make them "read-only").
+
+First, let's briefly recap and expand our knowledge of file permissions:
+
+- **Read permissions** allow you to read and copy files/dirs
+- **Write permissions** allow you to move, rename, modify, overwrite, or delete
+- _Execute permissions_ allow you to directly execute a file
+  (e.g. running a program, or a script as a command).
+
+These permissions can be most easily set for three different groups of people:
+
+- **Owner (or "user")** &mdash;
+  By default, this the person that created the file or dir.
+  After you have copied or downloaded some FASTQ files, for example,
+  you are the owner of these copies.
+- **Group** &mdash;
+  When you create a file in the PAS0471 project dir, its "group" will include
+  all members of the OSC project PAS0471.
+- **Other** &mdash;
+  In the example above,
+  anyone with access to OSC that is not a member of PAS0471.
+
+We can see what these permissions are for any file or dir by looking at the
+**first column of the output of `ls -l`**.
+Let's practice write-protection and its consequences with a dummy file &mdash;
+first, we create the dummy file and check the default permissions:
+
+```bash
+# Create a new, empty file with the 'touch' command
+touch permission_test_file
+
+ls -l permission_test_file
+```
+```{.bash-out}
+# (Note, the very first dash below is about file _type_, not permissions:)
+ -rw-r--r-- 1 jelmer PAS0471 0 Aug  7 16:27 permission_test_file
+```
+
+![](img/permissions.svg){fig-align="center" width="40%"}
+
+The command to set (read/write/execute) permissions for these categories of people
+(user/group/others, or everyone together) is `chmod`.
+There are multiple ways of using this command,
+but a common one is along the lines of `chmod <who><operation><permission>`,
+with e.g.:
+
+- `chmod a-w` meaning _"all minus write"_: remove write-permissions for all
+- `chmod o+r` meaning _"others plus read"_: add read-permissions for others.
+
+To remove write-permission for everyone, including yourself, we will use:
+
+```bash
+chmod a-w permission_test_file
+
+ls -l permission_test_file
+```
+```{.bash-out}
+# (Notice that there is no longer a 'w' in the sequence below:)
+-r--r--r-- 1 jelmer PAS0471 0 Aug  7 16:27 permission_test_file
+```
+
+Now, let's see what happens when we try to remove this file:
+
+```bash
+rm permission_test_file
+```
+```{.bash-out}
+rm: remove write-protected regular empty file ‘permission_test_file’? n
+```
+
+Note that we can _still_ remove this file by answering `y`,
+but we will hopefully not act _that_ carelessly,
+and the question will make us reconsider and press `n`
+(also, if you made a mistake in a script that you run _non-interactively_,
+it will fail to remove write-protected files).
+
+<br>
+
+## Checking file integrity after transfer
+
+When you receive your FASTQ files from a sequencing facility,
+a small text file will usually accompany your FASTQ files,
+and will have a name along the lines of
+`md5.txt`, `md5checksums.txt`, or `shasums.txt`.
+
+Such a file contains so-called **checksums**,
+a sort of digital fingerprints for your FASTQ files,
+which can be used to **check whether your copy of these files is completely intact**.
+Checksums are extremely compact summaries of files,
+computed so that even if just one character is changed in the data,
+the checksum will be different.
+
+::: {.callout-note}
+#### More on checksums
+Several algorithms and their associated shell commands can compute checksums.
+Like in our case, you'll most often see _md5_ checksums accompany
+genomic data files,
+which can be computed and checked with the `md5sum` command
+(the newer _SHA-1_ checksums can be computer and checked with the very
+similar `shasum` command).
+
+Checksums consist of _hexadecimal_ characters only: numbers and the letters a-f.
+
+We typically compute or check checksums for one or more _files_,
+but we can even do it for a _string of text_ &mdash;
+the example below demonstrates that the slightest change in a string
+(or file alike) will generate a completely different checksum:
+
+```bash
+echo "bioinformatics is fun" | md5sum
+```
+```{.bash-out}
+010b5ebf7e207330de0e3fb0ff17a85a  -
+```
+```bash
+echo "bioinformatic is fun" | md5sum
+```
+```{.bash-out}
+45cc2b76c02b973494954fd664fc0456  -
+```
+:::
+
+You can check your checksums as follows:
+
+```bash
+cd data/fastq
+md5sum -c md5sums.txt 
+```
+```{.bash-out}
+ASPC1_A178V_R1.fastq.gz: OK
+ASPC1_A178V_R2.fastq.gz: OK
+ASPC1_G31V_R1.fastq.gz: OK
+ASPC1_G31V_R2.fastq.gz: OK
+Miapaca2_A178V_R1.fastq.gz: OK
+Miapaca2_A178V_R2.fastq.gz: OK
+Miapaca2_G31V_R1.fastq.gz: OK
+Miapaca2_G31V_R2.fastq.gz: OK
+```
+
+If there were any differences,
+the `md5sum` command would clearly warn you about them,
+as you can see in the exercise below.
+
+<br>

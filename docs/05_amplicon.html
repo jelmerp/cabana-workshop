@@ -145,8 +145,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="./02_vscode.html">
  <span class="dropdown-text">VS Code</span></a>
   </li>  
-        <li class="dropdown-header">Unix shell refresher</li>
-        <li class="dropdown-header">FASTQ files and quality control</li>
+        <li>
+    <a class="dropdown-item" href="./03_shell.html">
+ <span class="dropdown-text">Unix shell refresher</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./04_fastq.html">
+ <span class="dropdown-text">FASTQ files and quality control</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="./05_amplicon.html">
  <span class="dropdown-text"><em>Phytophthora</em> amplicon sequencing</span></a>
@@ -158,33 +165,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Thu Feb 8</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-thu-feb-8">    
-        <li class="dropdown-header">Bacterial genome analysis (slides)</li>
-        <li class="dropdown-header">Shell scripts, batch jobs, and loops</li>
-        <li class="dropdown-header">Intro to Bactopia</li>
-        <li class="dropdown-header">Running Bactopia</li>
-        <li class="dropdown-header">Interpeting the Bactopia results</li>
+        <li class="dropdown-header">Bacterial whole-genome sequencing (slides)</li>
+        <li class="dropdown-header">Read preprocessing</li>
+        <li class="dropdown-header">Genome assembly and assembly QC</li>
+        <li class="dropdown-header">Genome annotation</li>
+        <li class="dropdown-header">Pangenomics &amp; phylogenetics</li>
     </ul>
   </li>
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-other-pages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Other Pages</span>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-other-pages">    
-        <li>
-    <a class="dropdown-item" href="./homework.html">
- <span class="dropdown-text">Homework</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="./homework.html"> 
+<span class="menu-text">Homework</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-reference-pages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Reference Pages</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-reference-pages">    
         <li>
     <a class="dropdown-item" href="./open_shell.html">
- <span class="dropdown-text">Opening a Unix Shell at OSC</span></a>
+ <span class="dropdown-text">Opening a Unix shell at OSC</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./rstudio.html">
  <span class="dropdown-text">Starting an RStudio session at OSC</span></a>
   </li>  
-        <li class="dropdown-header">Overview of common Unix shell commands</li>
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./ref_shell2.html">
+ <span class="dropdown-text">Continued Unix shell intro</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ref_shell.html">
+ <span class="dropdown-text">Unix shell overview/reference</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./ref_software.html">
+ <span class="dropdown-text">Software management</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ref_data.html">
+ <span class="dropdown-text">Data management</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -242,6 +266,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#copiar-el-archivo-.vcf" id="toc-copiar-el-archivo-.vcf" class="nav-link" data-scroll-target="#copiar-el-archivo-.vcf"><span class="header-section-number">5.2</span> Copiar el archivo *.vcf</a></li>
   <li><a href="#cargar-rstudio-en-el-osc-ondemand" id="toc-cargar-rstudio-en-el-osc-ondemand" class="nav-link" data-scroll-target="#cargar-rstudio-en-el-osc-ondemand"><span class="header-section-number">5.3</span> Cargar Rstudio en el OSC OnDemand</a></li>
   <li><a href="#cargar-las-librerias" id="toc-cargar-las-librerias" class="nav-link" data-scroll-target="#cargar-las-librerias"><span class="header-section-number">5.4</span> Cargar las librerias</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
   <li><a href="#dendograma-basado-en-el-algoritmo-upgma" id="toc-dendograma-basado-en-el-algoritmo-upgma" class="nav-link" data-scroll-target="#dendograma-basado-en-el-algoritmo-upgma"><span class="header-section-number">5.5</span> Dendograma basado en el algoritmo UPGMA</a></li>
   <li><a href="#analisis-de-coordenadas-principales-pcoa-usando-la-matriz-de-distancias" id="toc-analisis-de-coordenadas-principales-pcoa-usando-la-matriz-de-distancias" class="nav-link" data-scroll-target="#analisis-de-coordenadas-principales-pcoa-usando-la-matriz-de-distancias"><span class="header-section-number">5.6</span> Analisis de Coordenadas Principales (PCoA) usando la matriz de distancias</a></li>
   </ul></li>
@@ -355,7 +380,9 @@ Starting VS Code at OSC - Instructions in brief <em>(Click to expand)</em>
 <ul>
 <li>Reads:</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ../mizarra/<span class="pp">***</span>usuario_nuevo<span class="pp">***</span>/reads</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ../mizarra/<span class="pp">***</span>usuario_nuevo<span class="pp">***</span>/reads</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Por ejemplo: ../mizarra/01_RFlores/reads</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Contig de secuencia de referencia:</li>
 </ul>
@@ -371,11 +398,11 @@ Starting VS Code at OSC - Instructions in brief <em>(Click to expand)</em>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> Phytophthora</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="comando-1-reads" class="level4" data-number="2.3.1">
 <h4 data-number="2.3.1" class="anchored" data-anchor-id="comando-1-reads"><span class="header-section-number">2.3.1</span> <strong>Comando 1: Reads</strong></h4>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> ../mizarra/<span class="pp">***</span>usuario_nuevo<span class="pp">***</span>/reads Phytophthora/reads</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-rv</span> ../mizarra/<span class="pp">***</span>usuario_nuevo<span class="pp">***</span>/reads Phytophthora/reads</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="comando-2-referencia" class="level4" data-number="2.3.2">
 <h4 data-number="2.3.2" class="anchored" data-anchor-id="comando-2-referencia"><span class="header-section-number">2.3.2</span> <strong>Comando 2: Referencia</strong></h4>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> ../mizarra/<span class="pp">***</span>usuario_nuevo<span class="pp">***</span>/ref Phytophthora/ref</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-rv</span> ../mizarra/<span class="pp">***</span>usuario_nuevo<span class="pp">***</span>/ref Phytophthora/ref</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 </section>
@@ -412,19 +439,19 @@ Starting VS Code at OSC - Instructions in brief <em>(Click to expand)</em>
 <section id="alineamiento-a-la-referencia" class="level4" data-number="4.3.1">
 <h4 data-number="4.3.1" class="anchored" data-anchor-id="alineamiento-a-la-referencia"><span class="header-section-number">4.3.1</span> Alineamiento a la referencia</h4>
 <div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file <span class="kw">in</span> <span class="pp">*</span>.fq.gz<span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">bwa</span> mem ../ref/Pinf2021refs.fa <span class="st">"</span><span class="va">$file</span><span class="st">"</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">${file</span><span class="op">/%</span><span class="ss">fq.gz</span><span class="op">/</span>sam<span class="va">}</span><span class="st">"</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">bwa</span> mem ../ref/Pinf2021refs.fa <span class="st">"</span><span class="va">$file</span><span class="st">"</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">${file</span><span class="op">/</span><span class="ss">fq.gz</span><span class="op">/</span>sam<span class="va">}</span><span class="st">"</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="ordenar-los-alineamientos" class="level4" data-number="4.3.2">
 <h4 data-number="4.3.2" class="anchored" data-anchor-id="ordenar-los-alineamientos"><span class="header-section-number">4.3.2</span> Ordenar los alineamientos</h4>
 <div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file <span class="kw">in</span> <span class="pp">*</span>.sam<span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">samtools</span> sort <span class="at">-o</span> <span class="st">"</span><span class="va">${file</span><span class="op">/%</span><span class="ss">sam</span><span class="op">/</span>sorted.sam<span class="va">}</span><span class="st">"</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">samtools</span> sort <span class="at">-o</span> <span class="st">"</span><span class="va">${file</span><span class="op">/</span><span class="ss">sam</span><span class="op">/</span>sorted.sam<span class="va">}</span><span class="st">"</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="convertir-archivos-sam-a-bam" class="level4" data-number="4.3.3">
 <h4 data-number="4.3.3" class="anchored" data-anchor-id="convertir-archivos-sam-a-bam"><span class="header-section-number">4.3.3</span> Convertir archivos SAM a BAM</h4>
 <div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file <span class="kw">in</span> <span class="pp">*</span>sorted.sam<span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">samtools</span> view <span class="at">-bt</span> ../ref/Pinf2021refs.fa.fai <span class="at">-o</span> <span class="st">"</span><span class="va">${file</span><span class="op">/%</span><span class="ss">sorted.sam</span><span class="op">/</span>bam<span class="va">}</span><span class="st">"</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">samtools</span> view <span class="at">-bt</span> ../ref/Pinf2021refs.fa.fai <span class="at">-o</span> <span class="st">"</span><span class="va">${file</span><span class="op">/</span><span class="ss">sorted.sam</span><span class="op">/</span>bam<span class="va">}</span><span class="st">"</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="remover-archivos-sam" class="level4" data-number="4.3.4">
@@ -440,7 +467,7 @@ Starting VS Code at OSC - Instructions in brief <em>(Click to expand)</em>
 <ul>
 <li>Ubicarnos en la carpeta que tiene todos los archivos bam</li>
 </ul>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /fs/scratch/PAS2250/cabana/Phytophthora/reads<span class="pp">*</span>.bam <span class="op">&gt;</span> listbam</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /fs/scratch/PAS2250/cabana/Phytophthora/reads/<span class="pp">*</span>.bam <span class="op">&gt;</span> listbam</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="llamado-de-variantes-snps" class="level4" data-number="4.3.7">
 <h4 data-number="4.3.7" class="anchored" data-anchor-id="llamado-de-variantes-snps"><span class="header-section-number">4.3.7</span> Llamado de Variantes SNPs</h4>
@@ -452,8 +479,9 @@ Starting VS Code at OSC - Instructions in brief <em>(Click to expand)</em>
 </section>
 <section id="filtrar-posiciones-de-snp" class="level4" data-number="4.3.8">
 <h4 data-number="4.3.8" class="anchored" data-anchor-id="filtrar-posiciones-de-snp"><span class="header-section-number">4.3.8</span> Filtrar posiciones de SNP</h4>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bcftools</span> filter <span class="at">-Ov</span> <span class="at">-o</span> perupop_filtered.vcf <span class="at">-s</span> LOWQUAL <span class="at">-e</span> <span class="st">'QUAL\&lt;10 \|\| DP \&lt;10'</span> <span class="dt">\</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--SnpGap</span> 5 <span class="at">--set-GTs</span> . perupop.vcf</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bcftools</span> filter <span class="at">-Ov</span> <span class="at">-o</span> perupop_filtered.vcf <span class="at">-s</span> LOWQUAL <span class="dt">\</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> <span class="st">'QUAL&lt;10 || DP &lt;10'</span>  <span class="at">--SnpGap</span> 5 <span class="at">--set-GTs</span> <span class="dt">\</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  . perupop.vcf</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="mantener-sólo-los-snp-con-calidad-chequeada" class="level4" data-number="4.3.9">
 <h4 data-number="4.3.9" class="anchored" data-anchor-id="mantener-sólo-los-snp-con-calidad-chequeada"><span class="header-section-number">4.3.9</span> Mantener sólo los SNP con calidad chequeada</h4>
@@ -466,11 +494,13 @@ Starting VS Code at OSC - Instructions in brief <em>(Click to expand)</em>
 <h2 data-number="5" class="anchored" data-anchor-id="rstudio"><span class="header-section-number">5</span> <em>Rstudio</em></h2>
 <section id="crear-una-carpeta-llamada-rstudio" class="level3" data-number="5.1">
 <h3 data-number="5.1" class="anchored" data-anchor-id="crear-una-carpeta-llamada-rstudio"><span class="header-section-number">5.1</span> Crear una carpeta llamada <em>Rstudio</em></h3>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /fs/scratch/PAS2250/cabana/<span class="va">$USER</span>/Rstudio</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> ../Rstudio</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="copiar-el-archivo-.vcf" class="level3" data-number="5.2">
 <h3 data-number="5.2" class="anchored" data-anchor-id="copiar-el-archivo-.vcf"><span class="header-section-number">5.2</span> Copiar el archivo *.vcf</h3>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> perupop_filtered_final.vcf /fs/scratch/PAS2250/cabana/<span class="va">$USER</span>/Rstudio</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> perupop_filtered_final.vcf ../Rstudio/</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /fs/scratch/PAS2250/cabana/Phytophthora/new_names_peru.csv ../../Rstudio/</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="cargar-rstudio-en-el-osc-ondemand" class="level3" data-number="5.3">
 <h3 data-number="5.3" class="anchored" data-anchor-id="cargar-rstudio-en-el-osc-ondemand"><span class="header-section-number">5.3</span> Cargar Rstudio en el OSC OnDemand</h3>
@@ -488,240 +518,250 @@ Starting VS Code at OSC - Instructions in brief <em>(Click to expand)</em>
 <p><img src="img_myriam/Rstudio-OnDemand.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
-<p><img src="img_myriam/Rstudio-OnDemand_access.png" class="img-fluid"></p>
 </section>
 </section>
 <section id="cargar-las-librerias" class="level3" data-number="5.4">
 <h3 data-number="5.4" class="anchored" data-anchor-id="cargar-las-librerias"><span class="header-section-number">5.4</span> Cargar las librerias</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar modulos - &lt;https://www.osc.edu/resources/available_software/software_list/r#import_modules&gt;</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(<span class="fu">Sys.getenv</span>(<span class="st">"LMOD_PKG"</span>), <span class="st">"init/R"</span>)) <span class="fu">module</span>(<span class="st">"load"</span>, <span class="st">"gdal/3.3.1"</span>) <span class="fu">module</span>(<span class="st">"load"</span>, <span class="st">"proj/8.1.0"</span>) <span class="fu">module</span>(<span class="st">"load"</span>, <span class="st">"geos/3.9.1"</span>) <span class="fu">module</span>(<span class="st">"load"</span>, <span class="st">"sqlite/3.36.0"</span>)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar links de libreria dinamica dyn.load("/apps/proj/8.1.0/lib/libproj.so.22", local=FALSE)</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dyn.load</span>(<span class="st">"/apps/gdal/3.3.1/lib/libgdal.so.29"</span>, <span class="at">local=</span><span class="cn">FALSE</span>) <span class="fu">dyn.load</span>(<span class="st">"/apps/geos/3.9.1/lib/libgeos_c.so"</span>, <span class="at">local=</span><span class="cn">FALSE</span>)</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir y configurar el directorio de la libreria</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>libdir <span class="ot">&lt;-</span> <span class="st">"/fs/ess/PAS0471/jelmer/R/peru"</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="fu">.libPaths</span>(libdir)</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcfR)</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(poppr)</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(adegenet)</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree) </span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dartR)</span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(directlabels)</span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridisLite)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(<span class="fu">Sys.getenv</span>(<span class="st">"LMOD_PKG"</span>), <span class="st">"init/R"</span>))</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">module</span>(<span class="st">"load"</span>, <span class="st">"gdal/3.3.1"</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">module</span>(<span class="st">"load"</span>, <span class="st">"proj/8.1.0"</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">module</span>(<span class="st">"load"</span>, <span class="st">"geos/3.9.1"</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">module</span>(<span class="st">"load"</span>, <span class="st">"sqlite/3.36.0"</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar links de libreria dinamica</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dyn.load</span>(<span class="st">"/apps/proj/8.1.0/lib/libproj.so.22"</span>, <span class="at">local=</span><span class="cn">FALSE</span>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="fu">dyn.load</span>(<span class="st">"/apps/gdal/3.3.1/lib/libgdal.so.29"</span>, <span class="at">local=</span><span class="cn">FALSE</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="fu">dyn.load</span>(<span class="st">"/apps/geos/3.9.1/lib/libgeos_c.so"</span>, <span class="at">local=</span><span class="cn">FALSE</span>)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir y configurar el directorio de la libreria</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>libdir <span class="ot">&lt;-</span> <span class="st">"/fs/ess/PAS0471/jelmer/R/peru"</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="fu">.libPaths</span>(libdir)</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcfR)</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(poppr)</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(adegenet)</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree) </span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dartR)</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(directlabels)</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridisLite)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="analysis" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="analysis">Analysis</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace usuario_nuevo with your username!</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/fs/scratch/PAS2250/cabana/usuario_nuevo"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar el archivo vcf generado con bcftools</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>perupop.VCF <span class="ot">&lt;-</span> <span class="fu">read.vcfR</span>(<span class="st">"perupop_filtered_final.vcf"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar el archivo vcf generado con bcftools</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>perupop.VCF <span class="ot">&lt;-</span> <span class="fu">read.vcfR</span>(<span class="st">"perupop_filtered_final.vcf"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertir el conjunto de datos en un objeto genlight</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>gl.perupop <span class="ot">&lt;-</span> <span class="fu">vcfR2genlight</span>(perupop.VCF)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertir el conjunto de datos en un objeto genlight</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>gl.perupop <span class="ot">&lt;-</span> <span class="fu">vcfR2genlight</span>(perupop.VCF)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ploidy</span>(gl.perupop) <span class="ot">&lt;-</span> <span class="dv">2</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ploidy</span>(gl.perupop) <span class="ot">&lt;-</span> <span class="dv">2</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Renombrar las muestras</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co">#El archivo: new_names_peru.csv: Esta localizado aqui:</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co">#*/fs/scratch/PAS2250/cabana/Phytophthora/new_names_peru.csv*</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>gl.perupop_recoded <span class="ot">&lt;-</span> <span class="fu">gl.recode.ind</span>(gl.perupop,</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">ind.recode=</span><span class="st">"new_names_peru.csv"</span>, </span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">mono.rm =</span> T, <span class="at">verbose=</span><span class="dv">0</span>)</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>gl.perupop_recoded</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Renombrar las muestras</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>gl.perupop_recoded <span class="ot">&lt;-</span> <span class="fu">gl.recode.ind</span>(gl.perupop,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">ind.recode=</span><span class="st">"new_names_peru.csv"</span>, </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">mono.rm =</span> T, <span class="at">verbose=</span><span class="dv">0</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>gl.perupop_recoded</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Asignar el linaje clonal de las muestras en el orden delos genotipos reportados</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pop</span>(gl.perupop_recoded) <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">c</span>(<span class="st">"US-1"</span>,</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
-<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
-<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
-<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
-<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
-<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
-<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
-<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
-<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
-<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
-<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
-<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
-<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
-<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
-<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
-<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
-<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
-<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
-<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
-<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb28-46"><a href="#cb28-46" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
-<span id="cb28-47"><a href="#cb28-47" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
-<span id="cb28-48"><a href="#cb28-48" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
-<span id="cb28-49"><a href="#cb28-49" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
-<span id="cb28-50"><a href="#cb28-50" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
-<span id="cb28-51"><a href="#cb28-51" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
-<span id="cb28-52"><a href="#cb28-52" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
-<span id="cb28-53"><a href="#cb28-53" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
-<span id="cb28-54"><a href="#cb28-54" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
-<span id="cb28-55"><a href="#cb28-55" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
-<span id="cb28-56"><a href="#cb28-56" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
-<span id="cb28-57"><a href="#cb28-57" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Asignar el linaje clonal de las muestras en el orden delos genotipos reportados</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pop</span>(gl.perupop_recoded) <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">c</span>(<span class="st">"US-1"</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
+<span id="cb29-47"><a href="#cb29-47" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
+<span id="cb29-48"><a href="#cb29-48" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
+<span id="cb29-49"><a href="#cb29-49" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
+<span id="cb29-50"><a href="#cb29-50" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
+<span id="cb29-51"><a href="#cb29-51" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
+<span id="cb29-52"><a href="#cb29-52" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
+<span id="cb29-53"><a href="#cb29-53" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
+<span id="cb29-54"><a href="#cb29-54" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
+<span id="cb29-55"><a href="#cb29-55" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
+<span id="cb29-56"><a href="#cb29-56" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
+<span id="cb29-57"><a href="#cb29-57" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="dendograma-basado-en-el-algoritmo-upgma" class="level3" data-number="5.5">
 <h3 data-number="5.5" class="anchored" data-anchor-id="dendograma-basado-en-el-algoritmo-upgma"><span class="header-section-number">5.5</span> Dendograma basado en el algoritmo UPGMA</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#La función aboot se utiliza para evaluar la precisión del árbol de</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co">#decisión ajustado mediante la validación cruzada bootstrap.</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">aboot</span>(gl.perupop_recoded, <span class="at">tree =</span> <span class="st">"upgma"</span>, <span class="at">distance =</span> bitwise.dist, </span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">sample =</span> <span class="dv">100</span>, <span class="at">showtree =</span> F, <span class="at">cutoff =</span> <span class="dv">50</span>, <span class="at">quiet =</span> T)</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">turbo</span>(<span class="at">n =</span> <span class="fu">nPop</span>(gl.perupop_recoded))</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.phylo</span>(tree, <span class="at">cex =</span> <span class="fl">0.8</span>, <span class="at">font =</span> <span class="dv">2</span>, <span class="at">adj =</span> <span class="dv">0</span>, <span class="at">tip.color =</span>  cols[<span class="fu">pop</span>(gl.perupop_recoded)])</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="fu">nodelabels</span>(tree<span class="sc">$</span>node.label, <span class="at">adj =</span> <span class="fu">c</span>(<span class="fl">1.3</span>, <span class="sc">-</span><span class="fl">0.5</span>), <span class="at">frame =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.8</span>,<span class="at">font =</span> <span class="dv">3</span>, <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">'topleft'</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"EC-1"</span>,<span class="st">"PE-3"</span>, <span class="st">"PE-7"</span>, <span class="st">"PE-7-Puno"</span>, <span class="st">"US-1"</span>), <span class="at">fill =</span> cols, </span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">border =</span> <span class="cn">FALSE</span>, <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.55</span>)</span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>)</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">xlab =</span> <span class="st">"Genetic distance (proportion of loci that are different)"</span>)</span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#La función aboot se utiliza para evaluar la precisión del árbol de</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co">#decisión ajustado mediante la validación cruzada bootstrap.</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">aboot</span>(gl.perupop_recoded, <span class="at">tree =</span> <span class="st">"upgma"</span>, <span class="at">distance =</span> bitwise.dist, </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">sample =</span> <span class="dv">100</span>, <span class="at">showtree =</span> F, <span class="at">cutoff =</span> <span class="dv">50</span>, <span class="at">quiet =</span> T)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">turbo</span>(<span class="at">n =</span> <span class="fu">nPop</span>(gl.perupop_recoded))</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.phylo</span>(tree, <span class="at">cex =</span> <span class="fl">0.8</span>, <span class="at">font =</span> <span class="dv">2</span>, <span class="at">adj =</span> <span class="dv">0</span>, <span class="at">tip.color =</span>  cols[<span class="fu">pop</span>(gl.perupop_recoded)])</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="fu">nodelabels</span>(tree<span class="sc">$</span>node.label, <span class="at">adj =</span> <span class="fu">c</span>(<span class="fl">1.3</span>, <span class="sc">-</span><span class="fl">0.5</span>), <span class="at">frame =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.8</span>,<span class="at">font =</span> <span class="dv">3</span>, <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">'topleft'</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"EC-1"</span>,<span class="st">"PE-3"</span>, <span class="st">"PE-7"</span>, <span class="st">"PE-7-Puno"</span>, <span class="st">"US-1"</span>), <span class="at">fill =</span> cols, </span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">border =</span> <span class="cn">FALSE</span>, <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.55</span>)</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>)</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">xlab =</span> <span class="st">"Genetic distance (proportion of loci that are different)"</span>)</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Guardar el Gráfico</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">"Tree_alldata.png"</span>, <span class="at">res =</span> <span class="dv">300</span>, <span class="at">width =</span> <span class="fl">9.57</span>, <span class="at">height =</span> <span class="fl">9.34</span>, <span class="at">units =</span> <span class="st">'in'</span>)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.phylo</span>(tree, <span class="at">cex =</span> <span class="fl">0.8</span>, <span class="at">font =</span> <span class="dv">2</span>, <span class="at">adj =</span> <span class="dv">0</span>, <span class="at">tip.color =</span>  cols[<span class="fu">pop</span>(gl.perupop_recoded)])</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nodelabels</span>(tree<span class="sc">$</span>node.label, <span class="at">adj =</span> <span class="fu">c</span>(<span class="fl">1.3</span>, <span class="sc">-</span><span class="fl">0.5</span>), <span class="at">frame =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.8</span>,<span class="at">font =</span> <span class="dv">3</span>, <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">'topleft'</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"EC-1"</span>,<span class="st">"PE-3"</span>, <span class="st">"PE-7"</span>, <span class="st">"PE-7-Puno"</span>, <span class="st">"US-1"</span>), <span class="at">fill =</span> cols, </span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">border =</span> <span class="cn">FALSE</span>, <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.55</span>)</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>)</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">xlab =</span> <span class="st">"Genetic distance (proportion of loci that are different)"</span>)</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Guardar el Gráfico</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">"Tree_alldata.png"</span>, <span class="at">res =</span> <span class="dv">300</span>, <span class="at">width =</span> <span class="fl">9.57</span>, <span class="at">height =</span> <span class="fl">9.34</span>, <span class="at">units =</span> <span class="st">'in'</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.phylo</span>(tree, <span class="at">cex =</span> <span class="fl">0.8</span>, <span class="at">font =</span> <span class="dv">2</span>, <span class="at">adj =</span> <span class="dv">0</span>, <span class="at">tip.color =</span>  cols[<span class="fu">pop</span>(gl.perupop_recoded)])</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nodelabels</span>(tree<span class="sc">$</span>node.label, <span class="at">adj =</span> <span class="fu">c</span>(<span class="fl">1.3</span>, <span class="sc">-</span><span class="fl">0.5</span>), <span class="at">frame =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.8</span>,<span class="at">font =</span> <span class="dv">3</span>, <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">'topleft'</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"EC-1"</span>,<span class="st">"PE-3"</span>, <span class="st">"PE-7"</span>, <span class="st">"PE-7-Puno"</span>, <span class="st">"US-1"</span>), <span class="at">fill =</span> cols, </span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">border =</span> <span class="cn">FALSE</span>, <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.55</span>)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">xlab =</span> <span class="st">"Genetic distance (proportion of loci that are different)"</span>)</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reporte de la calidad de la data</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gl.report.callrate</span>(gl.perupop_recoded, <span class="at">method =</span><span class="st">"loc"</span>)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">gl.report.callrate</span>(gl.perupop_recoded, <span class="at">method =</span><span class="st">"ind"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reporte de la calidad de la data</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gl.report.callrate</span>(gl.perupop_recoded, <span class="at">method =</span><span class="st">"loc"</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">gl.report.callrate</span>(gl.perupop_recoded, <span class="at">method =</span><span class="st">"ind"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtrar la data 0.8189447</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>gl.perupop2 <span class="ot">&lt;-</span> <span class="fu">gl.filter.callrate</span>(gl.perupop_recoded,</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">method=</span><span class="st">"ind"</span>, </span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">t=</span><span class="fl">0.8189447</span>,</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">recalc =</span> T)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtrar la data 0.8189447</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>gl.perupop2 <span class="ot">&lt;-</span> <span class="fu">gl.filter.callrate</span>(gl.perupop_recoded,</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">method=</span><span class="st">"ind"</span>, </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">t=</span><span class="fl">0.8189447</span>,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">recalc =</span> T)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(gl.perupop2) </span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>gl.perupop2<span class="sc">$</span>ind.names</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>gl.perupop2<span class="sc">$</span>pop</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(gl.perupop2) </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>gl.perupop2<span class="sc">$</span>ind.names</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>gl.perupop2<span class="sc">$</span>pop</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pop</span>(gl.perupop2) <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">c</span>(<span class="st">"US-1"</span>,</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
-<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
-<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
-<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
-<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
-<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
-<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
-<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
-<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
-<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
-<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
-<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
-<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span></span>
-<span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pop</span>(gl.perupop2) <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">c</span>(<span class="st">"US-1"</span>,</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="st">"EC-1"</span>,</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7"</span>,</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-3"</span>,</span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a><span class="st">"US-1"</span>,</span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
+<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span>,</span>
+<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a><span class="st">"PE-7-Puno"</span></span>
+<span id="cb35-34"><a href="#cb35-34" aria-hidden="true" tabindex="-1"></a>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Árbol de distancia basado en el algoritmo UPGMA, con 100 replicados de bootstrap</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>tree2 <span class="ot">&lt;-</span> <span class="fu">aboot</span>(gl.perupop2, <span class="at">tree =</span> <span class="st">"upgma"</span>, <span class="at">distance =</span> bitwise.dist, </span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">sample =</span> <span class="dv">100</span>, <span class="at">showtree =</span> F, <span class="at">cutoff =</span> <span class="dv">50</span>, <span class="at">quiet =</span> T)</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">turbo</span>(<span class="at">n =</span> <span class="fu">nPop</span>(gl.perupop2))</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.phylo</span>(tree2, <span class="at">cex =</span> <span class="fl">0.8</span>, <span class="at">font =</span> <span class="dv">2</span>, <span class="at">adj =</span> <span class="dv">0</span>, <span class="at">tip.color =</span>  cols[<span class="fu">pop</span>(gl.perupop2)])</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fu">nodelabels</span>(tree2<span class="sc">$</span>node.label, <span class="at">adj =</span> <span class="fu">c</span>(<span class="fl">1.3</span>, <span class="sc">-</span><span class="fl">0.5</span>), <span class="at">frame =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.8</span>,<span class="at">font =</span> <span class="dv">3</span>, <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">'topleft'</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"EC-1"</span>,<span class="st">"PE-3"</span>, <span class="st">"PE-7"</span>, <span class="st">"PE-7-Puno"</span>, <span class="st">"US-1"</span>), <span class="at">fill =</span> cols, </span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">border =</span> <span class="cn">FALSE</span>, <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.65</span>)</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>)</span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">xlab =</span> <span class="st">"Genetic distance (proportion of loci that are different)"</span>)</span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Árbol de distancia basado en el algoritmo UPGMA, con 100 replicados de bootstrap</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>tree2 <span class="ot">&lt;-</span> <span class="fu">aboot</span>(gl.perupop2, <span class="at">tree =</span> <span class="st">"upgma"</span>, <span class="at">distance =</span> bitwise.dist, </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">sample =</span> <span class="dv">100</span>, <span class="at">showtree =</span> F, <span class="at">cutoff =</span> <span class="dv">50</span>, <span class="at">quiet =</span> T)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">turbo</span>(<span class="at">n =</span> <span class="fu">nPop</span>(gl.perupop2))</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.phylo</span>(tree2, <span class="at">cex =</span> <span class="fl">0.8</span>, <span class="at">font =</span> <span class="dv">2</span>, <span class="at">adj =</span> <span class="dv">0</span>, <span class="at">tip.color =</span>  cols[<span class="fu">pop</span>(gl.perupop2)])</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">nodelabels</span>(tree2<span class="sc">$</span>node.label, <span class="at">adj =</span> <span class="fu">c</span>(<span class="fl">1.3</span>, <span class="sc">-</span><span class="fl">0.5</span>), <span class="at">frame =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.8</span>,<span class="at">font =</span> <span class="dv">3</span>, <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">'topleft'</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"EC-1"</span>,<span class="st">"PE-3"</span>, <span class="st">"PE-7"</span>, <span class="st">"PE-7-Puno"</span>, <span class="st">"US-1"</span>), <span class="at">fill =</span> cols, </span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">border =</span> <span class="cn">FALSE</span>, <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.65</span>)</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>)</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">xlab =</span> <span class="st">"Genetic distance (proportion of loci that are different)"</span>)</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Guardar el Gráfico</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">"Tree_filter0.8189447.png"</span>, <span class="at">res =</span> <span class="dv">300</span>, <span class="at">width =</span> <span class="fl">9.57</span>, <span class="at">height =</span> <span class="fl">9.34</span>, <span class="at">units =</span> <span class="st">'in'</span>)</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.phylo</span>(tree2, <span class="at">cex =</span> <span class="fl">0.8</span>, <span class="at">font =</span> <span class="dv">2</span>, <span class="at">adj =</span> <span class="dv">0</span>, <span class="at">tip.color =</span>  cols[<span class="fu">pop</span>(gl.perupop2)])</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nodelabels</span>(tree2<span class="sc">$</span>node.label, <span class="at">adj =</span> <span class="fu">c</span>(<span class="fl">1.3</span>, <span class="sc">-</span><span class="fl">0.5</span>), <span class="at">frame =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.8</span>,<span class="at">font =</span> <span class="dv">3</span>, <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">'topleft'</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"EC-1"</span>,<span class="st">"PE-3"</span>, <span class="st">"PE-7"</span>, <span class="st">"PE-7-Puno"</span>, <span class="st">"US-1"</span>), <span class="at">fill =</span> cols, </span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">border =</span> <span class="cn">FALSE</span>, <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.65</span>)</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>)</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">xlab =</span> <span class="st">"Genetic distance (proportion of loci that are different)"</span>)</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Guardar el Gráfico</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">"Tree_filter0.8189447.png"</span>, <span class="at">res =</span> <span class="dv">300</span>, <span class="at">width =</span> <span class="fl">9.57</span>, <span class="at">height =</span> <span class="fl">9.34</span>, <span class="at">units =</span> <span class="st">'in'</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.phylo</span>(tree2, <span class="at">cex =</span> <span class="fl">0.8</span>, <span class="at">font =</span> <span class="dv">2</span>, <span class="at">adj =</span> <span class="dv">0</span>, <span class="at">tip.color =</span>  cols[<span class="fu">pop</span>(gl.perupop2)])</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nodelabels</span>(tree2<span class="sc">$</span>node.label, <span class="at">adj =</span> <span class="fu">c</span>(<span class="fl">1.3</span>, <span class="sc">-</span><span class="fl">0.5</span>), <span class="at">frame =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.8</span>,<span class="at">font =</span> <span class="dv">3</span>, <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">'topleft'</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"EC-1"</span>,<span class="st">"PE-3"</span>, <span class="st">"PE-7"</span>, <span class="st">"PE-7-Puno"</span>, <span class="st">"US-1"</span>), <span class="at">fill =</span> cols, </span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">border =</span> <span class="cn">FALSE</span>, <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.65</span>)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>)</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">xlab =</span> <span class="st">"Genetic distance (proportion of loci that are different)"</span>)</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="analisis-de-coordenadas-principales-pcoa-usando-la-matriz-de-distancias" class="level3" data-number="5.6">
 <h3 data-number="5.6" class="anchored" data-anchor-id="analisis-de-coordenadas-principales-pcoa-usando-la-matriz-de-distancias"><span class="header-section-number">5.6</span> Analisis de Coordenadas Principales (PCoA) usando la matriz de distancias</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>subset_phytoph <span class="ot">&lt;-</span> <span class="fu">gl.recalc.metrics</span>(gl.perupop2)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>subset_phytoph<span class="sc">$</span>other<span class="sc">$</span>loc.metrics <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(subset_phytoph<span class="sc">$</span>other<span class="sc">$</span>loc.metrics)</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>pcoa <span class="ot">&lt;-</span> <span class="fu">gl.pcoa</span>(subset_phytoph, <span class="at">nfactors =</span> <span class="dv">5</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>subset_phytoph <span class="ot">&lt;-</span> <span class="fu">gl.recalc.metrics</span>(gl.perupop2)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>subset_phytoph<span class="sc">$</span>other<span class="sc">$</span>loc.metrics <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(subset_phytoph<span class="sc">$</span>other<span class="sc">$</span>loc.metrics)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>pcoa <span class="ot">&lt;-</span> <span class="fu">gl.pcoa</span>(subset_phytoph, <span class="at">nfactors =</span> <span class="dv">5</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gl.pcoa.plot</span>(pcoa, gl.perupop2)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gl.pcoa.plot</span>(pcoa, gl.perupop2)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

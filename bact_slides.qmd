@@ -1,0 +1,78 @@
+---
+title: "Bacterial whole-genome analysis"
+author: Jelmer Poelstra
+date: 2024-02-01
+institute: "MCIC Wooster, Ohio State University, USA"
+editor: visual
+format:
+  revealjs:
+    theme: [simple, theme_mod.scss]
+    smaller: true
+    scrollable: false
+    progress: true
+    incremental: false
+    css: slides.css
+    slide-number: true
+    slide-level: 2
+    highlight-style: pygments
+    embed-resources: true
+    toc: true
+    toc-depth: 1
+    toc-title: Overview
+editor_options: 
+  chunk_output_type: console
+---
+
+# Introduction
+
+Today, we will ...
+
+## Why sequence full genomes?
+
+- 
+- Pangenome analysis
+- Gene content
+
+## Pangenomes
+
+## Sequencing technologies
+
+(Link to 'assembling the perfect genome')
+
+## Illumina error profile
+
+## Genome assemblies through time
+
+![](img/lit_nrgenomes.png)
+
+## The steps involved
+
+## Workflow overview
+
+## Bactopia
+
+## Our dataset (from Ranjit et al. in prep, Ohio State)
+
+- _Pseudomonas syringae_ causes disease in a wide range of host plants,
+  from Solanaceae and Leguminosae plants to citrus and stone fruit trees.
+
+- _Pseudomonas syringae pv. syringae_ (Pss) is an emerging phytopathogen that causes
+  Pseudomonas leaf spot (PLS) disease in pepper plants (_Capsicum annuum var. annuum_). 
+  
+Currently, copper-based (copper sulfate or copper hydroxide) or streptomycin-based antimicrobials are used as chemical control methods for Pss in peppers.
+However, in recent years, the intensive application of copper-based antimicrobials to reduce PLS during the growing season has resulted in the emergence of copper-resistant strains of Pss, making copper-based antimicrobial agents less effective (8, 14).
+
+- 16 Pss samples were isolated from pepper plants harboring characteristic PLS symptoms
+  in Ohio between 2013 and 2021.
+  
+## Variation in virulence
+
+![](img/pss_cfu.png)
+
+## Variable genome
+
+![](img/pss_variablegenome.png)
+
+## Phylogenetic tree
+
+![](img/tree.core_phylogroup.png)

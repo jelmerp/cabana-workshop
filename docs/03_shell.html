@@ -148,8 +148,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="./02_vscode.html">
  <span class="dropdown-text">VS Code</span></a>
   </li>  
-        <li class="dropdown-header">Unix shell refresher</li>
-        <li class="dropdown-header">FASTQ files and quality control</li>
+        <li>
+    <a class="dropdown-item" href="./03_shell.html">
+ <span class="dropdown-text">Unix shell refresher</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./04_fastq.html">
+ <span class="dropdown-text">FASTQ files and quality control</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="./05_amplicon.html">
  <span class="dropdown-text"><em>Phytophthora</em> amplicon sequencing</span></a>
@@ -161,33 +168,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Thu Feb 8</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-thu-feb-8">    
-        <li class="dropdown-header">Bacterial genome analysis (slides)</li>
-        <li class="dropdown-header">Shell scripts, batch jobs, and loops</li>
-        <li class="dropdown-header">Intro to Bactopia</li>
-        <li class="dropdown-header">Running Bactopia</li>
-        <li class="dropdown-header">Interpeting the Bactopia results</li>
+        <li class="dropdown-header">Bacterial whole-genome sequencing (slides)</li>
+        <li class="dropdown-header">Read preprocessing</li>
+        <li class="dropdown-header">Genome assembly and assembly QC</li>
+        <li class="dropdown-header">Genome annotation</li>
+        <li class="dropdown-header">Pangenomics &amp; phylogenetics</li>
     </ul>
   </li>
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-other-pages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Other Pages</span>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-other-pages">    
-        <li>
-    <a class="dropdown-item" href="./homework.html">
- <span class="dropdown-text">Homework</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="./homework.html"> 
+<span class="menu-text">Homework</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-reference-pages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Reference Pages</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-reference-pages">    
         <li>
     <a class="dropdown-item" href="./open_shell.html">
- <span class="dropdown-text">Opening a Unix Shell at OSC</span></a>
+ <span class="dropdown-text">Opening a Unix shell at OSC</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./rstudio.html">
  <span class="dropdown-text">Starting an RStudio session at OSC</span></a>
   </li>  
-        <li class="dropdown-header">Overview of common Unix shell commands</li>
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./ref_shell2.html">
+ <span class="dropdown-text">Continued Unix shell intro</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ref_shell.html">
+ <span class="dropdown-text">Unix shell overview/reference</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./ref_software.html">
+ <span class="dropdown-text">Software management</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ref_data.html">
+ <span class="dropdown-text">Data management</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -225,16 +249,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#overview-setting-up" id="toc-overview-setting-up" class="nav-link active" data-scroll-target="#overview-setting-up"><span class="header-section-number">1</span> Overview &amp; setting up</a></li>
-  <li><a href="#recap-of-the-basics" id="toc-recap-of-the-basics" class="nav-link" data-scroll-target="#recap-of-the-basics"><span class="header-section-number">2</span> Recap of the basics</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#recap-of-the-basics" id="toc-recap-of-the-basics" class="nav-link" data-scroll-target="#recap-of-the-basics"><span class="header-section-number">1</span> Recap of the basics</a>
   <ul class="collapse">
-  <li><a href="#the-prompt" id="toc-the-prompt" class="nav-link" data-scroll-target="#the-prompt"><span class="header-section-number">2.1</span> The prompt</a></li>
-  <li><a href="#a-few-simple-commands-date-whoami-pwd" id="toc-a-few-simple-commands-date-whoami-pwd" class="nav-link" data-scroll-target="#a-few-simple-commands-date-whoami-pwd"><span class="header-section-number">2.2</span> A few simple commands: <code>date</code>, <code>whoami</code>, <code>pwd</code></a></li>
-  <li><a href="#cd-and-command-actions-arguments" id="toc-cd-and-command-actions-arguments" class="nav-link" data-scroll-target="#cd-and-command-actions-arguments"><span class="header-section-number">2.3</span> <code>cd</code> and command actions &amp; arguments</a></li>
-  <li><a href="#ls-and-command-options" id="toc-ls-and-command-options" class="nav-link" data-scroll-target="#ls-and-command-options"><span class="header-section-number">2.4</span> <code>ls</code> and command <em>options</em></a></li>
-  <li><a href="#a-few-more-general-shell-tips" id="toc-a-few-more-general-shell-tips" class="nav-link" data-scroll-target="#a-few-more-general-shell-tips"><span class="header-section-number">2.5</span> A few more general shell tips</a></li>
-  <li><a href="#paths" id="toc-paths" class="nav-link" data-scroll-target="#paths"><span class="header-section-number">2.6</span> Paths</a></li>
+  <li><a href="#the-prompt" id="toc-the-prompt" class="nav-link" data-scroll-target="#the-prompt"><span class="header-section-number">1.1</span> The prompt</a></li>
+  <li><a href="#a-few-simple-commands-date-whoami-pwd" id="toc-a-few-simple-commands-date-whoami-pwd" class="nav-link" data-scroll-target="#a-few-simple-commands-date-whoami-pwd"><span class="header-section-number">1.2</span> A few simple commands: <code>date</code>, <code>whoami</code>, <code>pwd</code></a></li>
+  <li><a href="#cd-and-command-actions-arguments" id="toc-cd-and-command-actions-arguments" class="nav-link" data-scroll-target="#cd-and-command-actions-arguments"><span class="header-section-number">1.3</span> <code>cd</code> and command actions &amp; arguments</a></li>
+  <li><a href="#ls-and-command-options" id="toc-ls-and-command-options" class="nav-link" data-scroll-target="#ls-and-command-options"><span class="header-section-number">1.4</span> <code>ls</code> and command <em>options</em></a></li>
+  <li><a href="#miscellaneous-tips" id="toc-miscellaneous-tips" class="nav-link" data-scroll-target="#miscellaneous-tips"><span class="header-section-number">1.5</span> Miscellaneous tips</a></li>
   </ul></li>
+  <li><a href="#more-key-commands-and-concepts" id="toc-more-key-commands-and-concepts" class="nav-link" data-scroll-target="#more-key-commands-and-concepts"><span class="header-section-number">2</span> More key commands and concepts</a>
+  <ul class="collapse">
+  <li><a href="#paths" id="toc-paths" class="nav-link" data-scroll-target="#paths"><span class="header-section-number">2.1</span> Paths</a></li>
+  <li><a href="#environment-variables" id="toc-environment-variables" class="nav-link" data-scroll-target="#environment-variables"><span class="header-section-number">2.2</span> Environment variables</a></li>
+  <li><a href="#create-dirs-with-mkdir" id="toc-create-dirs-with-mkdir" class="nav-link" data-scroll-target="#create-dirs-with-mkdir"><span class="header-section-number">2.3</span> Create dirs with <code>mkdir</code></a></li>
+  <li><a href="#copy-files-and-dirs-with-cp" id="toc-copy-files-and-dirs-with-cp" class="nav-link" data-scroll-target="#copy-files-and-dirs-with-cp"><span class="header-section-number">2.4</span> Copy files and dirs with <code>cp</code></a></li>
+  <li><a href="#globbing-with-shell-wildcard-expansion" id="toc-globbing-with-shell-wildcard-expansion" class="nav-link" data-scroll-target="#globbing-with-shell-wildcard-expansion"><span class="header-section-number">2.5</span> Globbing with shell wildcard expansion</a></li>
+  <li><a href="#for-loops" id="toc-for-loops" class="nav-link" data-scroll-target="#for-loops"><span class="header-section-number">2.6</span> For loops</a></li>
+  </ul></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
   </ul>
 </nav>
     </div>
@@ -273,22 +306,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><br></p>
-<section id="overview-setting-up" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="overview-setting-up"><span class="header-section-number">1</span> Overview &amp; setting up</h2>
+<section id="introduction" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="introduction">Introduction</h2>
 <p>Many of the things you typically do by pointing and clicking can alternatively be done by typing commands. The Unix shell allows you to interact with computers via commands.</p>
-<p>Working effectively on a remote supercomputer tends to simply <em>require</em> using a command line interface. But there are more <strong>advantages to doing command line computing</strong> than just allowing you to work on a supercomputer, such as:</p>
+<p>Working effectively on a remote supercomputer tends to require using a command line interface. But there are more <strong>reasons to command line computing</strong>, such as:</p>
 <ul>
 <li>Working efficiently with large files</li>
+<li>Making it easier to repeat (&amp; automate) similar tasks across files, samples, and projects</li>
 <li>Achieving better reproducibility in research</li>
-<li>Performing general computing tasks more efficiently (once you get the hang of it…)</li>
-<li>Making it easier to repeat similar tasks across files, samples, and projects</li>
-<li>For bioinformatics, being able to use (the latest) command-line programs directly without having to depend on “GUI wrappers” written by third parties, that often cost money and also lag behind in functionality</li>
+<li>At least in bioinformatics, being able to use access the largest and most recent set of approaches and all their options — many graphical user interface programs lag behind in functionality and may cost money as well.</li>
 </ul>
-<section id="starting-a-vs-code-session-in-osc-ondemand" class="level4">
-<h4 class="anchored" data-anchor-id="starting-a-vs-code-session-in-osc-ondemand">Starting a VS Code session in OSC OnDemand</h4>
-<p><strong>We’ll use a Unix shell at OSC inside VS Code</strong>. You should have an active VS Code session in the folder <code>/fs/scratch/PAS2250/cabana/&lt;user&gt;</code>, and with an open Terminal — if not, see the instructions in the dropdown box right below.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Side note: Some Unix shell terminology <em>(Click to expand)</em>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>We’re going to focus on the practice of doing command line computing, and not get too bogged down in terminology, but let’s highlight a few interrelated terms you’re likely to run across:</p>
+<ul>
+<li><strong>Command Line</strong> — the most general term, an interface<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> where you type commands</li>
+<li><strong>Terminal</strong> — the program/app/window that can run a Unix shell</li>
+<li><strong>Shell</strong> — a command line interface to your computer</li>
+<li><strong>Unix Shell</strong> — the types of shells on Unix family (Linux + Mac) computers</li>
+<li><strong>Bash</strong> — the specific Unix shell language that is most common on Unix computers</li>
+</ul>
+<p>While it might not fly for a computer science class, for day-to-day computing/bioinformatics, you’ll probably hear all these terms used somewhat interchangeably.</p>
+</div>
+</div>
+</div>
+<hr style="height:1pt; visibility:hidden;">
+<section id="starting-a-vs-code-session-in-osc-ondemand" class="level4">
+<h4 class="anchored" data-anchor-id="starting-a-vs-code-session-in-osc-ondemand">Starting a VS Code session in OSC OnDemand</h4>
+<p><strong>We’ll use a Unix shell at OSC inside VS Code</strong>. You should have an active VS Code session in the folder <code>/fs/scratch/PAS2250/cabana/&lt;user&gt;</code>, and with an open Terminal — if not, see the instructions right below.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -297,7 +354,7 @@ Starting VS Code at OSC - with a Terminal <em>(Click to expand)</em>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>Log in to OSC’s OnDemand portal at <a href="https://ondemand.osc.edu" class="uri">https://ondemand.osc.edu</a>.</li>
@@ -311,81 +368,43 @@ Starting VS Code at OSC - with a Terminal <em>(Click to expand)</em>
 </ul></li>
 <li>On the next page, once the top bar of the box has turned green and says <code>Runnning</code>, click <code>Connect to VS Code</code>.</li>
 <li>Open a Terminal by clicking &nbsp; <i class="fa-solid fa-bars" aria-label="bars"></i> &nbsp; =&gt; <code>Terminal</code> =&gt; <code>New Terminal</code>. (Or use one of the keyboard shortcuts: <kbd>Ctrl</kbd>+<kbd>`</kbd> (backtick) or <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>.)</li>
-<li>Type <code>pwd</code> to check where you are. If you are not in <code>/fs/scratch/PAS2250/cabana/&lt;user&gt;</code>, click <code>Open folder...</code> in the <code>Welcome</code> tab, or &nbsp; <i class="fa-solid fa-bars" aria-label="bars"></i> &nbsp; =&gt; &nbsp; <code>File</code> &nbsp; =&gt; &nbsp; <code>Open Folder</code>, then type/select <code>/fs/scratch/PAS2250/cabana/&lt;user&gt;</code> and press Ok.</li>
+<li>Type <code>pwd</code> to check where you are. If you are not in <code>/fs/scratch/PAS2250/cabana/&lt;user&gt;</code> (where <code>&lt;user&gt;</code> is your OSC username), click <code>Open folder...</code> in the <code>Welcome</code> tab, or &nbsp; <i class="fa-solid fa-bars" aria-label="bars"></i> &nbsp; =&gt; &nbsp; <code>File</code> &nbsp; =&gt; &nbsp; <code>Open Folder</code>, then type/select <code>/fs/scratch/PAS2250/cabana/&lt;user&gt;</code> and press OK.</li>
 </ol>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Some Unix shell terminology
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>We’re going to focus on the practice of doing command line computing here, and not get too bogged down in terminology, but let’s highlight a few interrelated terms you’re likely to run across:</p>
-<ul>
-<li><strong>Command Line</strong> — the most general term, an interface where you type commands</li>
-<li><strong>Terminal</strong> — the program/app/window that can run a Unix shell</li>
-<li><strong>Shell</strong> — a command line interface to your computer</li>
-<li><strong>Unix Shell</strong> — the types of shells on Unix family (Linux + Mac) computers</li>
-<li><strong>Bash</strong> — the specific Unix shell language that is most common on Unix computers</li>
-</ul>
-<p>While it might not fly for a computer science class, for day-to-day computing/bioinformatics, you’ll probably hear all these terms used somewhat interchangeably.</p>
-</div>
-</div>
 <p><br></p>
 </section>
 </section>
-<section id="recap-of-the-basics" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="recap-of-the-basics"><span class="header-section-number">2</span> Recap of the basics</h2>
-<section id="the-prompt" class="level3" data-number="2.1">
-<h3 data-number="2.1" class="anchored" data-anchor-id="the-prompt"><span class="header-section-number">2.1</span> The prompt</h3>
-<p>Inside your terminal, the “prompt” indicates that the shell is ready for a command. What is shown exactly varies a bit across shells and can also be customized, but our prompts at OSC should show the following:</p>
-<pre class="bash-in-nocolor"><code>[&lt;username&gt;@&lt;node-name&gt; &lt;working-dir&gt;]$</code></pre>
+<section id="recap-of-the-basics" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="recap-of-the-basics"><span class="header-section-number">1</span> Recap of the basics</h2>
+<section id="the-prompt" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="the-prompt"><span class="header-section-number">1.1</span> The prompt</h3>
+<p>Inside your terminal, the “prompt” indicates that the shell is ready for a command. What is shown exactly varies across shells and can also be customized, but our prompts at OSC should show the following information:</p>
+<p><code>&lt;username&gt;@&lt;node-name&gt; &lt;working-dir&gt;]$</code></p>
 <p>For example:</p>
 <pre class="bash-in-nocolor"><code>[jelmer@p0080 jelmer]$ </code></pre>
 <p>We type our commands after the dollar sign, and then press <kbd>Enter</kbd> to execute the command. When the command has finished executing, we’ll get our prompt back and can type a new command.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-How shell code is shown on this website
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li><p>The gray boxes like the ones shown above will be used to show the command line expressions that you should type.</p></li>
-<li><p>In upcoming boxes, the prompt itself (<code>[...]$</code>) will not be shown, but only the command line expressions that you type. This is to save space and to allow you for copy-and-pasting (but I recommend typing!).</p></li>
-<li><p>Paler gray boxes (below the boxes with command have &amp; with italic text) show the <em>output</em> of commands.</p></li>
-</ul>
-</div>
-</div>
-<p><br></p>
+<hr style="height:1pt; visibility:hidden;">
 </section>
-<section id="a-few-simple-commands-date-whoami-pwd" class="level3" data-number="2.2">
-<h3 data-number="2.2" class="anchored" data-anchor-id="a-few-simple-commands-date-whoami-pwd"><span class="header-section-number">2.2</span> A few simple commands: <code>date</code>, <code>whoami</code>, <code>pwd</code></h3>
-<p>The Unix shell comes with hundreds of “commands”: small programs that perform specific actions. If you’re familiar with R or Python, a Unix command is like an R/Python function.</p>
+<section id="a-few-simple-commands-date-whoami-pwd" class="level3" data-number="1.2">
+<h3 data-number="1.2" class="anchored" data-anchor-id="a-few-simple-commands-date-whoami-pwd"><span class="header-section-number">1.2</span> A few simple commands: <code>date</code>, <code>whoami</code>, <code>pwd</code></h3>
+<p>The Unix shell comes with hundreds of “commands”: small programs that perform specific actions. If you’re familiar with R or Python, a Unix <em>command</em> is like an R/Python <em>function</em>.</p>
 <p>Let’s start with a few simple commands:</p>
 <ul>
 <li>The <code>date</code> command prints the current date and time:</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>Fri Jan 26 14:31:51 EST 2024</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>Wed Feb 7 09:11:51 EST 2024</code></pre>
 <ul>
 <li>The <code>whoami</code> (who-am-i) command prints your username:</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">whoami</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">whoami</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>jelmer</code></pre>
 <ul>
 <li>The <code>pwd</code> (Print Working Directory) command prints the path to the directory you are currently located in:</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>/fs/scratch/PAS2250/cabana/jelmer</code></pre>
 <p>All 3 of those commands provided us with some output. That output was <strong>printed to screen</strong>, which is the default behavior for nearly every Unix command.</p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -394,13 +413,13 @@ How shell code is shown on this website
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Working directory and paths
+Working directory and paths (we’ll talk more about paths later)
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>When working in a Unix shell, you are always “in” a specific directory and this is called your <strong>working directory</strong>.</li>
-<li>In a <strong>path</strong> (= location of a file or directory) such as that output by <code>pwd</code>, directories are separated by forward slashes <strong><code>/</code></strong>. (And a <em>leading</em> forward slash, if present, indicates the computer’s <em>root directory</em>.)</li>
+<li>When working in a Unix shell, you are always “in” a specific directory: your <strong>working directory</strong> (“working dir” for short).</li>
+<li>In a <strong>path</strong> (= location of a file or directory) such as that output by <code>pwd</code>, directories are separated by forward slashes <strong><code>/</code></strong>.</li>
 </ul>
 </div>
 </div>
@@ -410,20 +429,20 @@ Working directory and paths
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-General shell tips
+Case and spaces
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <ul>
 <li>Everything in the shell is <strong>case-sensitive</strong>, including commands and file names.</li>
-<li><strong>Avoid spaces</strong> in file and directory names! Use e.g.&nbsp;underscores or capitalization to distinguish words.</li>
+<li><strong>Avoid spaces</strong> in file and directory names!<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Use e.g.&nbsp;underscores to distinguish words (<code>my_long_filename</code>).</li>
 </ul>
 </div>
 </div>
 <p><br></p>
 </section>
-<section id="cd-and-command-actions-arguments" class="level3" data-number="2.3">
-<h3 data-number="2.3" class="anchored" data-anchor-id="cd-and-command-actions-arguments"><span class="header-section-number">2.3</span> <code>cd</code> and command actions &amp; arguments</h3>
+<section id="cd-and-command-actions-arguments" class="level3" data-number="1.3">
+<h3 data-number="1.3" class="anchored" data-anchor-id="cd-and-command-actions-arguments"><span class="header-section-number">1.3</span> <code>cd</code> and command actions &amp; arguments</h3>
 <p>In the above three command line expressions:</p>
 <ul>
 <li>We merely typed a command and nothing else</li>
@@ -431,9 +450,9 @@ General shell tips
 </ul>
 <p>But many commands perform an <strong>action</strong> other than providing information. For example, you can use the command <strong><code>cd</code></strong> to Change Directory (i.e.&nbsp;change your <em>working</em> dir). And like many commands that perform an action, <code>cd</code> normally has <strong>no output</strong> at all.</p>
 <p>Let’s use <code>cd</code> to move to another directory by specifying the <em>path</em> to that directory after the <code>cd</code> command:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2250/cabana/share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>/fs/scratch/PAS2250/cabana/share</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2250/cabana/bact</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>/fs/scratch/PAS2250/cabana/bact</code></pre>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -447,29 +466,29 @@ I will demonstrate “tab completion”!
 
 </div>
 </div>
-<p>In more abstract terms, what we did above was to provide <code>cd</code> with an <strong>argument</strong>, namely the path of the dir to move to. Arguments generally tell commands what file or directory to operate on.</p>
+<p>In more abstract terms, what we did above was to provide <code>cd</code> with an <strong>argument</strong>, namely the path of the dir to move to. Arguments generally tell commands what file(s) or directory/ies to operate on.</p>
 <p>As we’ve seen, then, <code>cd</code> gives no output when it succesfully changed the working directory. But let’s also see what happens when it does not succeed — it gives an error:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/Scratch/PAS2250</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>bash: cd: /fs/Scratch/PAS2250: No such file or directory</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/pas2250</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>bash: cd: /fs/scratch/pas2250: No such file or directory</code></pre>
 <details>
 <summary>
-<strong>Your Turn</strong>: What was the problem with the path we specified? <em>(Click to see the answer)</em>
+What was the problem with the path we specified? <em>(Click to see the answer)</em>
 </summary>
-<p>We used a capital S in <code>/Scratch/</code> — this should have been <code>/scratch/</code>.</p>
-<p>As pointed out above, paths (dir and file specifications) are <strong>case-sensitive</strong> on Unix systems!</p>
+<p>We used lowercase in <code>/pas2250/</code> — this should have been <code>/PAS2250/</code>.</p>
+<p>As pointed out above, everything, including paths, is <strong>case-sensitive</strong> in the Unix shell!</p>
 </details>
 <hr style="height:1pt; visibility:hidden;">
 </section>
-<section id="ls-and-command-options" class="level3" data-number="2.4">
-<h3 data-number="2.4" class="anchored" data-anchor-id="ls-and-command-options"><span class="header-section-number">2.4</span> <code>ls</code> and command <em>options</em></h3>
+<section id="ls-and-command-options" class="level3" data-number="1.4">
+<h3 data-number="1.4" class="anchored" data-anchor-id="ls-and-command-options"><span class="header-section-number">1.4</span> <code>ls</code> and command <em>options</em></h3>
 <section id="the-default-behavior-of-ls" class="level4">
 <h4 class="anchored" data-anchor-id="the-default-behavior-of-ls">The default behavior of <code>ls</code></h4>
 <p>The <code>ls</code> command, short for “list”, will list files and directories:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>data  README.md</code></pre>
-<p><em>(You should still be in <code>/fs/scratch/PAS2250/cabana/share</code>. If not, <code>cd</code> there first.)</em></p>
+<p><em>(You should still be in <code>/fs/scratch/PAS2250/cabana/bact</code>. If not, <code>cd</code> there first.)</em></p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -478,9 +497,9 @@ Side note: <code>ls</code> output colors <em>(click to expand)</em>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Unfortunately, the <code>ls</code> output shown above does not show the different colors you should see in your shell — here are some of the most common ones:</p>
+<p>The <code>ls</code> output above does not show the different colors you should see in your shell — the most common ones are:</p>
 <ul>
 <li>Entries in <span style="color: #0328fc">blue</span> are directories (like <code>data</code> and <code>metadata</code> above)</li>
 <li>Entries in black are regular files (like <code>README.md</code> above)</li>
@@ -489,149 +508,178 @@ Side note: <code>ls</code> output colors <em>(click to expand)</em>
 </div>
 </div>
 </div>
-<p>This default way that <code>ls</code> shows the output can be changed by providing <code>ls</code> with <strong>options</strong>.</p>
+<p>By default, <code>ls</code> will list files and dirs in your current working dir, and in the way shown above. <em>For which dir</em> <code>ls</code> lists files and dirs can be changed with <strong>arguments</strong>, and <em>how</em> <code>ls</code> shows the output can be changed with <strong>options</strong>.</p>
 </section>
-<section id="options-to-ls" class="level4">
-<h4 class="anchored" data-anchor-id="options-to-ls">Options (to <code>ls</code>)</h4>
+<section id="intermezzo-cat-and-a-quick-intro-to-the-data" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="intermezzo-cat-and-a-quick-intro-to-the-data">Intermezzo: <code>cat</code> and a quick intro to the data</h4>
+<p>To find out what data is contained in this dir, let’s take a look at the <code>README.md</code> file.</p>
+<p>There are several commands to view the contents of files — the simplest is <code>cat</code>, which will print the entire contents of a file to screen:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> README.md</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code># README for /fs/scratch/PAS2250/cabana/bact
+
+This directory contains:
+
+- Illumina FASTQ files for 16 _Pseudomonas syringae pv. syringae_ samples (`data/fastq`)
+- 10 _Pseudomonas_ genome assemblies downloaded from NCBI (`data/ref`)
+- Metadata on both the focal samples and the downloaded genomes (`data/meta`)</code></pre>
+<p>This is the dataset we will work with (mostly) tomorrow for our bacterial whole-genome analysis sessions.</p>
+</section>
+<hr style="height:1pt; visibility:hidden;">
+<section id="options" class="level4">
+<h4 class="anchored" data-anchor-id="options">Options</h4>
 <p>In general, whereas arguments tell a command <em>what to operate on</em>, options will <em>modify its behavior</em>. For example, we can call <code>ls</code> with the <strong>option <code>-l</code></strong> (a dash followed by a lowercase L):</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>total 17
-drwxr-xr-x 5 jelmer PAS0471 4096 Jan 21 12:39 data
--rw-r--r-- 1 jelmer PAS0471 1502 Jan 22 11:04 README.md</code></pre>
-<p>Notice that it lists the same items as our first <code>ls</code> call above, but <strong>printed in a different format</strong>: one item per line, with additional information included, such as the date and time each file was last modified, and the file sizes in bytes (to the left of the date).</p>
-<p>Let’s add another option, <code>-h</code>:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+drwxr-xr-x 5 jelmer PAS2250 4096 Feb  4 11:46 data
+-rw-r--r-- 1 jelmer PAS2250  318 Feb  6 08:57 README.md</code></pre>
+<p>Notice that it lists the same items as above, but <strong>printed in a different format</strong>: one item per line, with additional information such as the date and time each file was last modified, and file sizes in bytes (to the left of the date).</p>
+<p>Let’s add another option, <strong><code>-h</code></strong>:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>total 17K
-drwxr-xr-x 5 jelmer PAS0471 4.0K Jan 21 12:39 data
--rw-r--r-- 1 jelmer PAS0471 1.5K Jan 22 11:04 README.md</code></pre>
+drwxr-xr-x 5 jelmer PAS2250 4.0K Feb  4 11:46 data
+-rw-r--r-- 1 jelmer PAS2250  318 Feb  6 08:57 README.md</code></pre>
 <details>
 <summary>
-<strong>Your Turn</strong>: What is different about the output, and what do you think that means? <em>(Click to see the answer)</em>
+What is different about the output, and what do you think that means? <em>(Click to see the answer)</em>
 </summary>
 <p>The only difference is in the format of the column reporting the sizes of the items listed.</p>
 <p>We now have “Human-readable filesizes” (hence <code>-h</code>), where sizes on the scale of kilobytes will be shown with <code>K</code>s, of megabytes with <code>M</code>s, and of gigabytes with <code>G</code>s. That can be really useful especially for very large files.</p>
 </details>
-<p>Conveniently, options can be pasted together as follows:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Conveniently, options can be <strong>“pasted together”</strong> as follows:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr style="height:1pt; visibility:hidden;">
+</section>
+<section id="arguments" class="level4">
+<h4 class="anchored" data-anchor-id="arguments">Arguments</h4>
+<p>Arguments to <code>ls</code> should be <strong>dirs or files to operate on</strong>. For example, if we wanted to see what’s inside the <code>data</code> dir, instead of inside our working dir, we could type<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>fastq  meta  ref</code></pre>
+<p>The <code>data</code> dir appears to contain three (sub)dirs with different kinds of data. We’ll talk in detail about that later, but for now let’s look inside the <code>fastq</code> dir:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data/fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>SM04_R1.fastq.gz    SM1031_R1.fastq.gz  SM1042_R1.fastq.gz  SM155_R1.fastq.gz  SM181_R1.fastq.gz  SM191_R1.fastq.gz  SM207_R1.fastq.gz  SM51_R1.fastq.gz
+SM04_R2.fastq.gz    SM1031_R2.fastq.gz  SM1042_R2.fastq.gz  SM155_R2.fastq.gz  SM181_R2.fastq.gz  SM191_R2.fastq.gz  SM207_R2.fastq.gz  SM51_R2.fastq.gz
+SM1030_R1.fastq.gz  SM1038_R1.fastq.gz  SM109_R1.fastq.gz   SM156_R1.fastq.gz  SM190_R1.fastq.gz  SM205_R1.fastq.gz  SM226_R1.fastq.gz  SM914_R1.fastq.gz
+SM1030_R2.fastq.gz  SM1038_R2.fastq.gz  SM109_R2.fastq.gz   SM156_R2.fastq.gz  SM190_R2.fastq.gz  SM205_R2.fastq.gz  SM226_R2.fastq.gz  SM914_R2.fastq.gz</code></pre>
+<p>Ah, FASTQ files! These contain our sequence data, and we’ll go and explore them in a bit.</p>
+<hr style="height:1pt; visibility:hidden;">
 </section>
 <section id="combining-options-and-arguments" class="level4">
 <h4 class="anchored" data-anchor-id="combining-options-and-arguments">Combining options and arguments</h4>
-<p>Arguments to <code>ls</code> should be <strong>dirs or files to operate on</strong>. For example, if we wanted to see what’s inside the <code>data</code> dir, instead of inside our working dir, we could type:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>fastq  meta  ref</code></pre>
-<p>The <code>data</code> dir appears to contain three (sub)dirs with different kinds of data. We’ll talk in detail about that later, but for now let’s look inside the <code>fastq</code> dir:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data/fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>ERR10802863_R1.fastq.gz  ERR10802865_R2.fastq.gz  ERR10802868_R1.fastq.gz  ERR10802870_R2.fastq.gz  ERR10802875_R1.fastq.gz  ERR10802877_R2.fastq.gz  ERR10802880_R1.fastq.gz  ERR10802882_R2.fastq.gz  ERR10802885_R1.fastq.gz
-ERR10802863_R2.fastq.gz  ERR10802866_R1.fastq.gz  ERR10802868_R2.fastq.gz  ERR10802871_R1.fastq.gz  ERR10802875_R2.fastq.gz  ERR10802878_R1.fastq.gz  ERR10802880_R2.fastq.gz  ERR10802883_R1.fastq.gz  ERR10802885_R2.fastq.gz
-ERR10802864_R1.fastq.gz  ERR10802866_R2.fastq.gz  ERR10802869_R1.fastq.gz  ERR10802871_R2.fastq.gz  ERR10802876_R1.fastq.gz  ERR10802878_R2.fastq.gz  ERR10802881_R1.fastq.gz  ERR10802883_R2.fastq.gz  ERR10802886_R1.fastq.gz
-ERR10802864_R2.fastq.gz  ERR10802867_R1.fastq.gz  ERR10802869_R2.fastq.gz  ERR10802874_R1.fastq.gz  ERR10802876_R2.fastq.gz  ERR10802879_R1.fastq.gz  ERR10802881_R2.fastq.gz  ERR10802884_R1.fastq.gz  ERR10802886_R2.fastq.gz
-ERR10802865_R1.fastq.gz  ERR10802867_R2.fastq.gz  ERR10802870_R1.fastq.gz  ERR10802874_R2.fastq.gz  ERR10802877_R1.fastq.gz  ERR10802879_R2.fastq.gz  ERR10802882_R1.fastq.gz  ERR10802884_R2.fastq.gz</code></pre>
-<p>Ah, FASTQ files! These contain our sequence data, and we’ll go and explore them in a bit.</p>
-<p>Finally, we can <strong>combine options and arguments</strong>, and let’s do so take a closer look at our dir with FASTQ files — now the <code>-h</code> option is especially useful and allows us see that the FASTQ files are 21-22 Mb in size:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>total 941M
--rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:34 ERR10802863_R1.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802863_R2.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:34 ERR10802864_R1.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802864_R2.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802865_R1.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802865_R2.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:34 ERR10802866_R1.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802866_R2.fastq.gz
-[...output truncated...]</code></pre>
-<details>
-<summary>
-<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn</strong>: List the files in the <code>data/ref</code> dir. What are the file sizes? <em>(Click for the solution)</em>
-</summary>
-<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/ref</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>total 670M
--rw-r--r-- 1 jelmer PAS0471 547M Jan 20 22:34 GCF_016801865.2.fna
--rw-r--r-- 1 jelmer PAS0471 123M Jan 20 22:34 GCF_016801865.2.gtf</code></pre>
-<p>The <code>.fna</code> file (this is the genome assembly nucleotide FASTA file) is 547 Mb (not bases but bytes!), and the <code>.gtf</code> file (this is the annotation file) is 123 Mb.</p>
-</details>
+<p>We’ll combine options and arguments to take a closer look at our dir with FASTQ files — now the <strong><code>-h</code></strong> option is especially useful and allows us to see that the FASTQ files are roughly around 200 Mb in size:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>total 6.1G
+-rw-r--r-- 1 jelmer PAS2250 205M Feb  4 11:47 SM04_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 242M Feb  4 11:46 SM04_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 188M Feb  4 11:46 SM1030_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 221M Feb  4 11:46 SM1030_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 187M Feb  4 11:46 SM1031_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 221M Feb  4 11:46 SM1031_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 187M Feb  4 11:46 SM1038_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 224M Feb  4 11:46 SM1038_R2.fastq.gz
+# [...output truncated...]</code></pre>
 <hr style="height:1pt; visibility:hidden;">
 </section>
+<section id="exercise-listing-files" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="exercise-listing-files"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Exercise</strong>: Listing files</h4>
+<p>List the files in the <code>data/ref</code> dir:</p>
+<ul>
+<li>What are the file sizes?</li>
+<li>Do you know what kind of files these are?</li>
+</ul>
+<details>
+<summary>
+<em>Click for the solution</em>
+</summary>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/ref</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>total 60M
+-rw-r--r-- 1 jelmer PAS2250 6.4M Feb  4 11:46 GCA_000007805.fna
+-rw-r--r-- 1 jelmer PAS2250 6.0M Feb  4 11:46 GCA_000012205.fna
+-rw-r--r-- 1 jelmer PAS2250 5.9M Feb  4 11:46 GCA_000012245.fna
+-rw-r--r-- 1 jelmer PAS2250 5.7M Feb  4 11:46 GCA_000145825.fna
+-rw-r--r-- 1 jelmer PAS2250 5.6M Feb  4 11:46 GCA_000156995.fna
+-rw-r--r-- 1 jelmer PAS2250 5.8M Feb  4 11:46 GCA_000988395.fna
+-rw-r--r-- 1 jelmer PAS2250 5.9M Feb  4 11:46 GCA_000988485.fna
+-rw-r--r-- 1 jelmer PAS2250 6.5M Feb  4 11:46 GCA_002763655.fna
+-rw-r--r-- 1 jelmer PAS2250 6.1M Feb  4 11:46 GCA_018603495.fna
+-rw-r--r-- 1 jelmer PAS2250 6.0M Feb  4 11:46 GCA_023277945.fna</code></pre>
+<ul>
+<li><p>The files are round 5-6 Mb in size.</p></li>
+<li><p>These are FASTA files with nucleotide sequences (hence the extension <code>.fna</code>).</p>
+<p>(More specifically, they are genome assembly sequences downloaded from NCBI: the <code>GCA_</code> prefix indicates that they are from NCBI’s GenBank.)</p></li>
+</ul>
+</details>
 </section>
-<section id="a-few-more-general-shell-tips" class="level3" data-number="2.5">
-<h3 data-number="2.5" class="anchored" data-anchor-id="a-few-more-general-shell-tips"><span class="header-section-number">2.5</span> A few more general shell tips</h3>
-<ul>
-<li><p><strong>Command history:</strong> If you hit the <kbd>⇧</kbd> (up arrow) once, you’ll retrieve your most recent command, and if you keep hitting it, you’ll go further back. The<kbd>⇩</kbd> (down arrow) will go the other way: towards the present.</p></li>
-<li><p>Your cursor can be anywhere on a line (not just at the end) when you press <kbd>Enter</kbd> to execute a command!</p></li>
-<li><p>If your <strong>prompt is missing</strong>, the shell is either still busy executing your command, or you typed an incomplete command. To abort in either of these two scenarios, press <kbd>Ctrl</kbd>+<kbd>C</kbd> and you’ll get your prompt back.</p></li>
-<li><p>Anything that comes after a <code>#</code> is considered a comment instead of code!</p></li>
-</ul>
-<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This entire line is a comment - you can run it and nothing will happen</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span>    <span class="co"># 'pwd' will be executed but everything after the '#' is ignored</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>/fs/scratch/PAS2250/cabana/jelmer</code></pre>
 <hr style="height:1pt; visibility:hidden;">
-<details>
-<summary>
-<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn</strong>: Move into your personal directory, and then back into the <code>share</code> dir <em>(Click for the solution)</em>
-</summary>
-<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2250/cabana/jelmer</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2250/cabana/share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<details>
-<summary>
-<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn</strong>: Use the command history (arrows) to repeat the previous exercise without typing anything.
-</summary>
-</details>
-<hr style="height:1pt; visibility:hidden;">
-<details>
-<summary>
-<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn (Bonus)</strong>: Two periods <code>..</code> means the directory “one level up” (towards the computer’s root dir): running <code>cd ..</code> will move you one dir level up. Try to make use of this move into your personal dir and back to <code>share</code> again, instead of using the “full paths” like above. <em>(Click for the solution)</em>
-</summary>
-<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../jelmer</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>A little more detail about this, for those that are interested:</p>
+</section>
+<section id="miscellaneous-tips" class="level3" data-number="1.5">
+<h3 data-number="1.5" class="anchored" data-anchor-id="miscellaneous-tips"><span class="header-section-number">1.5</span> Miscellaneous tips</h3>
 <ul>
-<li><p>Paths that start with a <code>/</code>, i.e.&nbsp;paths that start from the computer’s root directory, are called “absolute” or “full paths” (you can think of them as GPS coordinates, they work regardless of where you are located).</p></li>
-<li><p>Paths that do not start with <code>/</code> (are always supposed to) start from your current working directory and are called “relative paths”. We’ve used them above with <code>ls data</code> and <code>ls data/fastq</code>. The <code>..</code>, then, is a mechanism to go “up” in the dir hierarchy when using a relative path! They work more like directions along the lines of “take the second left” in the sense that they depend on your current location.</p></li>
+<li><p><strong>Command history:</strong> If you hit the <strong><kbd>⇧</kbd></strong> (up arrow) once, you’ll retrieve your most recent command, and if you keep hitting it, you’ll go further back. The <strong><kbd>⇩</kbd></strong> (down arrow) will go the other way: towards the present.</p></li>
+<li><p>Your <strong>cursor</strong> can be anywhere on a line (not just at the end) when you press <kbd>Enter</kbd> to execute a command!</p></li>
+<li><p>Any text that comes after a <strong><code>#</code></strong> is considered a <strong>comment</strong> instead of code!</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This entire line is a comment - you can run it and nothing will happen</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span>    <span class="co"># 'pwd' will be executed but everything after the '#' is ignored</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>/fs/scratch/PAS2250/cabana/bact</code></pre></li>
 </ul>
-</details>
+<hr style="height:1pt; visibility:hidden;">
+<ul>
+<li><p>If your <strong>prompt is “missing”</strong>, the shell is still busy executing your command, <em>or</em> you typed an incomplete command. To abort in either of these scenarios, press <strong><kbd>Ctrl</kbd>+<kbd>C</kbd></strong> and you will get your prompt back.</p>
+<p>To simulate a long-running command that we may want to abort, we can use the <code>sleep</code> command, which will make the computer wait for a specified amount of time until giving your prompt back. Run the below command and instead of waiting for the full 60 seconds, press <kbd>Ctrl</kbd> + <kbd>C</kbd> to get your prompt back sooner!</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 60s</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Or, use <kbd>Ctrl</kbd> + <kbd>C</kbd> after running this example of an incomplete command (an opening parenthesis <code>(</code>):</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul>
+<hr style="height:1pt; visibility:hidden;">
+<section id="exercise-changing-dirs" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="exercise-changing-dirs"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Exercise</strong>: Changing dirs</h4>
+<p><strong>A)</strong> Move into your personal dir in <code>/fs/scratch/PAS2250/cabana</code>, and then back into the <code>bact</code> dir.</p>
 <details>
 <summary>
-<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn (Bonus)</strong>: Practice aborting commands (<em>Click for the instructions</em>)
+<em>(Click for the solution)</em>
 </summary>
-<p>To simulate a long-running command that we may want to abort, we can use the <code>sleep</code> command, which will make the computer wait for a specified amount of time until giving your prompt back:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 60s</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Run that command and instead of waiting for the full 60 seconds, press <kbd>Ctrl</kbd> + <kbd>C</kbd> to get your prompt back sooner!</p>
-<p>Or, an example of an incomplete command (an opening parenthesis <code>(</code>):</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Run the code above, see what happens, and press <kbd>Ctrl</kbd> + <kbd>C</kbd> to get your prompt back.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2250/cabana/jelmer</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2250/cabana/bact</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<p><strong>B)</strong> Use the command history (up arrow) to repeat the previous exercise without retyping your commands.</p>
+</section>
 <p><br></p>
 </section>
-<section id="paths" class="level3" data-number="2.6">
-<h3 data-number="2.6" class="anchored" data-anchor-id="paths"><span class="header-section-number">2.6</span> Paths</h3>
-<p>“Paths” specify the locations of files or dirs on a computer, and there are two distinct ways of specifying them:</p>
+</section>
+<section id="more-key-commands-and-concepts" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="more-key-commands-and-concepts"><span class="header-section-number">2</span> More key commands and concepts</h2>
+<section id="paths" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="paths"><span class="header-section-number">2.1</span> Paths</h3>
+<section id="absolute-full-paths-versus-relative-paths" class="level4">
+<h4 class="anchored" data-anchor-id="absolute-full-paths-versus-relative-paths">Absolute (full) paths versus relative paths</h4>
 <ul>
-<li><p><strong>Absolute (full) paths</strong><br>
-These always start from the root directory of the computer, which is represented by a <em><strong>leading <code>/</code></strong></em>, such as in <code>/fs/scratch/PAS2250/</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p></li>
-<li><p><strong>Relative paths</strong><br>
-These start from your current working directory. When we typed <code>ls data</code> earlier, we indicated that we wanted to show the contents of the <code>data</code> directory located inside our current working directory<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p></li>
+<li><p>Paths with a <strong>leading <code>/</code></strong> begin from the computer’s root directory, and are called “absolute” or “full paths”.<br>
+<em>(They are equivalent to GPS coordinates for a geographical location,</em> <em>as they work regardless of where you are</em>).</p></li>
+<li><p>Paths without a leading <strong><code>/</code></strong> begin from your current working directory, and are called “relative paths”.<br>
+<em>(These work like directions along the lines of “take the second left:”</em> <em>they depend on your current location.)</em></p></li>
 </ul>
-<p>There are a couple of “shortcuts” available for relative paths:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Move into the 'cabana' dir with an absolute path:</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/ess/PAS2250/cabana</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Then, move into the 'share' dir with a relative path:</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> bact                   <span class="co"># Absolute path is /fs/ess/PAS2250/cabana/bact</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="path-shortcuts" class="level4">
+<h4 class="anchored" data-anchor-id="path-shortcuts">Path shortcuts</h4>
 <ul>
+<li><p><strong><code>~</code></strong> (a tilde)<br>
+This is a shortcut for your Home directory — for example, <code>cd ~</code> would move you to your Home dir.</p></li>
 <li><p><strong><code>.</code></strong> (a single period)<br>
-This is another way of representing the current working directory. Therefore, for instance, <code>ls ./data</code> is functionally the same as <code>ls data</code>.</p></li>
+This is a shortcut representing the current working directory. Therefore, <code>ls ./data</code> is functionally the same as <code>ls data</code>.</p></li>
 <li><p><strong><code>..</code></strong> (two periods)<br>
-This means one level up in the directory hierarchy, with “up” meaning towards the root directory.</p></li>
+This means the directory “one level up” (towards the computer’s root dir). Use <code>..</code> to go up in the dir hierarchy in a relative path:</p></li>
 </ul>
-<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ..               <span class="co"># One level up, listing /fs/ess/PAS0471/demo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>202307_rnaseq</code></pre>
-<p>This pattern can be continued all the way to the root of the computer, so <code>../..</code> would list files two levels up:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ../..            <span class="co"># Two levels up, listing /fs/ess/PAS0471</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>aarevalo       conroy      frederico       Nisha     osu8947              ross
-acl            containers  hsiangyin       osu10028  osu9207              Saranga
-Almond_Genome  danraywill  jelmer          osu10436  osu9207_Lubell_bkup  Shonna
-amine1         data        jelmer_osu5685  osu5685   osu9390              SLocke
-ap_soumya      demo        jlhartman       osu6702   osu9453              sochina
-audreyduff     dhanashree  linda           osu8107   osu9657
-bahodge11      edwin       Maggie          osu8468   pipeline
-calconey       ferdinand   mcic-scripts    osu8548   poonam
-camila         Fiama       Menuka          osu8618   raees
-Cecilia        Flye        nghi            osu8900   rawalranjana44</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ..               <span class="co"># One level up, listing /fs/scratch/PAS2250/cabana</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>bact          databases  jelmer       mizarra       software
+bact_results  homework   jelmer_prep  Phytophthora
+# (Note: you will see more dirs than this!)</code></pre>
+<p>This pattern can be continued all the way to the root of the computer, so <code>../..</code> means two levels up:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ../..            <span class="co"># Two levels up, listing /fs/scratch/PAS2250/cabana</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>cabana  ENT6703</code></pre>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -642,35 +690,403 @@ These shortcuts work with all commands
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>All of the above shortcuts are <em>general shell shortcuts</em> that work with <strong>any</strong> command that takes a path.</p>
-<p>Also: <strong><code>~</code></strong> represents your Home directory, so <code>cd ~</code> would move there and <code>ls ~</code> would list the files there.</p>
+<p>All of the above shortcuts (<code>.</code>, <code>..</code>, <code>~</code>) are <em>general shell shortcuts</em> that work with <strong>any</strong> command that accepts a path/file name.</p>
 </div>
 </div>
+<hr style="height:1pt; visibility:hidden;">
+</section>
+<section id="exercise-path-shortcuts" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="exercise-path-shortcuts"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Path shortcuts</h4>
+<ul>
+<li><strong>A)</strong> Use <em>relative paths</em> with <code>..</code> to move into your personal dir and back to <code>bact</code> once again.</li>
+</ul>
+<details>
+<summary>
+<em>(Click for the solution)</em>
+</summary>
+<div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../jelmer</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../bact</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<ul>
+<li><strong>B)</strong> List the files in your Home dir without moving there.</li>
+</ul>
+<details>
+<summary>
+<em>(Click for the solution)</em>
+</summary>
+<div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ~</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</section>
+<hr style="height:1pt; visibility:hidden;">
+</section>
+<section id="environment-variables" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="environment-variables"><span class="header-section-number">2.2</span> Environment variables</h3>
+<p>You are likely familiar with the concept of variables in either the Unix shell, R, or another language.</p>
+<ul>
+<li>Assigning and printing the value of a variable <strong>in R</strong>:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (Don't run this)</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre class="styled-output"><code>[1] 5</code></pre>
+</div>
+</div>
+<ul>
+<li>Assigning and printing the value of a variable <strong>in the Unix shell</strong>:</li>
+</ul>
+<div class="sourceCode" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="va">x</span><span class="op">=</span>5</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$x</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>5</code></pre>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+In the Unix shell code above, note that:
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>There cannot be any <strong>spaces</strong> around the <strong><code>=</code></strong> in <code>x=5</code>.</li>
+<li>You need the <strong><code>echo</code></strong> command, a general command to print text, to print the value of <code>$x</code> (cf.&nbsp;in R).</li>
+<li>You need a <strong><code>$</code> prefix</strong> to <em>reference</em> (but not to <em>assign</em>) variables in the shell<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</li>
+</ul>
+</div>
+</div>
+<p><strong>Environment variables</strong> are pre-existing variables that have been assigned values automatically. Two examples:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># $HOME contains the path to your Home dir:</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$HOME</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>/users/PAS0471/jelmer</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># $USER contains your user name:</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$USER</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>jelmer</code></pre>
+<section id="exercise-environment-variables" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="exercise-environment-variables"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Exercise</strong>: environment variables</h4>
+<p><strong>A)</strong> Use the environment variable <code>$USER</code> to list the contents of your personal dir in <code>/fs/ess/PAS2250/cabana</code>. What do you expect to see printed?</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+If you get an error, make sure to check the solution!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+<details>
+<summary>
+<em>Click to see the solution</em>
+</summary>
+<div class="sourceCode" id="cb50"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /fs/ess/PAS2250/cabana/<span class="va">$USER</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code> </code></pre>
+<p>You should not get any output, since you didn’t create or copy any files into your personal dir yet.</p>
+<p><strong>However</strong>, if you get an error along these lines…</p>
+<pre class="bash-out"><code>bash: cd: /fs/ess/PAS2250/cabana/jelmer: No such file or directory</code></pre>
+<p>…then the dir you created earlier in the OnDemand’s Files menu does not (exactly) match your user name!</p>
+<p>You can try to rename the folder with the <code>mv</code> command or do so in VS Code’s file explorer on the left-hand side. Alternatively, you can just (also) create the correct dir as follows:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /fs/ess/PAS2250/cabana/<span class="va">$USER</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>And then you can optionally find and remove your other, misnamed dir (you can remove it in the OnDemand File Browser or with the <code>rmdir</code> command).</p>
+</details>
+<hr style="height:1pt; visibility:hidden;">
+<p><strong>B)</strong> Print “Hello there &lt;your username&gt;” (e.g.&nbsp;“Hello there marcus”) to the screen:</p>
+<details>
+<summary>
+<em>Click to see the solution</em>
+</summary>
+<div class="sourceCode" id="cb54"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (This would also work without the " " quotes)</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Hello there </span><span class="va">$USER</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>Hello there jelmer</code></pre>
+</details>
+</section>
+<hr style="height:1pt; visibility:hidden;">
+</section>
+<section id="create-dirs-with-mkdir" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="create-dirs-with-mkdir"><span class="header-section-number">2.3</span> Create dirs with <code>mkdir</code></h3>
+<p>The <code>mkdir</code> command creates new directories. For example, to create a <code>bact</code> dir in your personal dir (for tomorrow’s bacterial whole-genome analyses):</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2250/cabana/<span class="va">$USER</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> bact</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Or two directories at once:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> bact/scripts bact/workflow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s check what we did:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>bact</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> bact</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>scripts workflow</code></pre>
+<p>Or get a nice overview with the <code>tree</code> command:</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tree</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>.
+└── bact
+    ├── scripts
+    └── workflow
+
+3 directories, 0 files</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Side note: Recursive <code>mkdir</code> <em>(Click to expand)</em>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>By default, <code>mkdir</code> does not work recursively: that is, it will refuse to make a dir <em>inside</em> a dir that does not yet exist. And if you try to do so, the resulting error might confuse you:</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> bact/sandbox/20240207</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>mkdir: cannot create directory ‘bact/sandbox/20240207’: No such file or directory</code></pre>
+<blockquote class="blockquote">
+<p><em>Why won’t you do your job, <code>mkdir</code>!?</em> 😡</p>
+</blockquote>
+<p>Instead, we need to use the <code>-p</code> option to <code>mkdir</code>:</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> bact/sandbox/20240207</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>-p</code> option also changes <code>mkdir</code>’s behavior when you try to create a dir that already exists. Without <code>-p</code> that will result in an error, and with <code>-p</code> it doesn’t complain about that (and it won’t recreate/overwrite the dir either).</p>
+</div>
+</div>
+</div>
+<hr style="height:1pt; visibility:hidden;">
+</section>
+<section id="copy-files-and-dirs-with-cp" class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="copy-files-and-dirs-with-cp"><span class="header-section-number">2.4</span> Copy files and dirs with <code>cp</code></h3>
+<p>Above, you created your own directory — now, let’s get you a copy of the data we saw in the <code>bact</code> dir.</p>
+<p>The <code>cp</code> command copies files and/or directories from one location to another. It has <strong>two required arguments</strong>: what you want to copy (the <em>source</em>), and where you want to copy it to (the <em>destination</em>). So, we can summarize its basic syntax as <strong><code>cp &lt;source&gt; &lt;destination&gt;</code></strong>.</p>
+<p><strong><code>cp</code> is not recursive by default</strong>, so if you want to copy a directory and all of its contents, we need to use its <strong><code>-r</code></strong> option We’ll use that option to copy the dir with FASTQ files:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-rv</span> ../bact bact</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>‘../bact’ -&gt; ‘bact’
+‘../bact/README.md’ -&gt; ‘bact/README.md’
+‘../bact/data’ -&gt; ‘bact/data’
+‘../bact/data/meta’ -&gt; ‘bact/data/meta’
+‘../bact/data/meta/ncbi_asm_metadata.tsv’ -&gt; ‘bact/data/meta/ncbi_asm_metadata.tsv’
+‘../bact/data/meta/metadata.tsv’ -&gt; ‘bact/data/meta/metadata.tsv’
+‘../bact/data/ref’ -&gt; ‘bact/data/ref’
+‘../bact/data/ref/GCA_000145825.fna’ -&gt; ‘bact/data/ref/GCA_000145825.fna’
+‘../bact/data/ref/GCA_000156995.fna’ -&gt; ‘bact/data/ref/GCA_000156995.fna’
+# [...output truncated...]</code></pre>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Many bioinformatics programs are basically specialized commands
+We also used the <strong><code>-v</code> option</strong>, short for <strong>v</strong>erbose, to make <code>cp</code> tell us what it did
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In many ways, you can think of using a command-line bioinformatics program as using just another command. Therefore, our general skills with Unix commands will very much extend to using command-line bioinformatics tools!</p>
+
 </div>
 </div>
-<p><br></p>
-
-
+<p>Let’s get an overview with <code>tree</code> again:</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tree</span> <span class="at">-C</span>                 <span class="co"># '-C' for colors</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/tree_command_output.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:38.0%"></p>
+</figure>
+</div>
+<hr style="height:1pt; visibility:hidden;">
 </section>
+<section id="globbing-with-shell-wildcard-expansion" class="level3" data-number="2.5">
+<h3 data-number="2.5" class="anchored" data-anchor-id="globbing-with-shell-wildcard-expansion"><span class="header-section-number">2.5</span> Globbing with shell wildcard expansion</h3>
+<p>Shell wildcard expansion is a very useful technique to <strong>select files</strong>. Selecting files with wildcard expansion is called <em>globbing</em>. <em>Wildcards</em> are symbols that have a special meaning.</p>
+<p><strong>In globbing, the <code>*</code> wildcard matches any number of any character, including nothing.</strong></p>
+<p>The example below will match any files that contain the string “_R1”:</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data/fastq/<span class="pp">*</span>_R1<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>data/fastq/SM04_R1.fastq.gz    data/fastq/SM1038_R1.fastq.gz  data/fastq/SM155_R1.fastq.gz  data/fastq/SM190_R1.fastq.gz  data/fastq/SM207_R1.fastq.gz  data/fastq/SM914_R1.fastq.gz
+data/fastq/SM1030_R1.fastq.gz  data/fastq/SM1042_R1.fastq.gz  data/fastq/SM156_R1.fastq.gz  data/fastq/SM191_R1.fastq.gz  data/fastq/SM226_R1.fastq.gz
+data/fastq/SM1031_R1.fastq.gz  data/fastq/SM109_R1.fastq.gz   data/fastq/SM181_R1.fastq.gz  data/fastq/SM205_R1.fastq.gz  data/fastq/SM51_R1.fastq.gz</code></pre>
+<p>Some more file matching examples with <code>*</code> — if you would be in your <code>data/fastq</code> dir, then:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Pattern</th>
+<th>Matches files whose names…</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>*</code></td>
+<td>Contain anything (matches all files) <a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></td>
+</tr>
+<tr class="even">
+<td><code>*fastq.gz</code></td>
+<td><strong>End in</strong> “.fastq.gz”</td>
+</tr>
+<tr class="odd">
+<td><code>SM1*</code></td>
+<td><strong>Start with</strong> “SM1”</td>
+</tr>
+<tr class="even">
+<td><code>*_R1*</code></td>
+<td><strong>Contain</strong> “_R1”</td>
+</tr>
+</tbody>
+</table>
+<hr style="height:1pt; visibility:hidden;">
+<section id="exercise-practice-with" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="exercise-practice-with"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Exercise</strong>: Practice with <code>*</code></h4>
+<p>What pattern would you use if you wanted to select FASTQ files for the 4 samples (8 files) whose IDs end in a <code>1</code> (e.g.&nbsp;<code>SM1031</code>)?</p>
+<details>
+<summary>
+<em>Click here for the solutions</em>
+</summary>
+<p>We’ll need a <code>*</code> on either side of our pattern, because the file names neither start not end with the pattern:</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data/fastq/<span class="pp">*</span>1_R<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>data/fastq/SM1031_R1.fastq.gz  data/fastq/SM181_R1.fastq.gz  data/fastq/SM191_R1.fastq.gz  data/fastq/SM51_R1.fastq.gz
+data/fastq/SM1031_R2.fastq.gz  data/fastq/SM181_R2.fastq.gz  data/fastq/SM191_R2.fastq.gz  data/fastq/SM51_R2.fastq.gz</code></pre>
+</details>
+</section>
+<hr style="height:1pt; visibility:hidden;">
+</section>
+<section id="for-loops" class="level3" data-number="2.6">
+<h3 data-number="2.6" class="anchored" data-anchor-id="for-loops"><span class="header-section-number">2.6</span> For loops</h3>
+<p>Loops are a universal element of programming languages, and are used to <strong>repeat operations</strong>. Here, we’ll only cover the most common type of loop: the <code>for</code> loop.</p>
+<p>A <code>for</code> loop <em>iterates</em> over a collection, such as a list of files, and allows you to perform one or more actions for each element in the collection. In the example below, our “collection” is just a short list of numbers (<code>1</code>, <code>2</code>, and <code>3</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a_number <span class="kw">in</span> 1 2 3<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"In this iteration of the loop, the number is </span><span class="va">$a_number</span><span class="st">"</span></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"--------"</span></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>In this iteration of the loop, the number is 1
+--------
+In this iteration of the loop, the number is 2
+--------
+In this iteration of the loop, the number is 3
+--------</code></pre>
+</div>
+</div>
+<p>The <strong>indented lines</strong> between <code>do</code> and <code>done</code> contain the code that is being executed <em>as many times as there are items in the collection</em>: in this case 3 times, as you can tell from the output above.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What was actually run under the hood is the following:
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb76"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (Don't run this)</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="va">a_number</span><span class="op">=</span>1</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"In this iteration of the loop, the number is </span><span class="va">$a_number</span><span class="st">"</span></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"--------"</span></span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a><span class="va">a_number</span><span class="op">=</span>2</span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"In this iteration of the loop, the number is </span><span class="va">$a_number</span><span class="st">"</span></span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"--------"</span></span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a><span class="va">a_number</span><span class="op">=</span>3</span>
+<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"In this iteration of the loop, the number is </span><span class="va">$a_number</span><span class="st">"</span></span>
+<span id="cb76-12"><a href="#cb76-12" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"--------"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<section id="combining-loops-and-globbing" class="level4">
+<h4 class="anchored" data-anchor-id="combining-loops-and-globbing">Combining loops and globbing</h4>
+<p>A very useful strategy is to loop over files with globbing, for example:</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fastq_file <span class="kw">in</span> data/fastq/<span class="pp">*</span>fastq.gz<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Running an analysis for file </span><span class="va">$fastq_file</span><span class="st">"</span>...</span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Additional commands to process the FASTQ file</span></span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>Running an analysis for file data/fastq/SM04_R1.fastq.gz...
+Running an analysis for file data/fastq/SM04_R2.fastq.gz...
+Running an analysis for file data/fastq/SM1030_R1.fastq.gz...
+Running an analysis for file data/fastq/SM1030_R2.fastq.gz...
+Running an analysis for file data/fastq/SM1031_R1.fastq.gz...
+#[...output truncated...]</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+A further explanation of <code>for</code> loop syntax <em>(Click to expand)</em>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>On the first and last, unindented lines, <code>for</code> loops contain the following mandatory keywords:</p>
+<table class="table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 80%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Keyword</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>for</code></td>
+<td>After <code>for</code>, we set the <strong>variable name</strong> (an arbitrary name; above we used <code>a_number</code>)</td>
+</tr>
+<tr class="even">
+<td><code>in</code></td>
+<td>After <code>in</code>, we specify the <strong>collection</strong> (list of items) we are looping over</td>
+</tr>
+<tr class="odd">
+<td><code>do</code></td>
+<td>After <code>do</code>, we have one ore more lines specifying what to do with each item</td>
+</tr>
+<tr class="even">
+<td><code>done</code></td>
+<td>Tells the shell we are done with the loop</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-a-simple-loop" class="level4 unnumbered exercise">
+<h4 class="unnumbered anchored" data-anchor-id="exercise-a-simple-loop"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Exercise</strong>: A simple loop</h4>
+<p>Create a loop that will print:</p>
+<pre class="bash-out"><code>morel is an Ohio mushroom  
+destroying_angel is an Ohio mushroom  
+eyelash_cup is an Ohio mushroom</code></pre>
+<details>
+<summary>
+Click for the solution
+</summary>
+<div class="sourceCode" id="cb80"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> mushroom <span class="kw">in</span> morel destroying_angel eyelash_cup<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"</span><span class="va">$mushroom</span><span class="st"> is an Ohio mushroom"</span></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>morel is an Ohio mushroom  
+destroying_angel is an Ohio mushroom  
+eyelash_cup is an Ohio mushroom</code></pre>
+</details>
+</section>
+<p><br></p>
+</section>
+</section>
+<section id="further-reading" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="further-reading">Further reading</h2>
+<p>See the following two reference pages on this website:</p>
+<ul>
+<li><a href="./ref_shell2.html">Continued introduction</a></li>
+<li><a href="./ref_shell.html">Overview of shell commands</a></li>
+</ul>
+
+
 </section>
 
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p> Absolute paths are like GPS coordinates to specify a geographic location on earth: they will provide location information regardless of where we are ourselves.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Relative paths are more like directions to a location that say things like “turn left” — these instructions depend on our current location.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Command-line Interface (CLI), as opposed to Graphical User Interface (GUI)<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>It’s certainly <em>possible</em> to have spaces in file names, but it’s a bad idea, and will get you into trouble sooner or later.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Beginners will often <code>cd</code> into a dir just to list its contents, but the method shown below is much quicker.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Anytime you see a word/string that starts with a <code>$</code> in the shell, you can safely assume that it is a variable.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>However, it will not match so-called “hidden files” whose names start with a <code>.</code>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

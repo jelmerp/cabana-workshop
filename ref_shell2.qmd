@@ -1,0 +1,344 @@
+---
+title: "Unix shell introduction -- continued"
+pagetitle: "Unix commands"
+author: Jelmer Poelstra
+date: 2024-02-07
+execute: 
+  eval: false
+knitr:
+  opts_chunk:
+    out.width: "85%"
+    class-output: bash-out
+editor_options: 
+  chunk_output_type: console
+---
+
+<br>
+
+## More on shell wildcards
+
+#### Full list of shell wildcards
+
+| Wildcard               | Matches                                                      |
+|----------------------|-------------------------------------------------|
+| **`*`**                | Any number of any character, including nothing               |
+| **`?`**                | Any single character                                         |
+| **`[]`** and **`[^]`** | One or none (`^`) of the "character set" within the brackets |
+
+::: {.callout-warning collapse="true"}
+##### Don't confuse shell wildcards with *regular expressions*! (Click to expand)
+
+For those of you who know some ***regular expressions*** from coding in e.g. R, wildcards are *conceptually* similar to these, but the `*` and `?` symbols don't have the same meaning, and there are way fewer shell wildcards than regular expression symbols.
+
+In particular, note that `.` is not a shell wildcard and thus represents a literal period when globbing.
+:::
+
+::: {.callout-note collapse="true"}
+#### Recursive globbing (Click to expand)
+
+Globbing does not work recursively by default,
+so `ls *fastq.gz` would only return gzipped FASTQ files in your current working dir.
+
+After running some bionformatics program,
+it's relatively common to have FASTQ files in a separate directory for each sample.
+In cases like that, you can use `**` to match any directory.
+For example, in the pattern below, the `**` would "traverse" the `fastq` dir within the `data` dir:
+
+``` bash
+ls data/**/*fastq.gz
+```
+``` bash-out
+SM04_R1.fastq.gz    SM1031_R1.fastq.gz  SM1042_R1.fastq.gz  SM155_R1.fastq.gz  SM181_R1.fastq.gz  SM191_R1.fastq.gz  SM207_R1.fastq.gz  SM51_R1.fastq.gz
+SM04_R2.fastq.gz    SM1031_R2.fastq.gz  SM1042_R2.fastq.gz  SM155_R2.fastq.gz  SM181_R2.fastq.gz  SM191_R2.fastq.gz  SM207_R2.fastq.gz  SM51_R2.fastq.gz
+SM1030_R1.fastq.gz  SM1038_R1.fastq.gz  SM109_R1.fastq.gz   SM156_R1.fastq.gz  SM190_R1.fastq.gz  SM205_R1.fastq.gz  SM226_R1.fastq.gz  SM914_R1.fastq.gz
+SM1030_R2.fastq.gz  SM1038_R2.fastq.gz  SM109_R2.fastq.gz   SM156_R2.fastq.gz  SM190_R2.fastq.gz  SM205_R2.fastq.gz  SM226_R2.fastq.gz  SM914_R2.fastq.gz
+```
+
+But `**` itself is not recursive either by default and only "traverses a single level", so you'd need the following to list any FASTQ files that are exactly two levels deep from your current working dir:
+
+``` bash
+ls **/**/*fastq.gz
+```
+``` bash-out
+SM04_R1.fastq.gz    SM1031_R1.fastq.gz  SM1042_R1.fastq.gz  SM155_R1.fastq.gz  SM181_R1.fastq.gz  SM191_R1.fastq.gz  SM207_R1.fastq.gz  SM51_R1.fastq.gz
+SM04_R2.fastq.gz    SM1031_R2.fastq.gz  SM1042_R2.fastq.gz  SM155_R2.fastq.gz  SM181_R2.fastq.gz  SM191_R2.fastq.gz  SM207_R2.fastq.gz  SM51_R2.fastq.gz
+SM1030_R1.fastq.gz  SM1038_R1.fastq.gz  SM109_R1.fastq.gz   SM156_R1.fastq.gz  SM190_R1.fastq.gz  SM205_R1.fastq.gz  SM226_R1.fastq.gz  SM914_R1.fastq.gz
+SM1030_R2.fastq.gz  SM1038_R2.fastq.gz  SM109_R2.fastq.gz   SM156_R2.fastq.gz  SM190_R2.fastq.gz  SM205_R2.fastq.gz  SM226_R2.fastq.gz  SM914_R2.fastq.gz
+```
+
+However, you can make `**` recursive by turning on the `globstar` option:
+
+``` bash
+shopt -s globstar     # Turn on 'globstar'
+
+ls **/*fastq.gz
+```
+``` bash-out
+SM04_R1.fastq.gz    SM1031_R1.fastq.gz  SM1042_R1.fastq.gz  SM155_R1.fastq.gz  SM181_R1.fastq.gz  SM191_R1.fastq.gz  SM207_R1.fastq.gz  SM51_R1.fastq.gz
+SM04_R2.fastq.gz    SM1031_R2.fastq.gz  SM1042_R2.fastq.gz  SM155_R2.fastq.gz  SM181_R2.fastq.gz  SM191_R2.fastq.gz  SM207_R2.fastq.gz  SM51_R2.fastq.gz
+SM1030_R1.fastq.gz  SM1038_R1.fastq.gz  SM109_R1.fastq.gz   SM156_R1.fastq.gz  SM190_R1.fastq.gz  SM205_R1.fastq.gz  SM226_R1.fastq.gz  SM914_R1.fastq.gz
+SM1030_R2.fastq.gz  SM1038_R2.fastq.gz  SM109_R2.fastq.gz   SM156_R2.fastq.gz  SM190_R2.fastq.gz  SM205_R2.fastq.gz  SM226_R2.fastq.gz  SM914_R2.fastq.gz
+```
+
+With `globstar` turned on, the pattern above would find gzipped FASTQ files no
+matter how many dir levels deep they are (including when they are in your current working dir).
+:::
+
+<br>
+
+## Command output redirection
+
+As mentioned earlier, Unix commands nearly always print their output to the screen. But you can also **"redirect" the output** to a file or to another command.
+
+With "**`>`**", we redirect output to a file:
+
+-   If the file doesn't exist, it will be *created*.
+-   If the file does exist, any contents will be *overwritten*.
+
+``` bash
+echo "My first line" > test.txt
+```
+
+``` bash
+cat test.txt
+```
+
+``` bash-out
+My first line
+```
+
+Redirection works not just with `echo`, but with every single command
+(or bioinformatics program) that prints output to screen:
+
+``` bash
+ls > my_files_on_2023-08-04.txt
+```
+
+``` bash
+cat my_files_on_2023-08-04.txt    # Use tab completion
+```
+
+``` bash-out
+data
+my_files_on_20230803.txt
+test.txt
+```
+
+<hr style="height:1pt; visibility:hidden;" />
+
+::: {.callout-note collapse="true"}
+#### A less-often used redirection: appending with `>>` _(Click to expand)_
+
+With "**`>>`**", we **append** the output to a file
+(that is, it won't overwrite any existing content like `>`):
+
+``` bash
+echo "My second line" >> test.txt
+```
+
+``` bash
+cat test.txt
+```
+
+``` bash-out
+My first line
+My second line
+```
+
+And to circle back to `>`, demonstrating how this will overwrite contents:
+
+``` bash
+echo "My third line overwrote the first two!" > test.txt
+```
+
+``` bash
+cat test.txt
+```
+
+``` bash-out
+My third line overwrote the first two!
+```
+
+:::
+
+<br>
+
+## Move with `mv`, and `cp`/`mv` tips
+
+The `mv` command is nearly identical to the `cp` command, except that it:
+
+-   **Moves** rather than copies files and/or dirs
+-   Works **recursively** by default
+
+There is **no separate command for renaming**,
+because both `cp` and `mv` allow you to provide a different name for the target.
+Thus, if used as follows, `mv` functions merely as a renamer:
+
+``` bash
+mv test.txt test_version2.txt
+```
+
+And we can move and rename at the same time as well —
+let's do that to restore our original location and name for the metadata file:
+
+``` bash
+mv test_version2.txt sandbox/test_version3.txt
+```
+
+::: callout-warning
+#### Overwriting
+
+**By default, both `mv` and `cp` will overwrite files without warning!**
+Use the `-i` (for `i`nteractive) option to make it let you confirm before overwriting anything.
+:::
+
+::: callout-note
+#### Renaming rules for both `cp` and `mv` --- if the destination is:
+
+-   **An existing dir**, the file(s) will keep their original names.
+-   **Not an existing dir**, the path specifies the new name of the file or dir, depending on what the source is.
+:::
+
+::: exercise
+#### Exercise: Practice with `mv` {.unnumbered}
+
+In which directory (in terms of a relative path from your working dir) would the FASTQ files end up with each of the following commands?
+
+-   `mv data/fastq data/fastq_files`
+-   `mv data/fastq fastq`
+-   `mv data/fastq .`
+
+What if you wanted to move the FASTQ files *directly* into your current working directory (from `data/fastq`)?\
+
+<details>
+
+<summary>Solutions (click here)</summary>
+
+*In which directory (in terms of relative path from your working dir)* *will the FASTQ files end up with each of the following commands?*
+
+-   `mv data/fastq data/fastq_files` — **in the dir `fastq_files`** (we've really just renamed the dir `fastq` to `fastq_files`)
+
+-   `mv data/fastq fastq` — **in `fastq`** (because our source is a dir, so is the destination)
+
+-   `mv data/fastq .` — **in `fastq` also!** (we'd need the syntax shown below to move the individual files directly into our current dir)
+
+*What if you wanted to move the FASTQ files directly into your current* *working directory?*
+
+For one file:
+
+``` bash
+mv data/fastq/ASPC1_A178V_R1.fastq.gz .
+```
+
+For all files:
+
+``` bash
+mv data/fastq/* .
+```
+
+</details>
+:::
+
+<br>
+
+## Remove files with `rm`
+
+The `rm` command removes (deletes) files and directories.
+
+One important thing to note upfront is that `rm` will **permanently and irreversibly delete files**
+without the typical "intermediate step" of placing them in a trash bin,
+like you are used to with your personal computer.
+With a healthy dosis of fear installed, let's dive in.
+
+To remove one or more files,
+you can simply pass the file names as arguments to `rm` as with previous commands.
+We will also use the `-v` (`v`erbose) option to have it tell us what it did:
+
+``` bash
+# This assumes you ran `touch file1 file2 file3` earlier on; do so now if needed
+rm -v file1            # Remove 1 file
+```
+
+``` bash-out
+removed ‘file1’
+```
+
+``` bash
+rm -v file2 file3      # Remove 2 files
+```
+
+``` bash-out
+removed ‘file2’
+removed ‘file3’
+```
+
+#### Recursive `rm` {.unnumbered}
+
+As a safety measure, `rm` will by default only delete files and not directories or their contents —
+i.e., like `mkdir` and `cp`, it refuses to act *recursively* by default.
+**To remove dirs and their contents, use the `-r` option:**
+
+``` bash
+# You should have these from 2.4 (if not, run: mkdir "my new dir" "my new dir2")
+rm -r "my new dir" "my new dir2"
+```
+
+``` bash-out
+removed directory: ‘my new dir’
+removed directory: ‘my new dir2’
+```
+
+You should obviously be quite careful with `rm -r`!
+
+<br>
+
+## Finding text with `grep` / `zgrep` {.unnumbered}
+
+**`grep` allows you to search a file for any text or text patterns.** By default, it will *return the entire line* whenever it finds a match, and it is often set up (including at OSC) to highlight, within that line, the matching text in [<b>bold red</b>]{style="color:red"} in its output.
+
+For example, let's say we wanted to print the sequences in our FASTQ file that contain "TACCGATACGC":
+
+``` bash
+zcat data/fastq/SM04_R1.fastq.gz | grep "TACCGATACGC"
+# (Only part of the output is shown in a screenshot below)
+```
+
+![](img/grep_on_fastq2.png){fig-align="center" width="100%"}
+
+If we wanted to know *how many* reads contain a certain sequence
+(e.g, the shorter and therefore more common "CCAGTA"), we can simply pipe `grep`'s output into `wc -l`:
+
+``` bash
+zcat data/fastq/SM04_R1.fastq.gz | grep "CCAGTA" | wc -l
+```
+``` bash-out
+56691
+```
+
+`grep` has *many* options — one of those is `-c`,
+which will directly *count* matching lines instead of printing them
+(i.e., the command below is an alternative to the command above where we piped `grep`s output into `wc -l`):
+
+``` bash
+zcat data/fastq/SM04_R1.fastq.gz | grep -c "CCAGTA"
+```
+``` bash-out
+56691
+```
+
+`grep` even has a `zgrep` counterpart for gzip-compressed files,
+so the above can be further shortened by omitting `zcat` and passing the FASTQ file name as an argument to `zgrep`:
+
+``` bash
+zgrep -c "CCAGTA" data/fastq/SM04_R1.fastq.gz
+```
+``` bash-out
+56691
+```
+
+We could also create a new FASTQ file whose sequences match our search by
+printing one line before each match (`-B1`) and two lines after it (`-A2`):
+
+``` bash
+zgrep -B1 -A2 --no-group-separator "CCAGTA" data/fastq/SM04_R1.fastq.gz > CCAGTA.fastq 
+```

@@ -72,7 +72,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -110,8 +110,15 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./02_vscode.html">
  <span class="dropdown-text">VS Code</span></a>
   </li>  
-        <li class="dropdown-header">Unix shell refresher</li>
-        <li class="dropdown-header">FASTQ files and quality control</li>
+        <li>
+    <a class="dropdown-item" href="./03_shell.html">
+ <span class="dropdown-text">Unix shell refresher</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./04_fastq.html">
+ <span class="dropdown-text">FASTQ files and quality control</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="./05_amplicon.html">
  <span class="dropdown-text"><em>Phytophthora</em> amplicon sequencing</span></a>
@@ -123,33 +130,50 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Thu Feb 8</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-thu-feb-8">    
-        <li class="dropdown-header">Bacterial genome analysis (slides)</li>
-        <li class="dropdown-header">Shell scripts, batch jobs, and loops</li>
-        <li class="dropdown-header">Intro to Bactopia</li>
-        <li class="dropdown-header">Running Bactopia</li>
-        <li class="dropdown-header">Interpeting the Bactopia results</li>
+        <li class="dropdown-header">Bacterial whole-genome sequencing (slides)</li>
+        <li class="dropdown-header">Read preprocessing</li>
+        <li class="dropdown-header">Genome assembly and assembly QC</li>
+        <li class="dropdown-header">Genome annotation</li>
+        <li class="dropdown-header">Pangenomics &amp; phylogenetics</li>
     </ul>
   </li>
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-other-pages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Other Pages</span>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-other-pages">    
-        <li>
-    <a class="dropdown-item" href="./homework.html">
- <span class="dropdown-text">Homework</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="./homework.html"> 
+<span class="menu-text">Homework</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-reference-pages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Reference Pages</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-reference-pages">    
         <li>
     <a class="dropdown-item" href="./open_shell.html">
- <span class="dropdown-text">Opening a Unix Shell at OSC</span></a>
+ <span class="dropdown-text">Opening a Unix shell at OSC</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./rstudio.html">
  <span class="dropdown-text">Starting an RStudio session at OSC</span></a>
   </li>  
-        <li class="dropdown-header">Overview of common Unix shell commands</li>
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./ref_shell2.html">
+ <span class="dropdown-text">Continued Unix shell intro</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ref_shell.html">
+ <span class="dropdown-text">Unix shell overview/reference</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./ref_software.html">
+ <span class="dropdown-text">Software management</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ref_data.html">
+ <span class="dropdown-text">Data management</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -182,9 +206,7 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -223,61 +245,67 @@ ul.task-list li input[type="checkbox"] {
 <td><strong>Wed Feb 7<sup>th</sup></strong></td>
 <td>08:00-08:45</td>
 <td>Jelmer</td>
-<td><a href="./01_osc.html">Intro to supercomputing / OSC</a></td>
+<td><strong><a href="./01_osc.html">Intro to supercomputing / OSC</a></strong></td>
 </tr>
 <tr class="even">
 <td></td>
 <td>08:45-09:00</td>
 <td>Jelmer</td>
-<td><a href="./02_vscode.html">VS Code</a></td>
+<td><strong><a href="./02_vscode.html">VS Code</a></strong></td>
 </tr>
 <tr class="odd">
 <td></td>
-<td>09:00-09:50</td>
+<td>09:00-10:45</td>
 <td>Jelmer</td>
-<td>Unix shell refresher</td>
+<td><strong><a href="./03_shell.html">Unix shell refresher</a></strong> <em>(with coffee break)</em></td>
 </tr>
 <tr class="even">
 <td></td>
-<td>10:10-12:00</td>
+<td>10:45-12:00</td>
 <td>Jelmer</td>
-<td>FASTQ files and quality control</td>
+<td><strong><a href="./04_fastq.html">FASTQ files and quality control</a></strong></td>
 </tr>
 <tr class="odd">
 <td></td>
 <td>13:00-16:30</td>
 <td>Myriam</td>
-<td><a href="./05_amplicon.html">Amplicon sequencing to characterize <em>P. infestans</em> populations</a></td>
+<td><strong><a href="./05_amplicon.html">Amplicon sequencing to characterize <em>P. infestans</em> populations</a></strong></td>
 </tr>
 <tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
 <td><strong>Thu Feb 8<sup>th</sup></strong></td>
-<td>08:00-09:00</td>
+<td>08:00-08:30</td>
 <td>Jelmer</td>
-<td>Intro to bacterial genome analysis</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>09:00-11:00</td>
-<td>Jelmer</td>
-<td>Scaling up with shell scripts, batch jobs and loops</td>
+<td><strong>Bacterial whole-genome sequencing (slides)</strong></td>
 </tr>
 <tr class="even">
 <td></td>
-<td>11:00-12:00</td>
+<td>08:30-10:20</td>
 <td>Jelmer</td>
-<td>Intro to the Bactopia workflow</td>
+<td><strong>Read preprocessing</strong></td>
 </tr>
 <tr class="odd">
+<td></td>
+<td>10:40-12:00</td>
+<td>Jelmer</td>
+<td><strong>Genome assembly and assembly QC</strong></td>
+</tr>
+<tr class="even">
 <td></td>
 <td>13:00-14:30</td>
 <td>Jelmer</td>
-<td>Running the Bactopia workflow</td>
+<td><strong>Genome annotation</strong></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td></td>
 <td>14:50-16:30</td>
 <td>Jelmer</td>
-<td>Interpreting the Bactopia results</td>
+<td><strong>Pangenomics &amp; phylogenetics</strong></td>
 </tr>
 </tbody>
 </table>
@@ -287,9 +315,28 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="img/logos_all.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:95.0%"></p>
 </figure>
 </div>
-<p><br></p>
+<hr>
+<section id="other-pages-on-this-website" class="level3">
+<h3 class="anchored" data-anchor-id="other-pages-on-this-website">Other pages on this website</h3>
+<div class="columns">
+<div class="column">
+<ul>
+<li><a href="href:%20open_shell.qmd">Opening a Unix shell at OSC</a></li>
+<li><a href="./rstudio.html">Starting an RStudio session at OSC</a></li>
+<li><a href="./homework.html">Homework</a></li>
+</ul>
+</div><div class="column">
+<ul>
+<li><strong><a href="./ref_shell.html">Unix shell overview/reference</a></strong></li>
+<li><strong><a href="./ref_shell2.html">Continued Unix shell intro</a></strong></li>
+<li><a href="./ref_software.html">Software management</a></li>
+<li><a href="ref_data/qmd">Data management</a></li>
+</ul>
+</div>
+</div>
 
 
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

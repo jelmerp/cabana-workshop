@@ -1,0 +1,25 @@
+---
+title: "Pangenomics and phylogenetics"
+pagetitle: "Pangenomics and phylogenetics"
+author: Jelmer Poelstra
+date: 2024-02-08
+execute: 
+  eval: false
+knitr:
+  opts_chunk:
+    out.width: "85%"
+    class-output: bash-out
+editor_options: 
+  chunk_output_type: console
+---
+
+<br>
+
+::: {.callout-important}
+## Under construction 
+This page is still under construction.
+:::
+
+<br>
+
+## Introduction {-}

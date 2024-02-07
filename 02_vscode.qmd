@@ -17,8 +17,7 @@ editor_options:
 
 ## What is VS Code?
 
-VS Code is basically a fancy text editor.
-Its full name is Visual Studio Code but at OSC it is also referred to as Code Server.
+VS Code is basically a **fancy text editor**. Its full name is Visual Studio Code, but at OSC, it is also referred to as "Code Server".
 
 To emphasize the additional functionality relative to basic text editors like Notepad and TextEdit, editors like VS Code are also referred to as "**IDEs**": *Integrated Development Environments*. The RStudio program is another good example of an IDE. For our purposes:
 
@@ -29,21 +28,20 @@ To emphasize the additional functionality relative to basic text editors like No
 
 ## Connecting to VS Code
 
-We saw on the previous page ([link](01_osc.html#interactive-apps)) how to
-start a VS Code session at OSC, and you should have one active now.
+We saw on the previous page ([link](01_osc.html#interactive-apps)) how to start a VS Code session at OSC, and you should have one active now.
 
-:::{.callout-note collapse="true"}
-##### Starting VS Code at OSC - Instructions in brief _(Click to expand)_
-1. Log in to OSC's OnDemand portal at <https://ondemand.osc.edu>.
-2. In the blue top bar, select `Interactive Apps`
-   and then near the bottom of the dropdown menu, click `Code Server`.
-3. In the form that appears on a new page:
-   - Select OSC project `PAS2250`
-   - The starting directory: `/fs/scratch/PAS2250/ENT6703/<your_personal_dir>`
-   - `Number of hours`: `10`
-   - Click `Launch`.
-4. On the next page, once the top bar of the box has turned green
-   and says `Runnning`, click `Connect to VS Code`.
+::: {.callout-note collapse="true"}
+##### Starting VS Code at OSC - Instructions in brief *(Click to expand)*
+
+1.  Log in to OSC's OnDemand portal at <https://ondemand.osc.edu>.
+2.  In the blue top bar, select `Interactive Apps` and then near the bottom of the dropdown menu, click `Code Server`.
+3.  In the form that appears on a new page:
+    -   Select OSC project `PAS2250`
+    -   The starting directory: `/fs/scratch/PAS2250/cabana/<your_personal_dir>`
+    -   `Number of hours`: `10`
+    -   Click `Launch`.
+4.  On the next page, once the top bar of the box has turned green and says `Runnning`, 
+    click **`Connect to VS Code`**.
 :::
 
 <hr style="height:1pt; visibility:hidden;" />
@@ -71,90 +69,56 @@ The main part of the VS Code is the **editor pane**. Here, we can open files lik
 <hr style="height:1pt; visibility:hidden;" />
 
 ::: exercise
-
-#### {{< fa user-edit >}} **Your Turn**: Try a few color themes
+#### {{< fa user-edit >}} Exercise: Try a few color themes
 
 1.  Access the "Color Themes" option by clicking <i class="fa fa-cog"></i> =\> `Color Theme`.
-2.  Try out a few themes and see what you like!
-
+2.  Try out a few themes and see pick one you like!
 :::
 
 <br>
 
-## A folder as a starting point  
+## A folder as a starting point
 
-Conveniently, VS Code takes a specific folder (directory) as a 
-**starting point in all parts of the program**:
+Conveniently, VS Code takes a specific directory as a **starting point in all parts of the program**:
 
-- In the file explorer in the side bar
-- In the terminal
-- When saving files in the editor pane.
+-   In the file explorer in the side bar
+-   In the terminal
+-   When saving files in the editor pane.
 
-Your should already be in the appropriate folder (`/fs/scratch/PAS2250/cabana/<user>`),
-but if you wanted to switch folder, you could click
-&nbsp; {{< fa bars >}} &nbsp; => &nbsp; `File` &nbsp; => &nbsp; `Open Folder`.
+_(If you need to switch folders, click   {{< fa bars >}}   =\>   `File`   =\>   `Open Folder`.)_
 
-:::{.callout-note}
+<hr style="height:1pt; visibility:hidden;" />
 
+::: callout-tip
 #### Some VS Code tips and tricks
 
-- **Resizing panes**\
-  You can resize panes (the terminal, editor, and side bar) by hovering
-  your cursor over the borders and then dragging. 
+-   **Resizing panes**\
+    You can resize panes (the terminal, editor, and side bar) by hovering your cursor over the borders and then dragging.
 
-- **The Command Palette**\
-  To access all the menu options that are available in VS Code,
-  the so-called "Command Palette" can be handy,
-  especially if you know what you are looking for.
-  To access the Command Palette, click
-  &nbsp; <i class="fa fa-cog"></i> &nbsp; and then `Command Palette`
-  (or press <kbd>F1</kbd> or
-  <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>).
+-   **The Command Palette**\
+    To access all the menu options that are available in VS Code, the so-called "Command Palette" can be handy, especially if you know what you are looking for. To access the Command Palette, click   <i class="fa fa-cog"></i>   and then `Command Palette` (or press <kbd>F1</kbd> or <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>).
 
-- **Keyboard shortcuts**\
-  For a single-page PDF overview of keyboard shortcuts for your operating system:
-  &nbsp; {{< fa bars >}} &nbsp; => &nbsp; `Help` &nbsp; =>
-  &nbsp; `Keyboard Shortcut Reference`.
-  (Or for direct links to these PDFs:
-  [Windows](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf) /
-  [Mac](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf) /
-  [Linux](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf).)
-  A couple of useful keyboard shortcuts are highlighted below.
-
+-   **Keyboard shortcuts**\
+    For a single-page PDF overview of keyboard shortcuts for your operating system:   {{< fa bars >}}   =\>   `Help`   =\>   `Keyboard Shortcut Reference`. (Or for direct links to these PDFs: [Windows](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf) / [Mac](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf) / [Linux](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf).) A couple of useful keyboard shortcuts are highlighted below.
 :::
 
 ::: {.callout-note collapse="true"}
-#### Useful keyboard shortcuts _(Click to expand)_
+#### Specific useful keyboard shortcuts *(Click to expand)*
 
-Working with keyboard shortcuts for common operations can be a lot faster than using your mouse.
-Below are some useful ones for VS Code
-(for Mac, in some case, you'll have to replace <kbd>Ctrl</kbd> with <kbd>⌘</kbd>):
+Working with keyboard shortcuts for common operations can be a lot faster than using your mouse. Below are some useful ones for VS Code (for Mac, in some case, you'll have to replace <kbd>Ctrl</kbd> with <kbd>⌘</kbd>):
 
-- *Open a terminal*: <kbd>Ctrl</kbd>+<kbd>\`</kbd> (backtick) or
-  <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>.
+-   *Open a terminal*: <kbd>Ctrl</kbd>+<kbd>\`</kbd> (backtick) or <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>.
 
-- *Toggle between the terminal and the editor pane*:
-  <kbd>Ctrl</kbd>+<kbd>`</kbd> and <kbd>Ctrl</kbd>+<kbd>1</kbd>.
+-   *Toggle between the terminal and the editor pane*: <kbd>Ctrl</kbd>+<kbd>\`</kbd> and <kbd>Ctrl</kbd>+<kbd>1</kbd>.
 
-- *Toggle the (wide) Side Bar*: <kbd>Ctrl</kbd>+<kbd>B</kbd> 
+-   *Toggle the (wide) Side Bar*: <kbd>Ctrl</kbd>+<kbd>B</kbd>
 
-- *Line actions*:
-  
-  - <kbd>Ctrl</kbd>+<kbd>X</kbd> / <kbd>C</kbd> will **cut/copy the entire line**
-    where the cursor is, when nothing is selected (!)
-  
-  - <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd> will **delete a line**
+-   *Line actions*:
 
-  - <kbd>Alt</kbd>+<kbd>⬆</kbd>/<kbd>⬇</kbd> will **move lines** up or down.
+    -   <kbd>Ctrl</kbd>+<kbd>X</kbd> / <kbd>C</kbd> will **cut/copy the entire line** where the cursor is, when nothing is selected (!)
 
-- *Multiple cursors*: Press & hold <kbd>Ctrl</kbd>+<kbd>Shift</kbd>,
-  then <kbd>⬆</kbd>/<kbd>⬇</kbd> arrows to add cursors upwards or downwards.
+    -   <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd> will **delete a line**
 
-- *Toggle line comment* ("comment out" code, and removing those comment signs):
-  <kbd>Ctrl</kbd>+<kbd>/</kbd>
-
-- *Split the editor window vertically*: <kbd>Ctrl</kbd>+<kbd>\\</kbd>
-  (See also the options in
-   &nbsp; {{< fa bars >}} &nbsp; `View` => `Editor Layout`)
+    -   <kbd>Alt</kbd>+<kbd>⬆</kbd>/<kbd>⬇</kbd> will **move lines** up or down.
 
 :::

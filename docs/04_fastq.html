@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jelmer Poelstra">
+<meta name="dcterms.date" content="2024-02-07">
+
+<title>FASTQ and FastQC</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./img/UNTRM_favicon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./img/CABANA_small.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">/STC-CGIAR workshop</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> <i class="bi bi-house" role="img">
+</i> 
+<span class="menu-text"> </span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-wed-feb-7" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Wed Feb 7</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-wed-feb-7">    
+        <li>
+    <a class="dropdown-item" href="./01_osc.html">
+ <span class="dropdown-text">Supercomputing &amp; OSC</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./02_vscode.html">
+ <span class="dropdown-text">VS Code</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./03_shell.html">
+ <span class="dropdown-text">Unix shell refresher</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./04_fastq.html">
+ <span class="dropdown-text">FASTQ files and quality control</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./05_amplicon.html">
+ <span class="dropdown-text"><em>Phytophthora</em> amplicon sequencing</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-thu-feb-8" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Thu Feb 8</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-thu-feb-8">    
+        <li class="dropdown-header">Bacterial whole-genome sequencing (slides)</li>
+        <li class="dropdown-header">Read preprocessing</li>
+        <li class="dropdown-header">Genome assembly and assembly QC</li>
+        <li class="dropdown-header">Genome annotation</li>
+        <li class="dropdown-header">Pangenomics &amp; phylogenetics</li>
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./homework.html"> 
+<span class="menu-text">Homework</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-reference-pages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Reference Pages</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-reference-pages">    
+        <li>
+    <a class="dropdown-item" href="./open_shell.html">
+ <span class="dropdown-text">Opening a Unix shell at OSC</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./rstudio.html">
+ <span class="dropdown-text">Starting an RStudio session at OSC</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./ref_shell2.html">
+ <span class="dropdown-text">Continued Unix shell intro</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ref_shell.html">
+ <span class="dropdown-text">Unix shell overview/reference</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./ref_software.html">
+ <span class="dropdown-text">Software management</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ref_data.html">
+ <span class="dropdown-text">Data management</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/jelmerp/cabana-workshop">
+            Source Code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/jelmerp/cabana-workshop/issues/new">
+            Report an Issue
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#common-sequence-data-file-formats" id="toc-common-sequence-data-file-formats" class="nav-link" data-scroll-target="#common-sequence-data-file-formats"><span class="header-section-number">1</span> Common sequence data file formats</a>
+  <ul class="collapse">
+  <li><a href="#the-fastq-format" id="toc-the-fastq-format" class="nav-link" data-scroll-target="#the-fastq-format"><span class="header-section-number">1.1</span> The FASTQ format</a></li>
+  <li><a href="#the-fasta-format" id="toc-the-fasta-format" class="nav-link" data-scroll-target="#the-fasta-format"><span class="header-section-number">1.2</span> The FASTA format</a></li>
+  <li><a href="#the-gffgtf-format" id="toc-the-gffgtf-format" class="nav-link" data-scroll-target="#the-gffgtf-format"><span class="header-section-number">1.3</span> The GFF/GTF format</a></li>
+  <li><a href="#the-sambam-format" id="toc-the-sambam-format" class="nav-link" data-scroll-target="#the-sambam-format"><span class="header-section-number">1.4</span> The SAM/BAM format</a></li>
+  </ul></li>
+  <li><a href="#our-fastq-files" id="toc-our-fastq-files" class="nav-link" data-scroll-target="#our-fastq-files"><span class="header-section-number">2</span> Our FASTQ files</a>
+  <ul class="collapse">
+  <li><a href="#listing-your-fastq-files" id="toc-listing-your-fastq-files" class="nav-link" data-scroll-target="#listing-your-fastq-files"><span class="header-section-number">2.1</span> Listing your FASTQ files</a></li>
+  <li><a href="#paired-end-data" id="toc-paired-end-data" class="nav-link" data-scroll-target="#paired-end-data"><span class="header-section-number">2.2</span> Paired-end data</a></li>
+  <li><a href="#viewing-fastq-files" id="toc-viewing-fastq-files" class="nav-link" data-scroll-target="#viewing-fastq-files"><span class="header-section-number">2.3</span> Viewing FASTQ files</a></li>
+  </ul></li>
+  <li><a href="#running-fastqc" id="toc-running-fastqc" class="nav-link" data-scroll-target="#running-fastqc"><span class="header-section-number">3</span> Running FastQC</a>
+  <ul class="collapse">
+  <li><a href="#intro-to-fastqc" id="toc-intro-to-fastqc" class="nav-link" data-scroll-target="#intro-to-fastqc"><span class="header-section-number">3.1</span> Intro to FastQC</a></li>
+  <li><a href="#building-our-fastqc-command" id="toc-building-our-fastqc-command" class="nav-link" data-scroll-target="#building-our-fastqc-command"><span class="header-section-number">3.2</span> Building our FastQC command</a></li>
+  <li><a href="#running-our-fastqc-command" id="toc-running-our-fastqc-command" class="nav-link" data-scroll-target="#running-our-fastqc-command"><span class="header-section-number">3.3</span> Running our FastQC command</a></li>
+  <li><a href="#fastqc-output-files" id="toc-fastqc-output-files" class="nav-link" data-scroll-target="#fastqc-output-files"><span class="header-section-number">3.4</span> FastQC output files</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">FASTQ files and running FastQC</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jelmer Poelstra </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 7, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><br></p>
+<section id="introduction" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In this session, we will first talk about common genomics data files, with a focus on one type: FASTQ files. We will also learn how to run the FastQC program to perform FASTQ quality control.</p>
+<p>While this continues our general introduction to command-line computing, the running of FastQC also doubles as the first step in the <em>bacterial whole-genome analysis workflow</em> that we will continue tomorrow.</p>
+<hr style="height:1pt; visibility:hidden;">
+<section id="setting-up" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="setting-up"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Setting up</strong></h4>
+<p>You should have an active VS Code session with an open terminal. In that terminal, you should be be in your dir <code>/fs/scratch/PAS2250/cabana/$USER</code>.</p>
+<p>But we will now first move into the <code>bact</code> subdir:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (Full path: /fs/scratch/PAS2250/cabana/$USER/bact)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> bact</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<p><br></p>
+</section>
+<section id="common-sequence-data-file-formats" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="common-sequence-data-file-formats"><span class="header-section-number">1</span> Common sequence data file formats</h2>
+<p>We’ll talk about the following three types of genomic data file:</p>
+<ul>
+<li><p><strong>FASTQ</strong>: the format for high-throughput sequencing reads, with base quality scores.</p></li>
+<li><p><strong>FASTA</strong>: Files with just sequences and their IDs. For example, genome assemblies are in this format.</p></li>
+<li><p><strong>GTF</strong> &amp; <strong>GFF</strong>: Tabular genome annotation formats, e.g.&nbsp;with the start &amp; stop position of each gene.</p></li>
+<li><p><strong>SAM</strong> &amp; <strong>BAM</strong>: A read <em>alignment</em> format.</p></li>
+</ul>
+<hr style="height:1pt; visibility:hidden;">
+<section id="the-fastq-format" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="the-fastq-format"><span class="header-section-number">1.1</span> The FASTQ format</h3>
+<p>FASTQ is a very common output format of high-throughput sequencing machines — at least from Illumina sequencing, you will almost always receive the sequences in this format. <em>Like most genomic data files, these are plain text files</em>, and each sequence that is read by the sequencer (i.e., each “read”) forms <strong>one FASTQ entry represented by four lines</strong>. The lines contain, respectively:</p>
+<ol type="1">
+<li>A <strong>header</strong> that starts with <code>@</code> and e.g.&nbsp;uniquely identifies the read</li>
+<li>The <strong>sequence</strong> itself</li>
+<li>A <strong><code>+</code></strong> (plus sign)</li>
+<li>One-character <strong>quality scores</strong> for each base in the sequence</li>
+</ol>
+<figure class="figure">
+<p align="center">
+</p><p><img src="img/fastq_header.png" width="85%" class="figure-img"></p>
+<figcaption>
+One entry (read) in a FASTQ file covers 4 lines. <br>The header line is annotated, with some of the more useful components highlighted in red. <br>For viewing purposes, this read (at only 56 bp) is shorter than what is typical.
+</figcaption>
+<p></p>
+</figure>
+<p>The “Q” in FASTQ stands for “<em>quality</em>”, to contrast this format with FASTA, a more basic and generic format that does not include base quality scores. FASTQ files have the extension <code>.fastq</code> or <code>.fq</code>, but they are very commonly gzip-compressed, in which case their name ends in <code>.fastq.gz</code> or <code>.fq.gz</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+FASTQ quality scores <em>(Click to expand)</em>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The quality scores we saw in the read above represent an <strong>estimate of the error probability of the base call</strong>. Specifically, they correspond to a numeric “Phred” quality score (<code>Q</code>), which is a function of the estimated probability that a base call is erroneous (<code>P</code>):</p>
+<blockquote class="blockquote">
+<p><strong>Q = -10 * log10(P)</strong></p>
+</blockquote>
+<p>For some specific probabilities and their rough qualitative interpretations for Illumina data:</p>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Phred quality score</th>
+<th>Error probability</th>
+<th>Rough interpretation</th>
+<th>ASCII character</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>10</strong></td>
+<td>1 in 10</td>
+<td>terrible</td>
+<td><code>+</code></td>
+</tr>
+<tr class="even">
+<td><strong>20</strong></td>
+<td>1 in 100</td>
+<td>bad</td>
+<td><code>5</code></td>
+</tr>
+<tr class="odd">
+<td><strong>30</strong></td>
+<td>1 in 1,000</td>
+<td>good</td>
+<td><code>?</code></td>
+</tr>
+<tr class="even">
+<td><strong>40</strong></td>
+<td>1 in 10,000</td>
+<td>excellent</td>
+<td><code>?</code></td>
+</tr>
+</tbody>
+</table>
+<p>This numeric quality score is represented in FASTQ files <em>not by the number itself</em>, but by a corresponding “ASCII character” (last column in the table). This allows for a single-character representation of each possible score — as a consequence, <strong>each quality score character can conveniently correspond to (&amp; line up with) a base character</strong> in the read. (For your reference, <a href="https://www.drive5.com/usearch/manual/quality_score.html">here is a complete lookup table</a> — look at the top table, “BASE=33”).</p>
+</div>
+</div>
+</div>
+<hr style="height:1pt; visibility:hidden;">
+</section>
+<section id="the-fasta-format" class="level3" data-number="1.2">
+<h3 data-number="1.2" class="anchored" data-anchor-id="the-fasta-format"><span class="header-section-number">1.2</span> The FASTA format</h3>
+<p>FASTA files contain one or more DNA or amino acid sequences, with no limits on the number of sequences or the sequence lengths. FASTA is the standard format for, e.g.:</p>
+<ul>
+<li>Genome assembly sequences</li>
+<li>Transcriptomes and proteomes (all of an organism’s transcripts &amp; amino acid sequences, respectively)</li>
+<li>Sequence downloads from NCBI such as a single gene/protein or other GenBank entry</li>
+</ul>
+<p>The following example FASTA file contains two entries:</p>
+<pre class="bash-in-nocolor"><code>&gt;unique_sequence_ID Optional description
+ATTCATTAAAGCAGTTTATTGGCTTAATGTACATCAGTGAAATCATAAATGCTAAAAA
+&gt;unique_sequence_ID2
+ATTCATTAAAGCAGTTTATTGGCTTAATGTACATCAGTGAAATCATAAATGCTAAATG</code></pre>
+<p>Each entry consists of a <strong>header</strong> line and the <strong>sequence</strong> itself. Header lines <strong>start with a <code>&gt;</code></strong> (greater-than sign) and are otherwise “free form”, though the idea is that they provide an identifier for the sequence that follows.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+FASTA file name extensions are variable: <code>.fa</code>, <code>.fasta</code>, <code>.fna</code>, <code>.faa</code> (<em>Click to expand</em>)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>“Generic” extensions are <code>.fasta</code> and <code>.fa</code> (e.g: <code>my_assembly.fasta</code>)</li>
+<li>Also used are extensions that explicitly indicate whether sequences are <em>nucleotides</em> (<code>.fna</code>) or <em>amino acids</em> (<code>.faa</code>)</li>
+</ul>
+</div>
+</div>
+</div>
+<hr style="height:1pt; visibility:hidden;">
+</section>
+<section id="the-gffgtf-format" class="level3" data-number="1.3">
+<h3 data-number="1.3" class="anchored" data-anchor-id="the-gffgtf-format"><span class="header-section-number">1.3</span> The GFF/GTF format</h3>
+<p>The GTF and GFF formats are very similar tab-delimited <strong>tabular</strong> <strong>files</strong> that contain <strong>genome annotations</strong>, with:</p>
+<ul>
+<li>One row for each annotated “<strong>genomic feature</strong>” (gene, exon, etc.)</li>
+<li>One column for each piece of information about a feature, like its genomic coordinates</li>
+</ul>
+<p>See the sample below, with an added header line (<em>not normally present</em>) with column names:</p>
+<pre class="bash-out-solo"><code>seqname     source  feature start   end     score  strand  frame    attributes
+NC_000001   RefSeq  gene    11874   14409   .       +       .       gene_id "DDX11L1"; transcript_id ""; db_xref "GeneID:100287102"; db_xref "HGNC:HGNC:37102"; description "DEAD/H-box helicase 11 like 1 (pseudogene)"; gbkey "Gene"; gene "DDX11L1"; gene_biotype "transcribed_pseudogene"; pseudo "true"; 
+NC_000001   RefSeq  exon    11874   12227   .       +       .       gene_id "DDX11L1"; transcript_id "NR_046018.2"; db_xref "GeneID:100287102"; gene "DDX11L1"; product "DEAD/H-box helicase 11 like 1 (pseudogene)"; pseudo "true"; </code></pre>
+<p>Some details on the more important/interesting columns:</p>
+<ul>
+<li><code>seqname</code> — Name of the chromosome, scaffold, or contig</li>
+<li><code>feature</code> — Name of the feature type, e.g.&nbsp;“gene”, “exon”, “intron”, “CDS”</li>
+<li><code>start</code> &amp; <code>end</code> — Start &amp; end position of the feature</li>
+<li><code>strand</code> — Whether the feature is on the <code>+</code> (forward) or <code>-</code> (reverse) strand</li>
+<li><code>attribute</code> — A semicolon-separated list of tag-value pairs with additional information</li>
+</ul>
+<hr style="height:1pt; visibility:hidden;">
+</section>
+<section id="the-sambam-format" class="level3" data-number="1.4">
+<h3 data-number="1.4" class="anchored" data-anchor-id="the-sambam-format"><span class="header-section-number">1.4</span> The SAM/BAM format</h3>
+<p>The SAM/BAM format is a format for <strong>alignments</strong>, typically of reads from FASTQ files to a reference genome FASTA file.</p>
+<ul>
+<li>SAM (Sequence Alignment/Map) is an <strong>uncompressed</strong> text file</li>
+<li>BAM (Binary Alignment/Map) is its <strong>binary, compressed</strong> counterpart. BAM files are not human-readable but most software can work with them directly.</li>
+</ul>
+<p>After a header with metadata, the main part of the file contains one line per alignment, with information such as to which contig/scaffold/chromosome and position the read mapped, and the full sequence of the original read is also included:</p>
+<pre class="bash-out-solo"><code>A01088:17:HHVG3DRXX:1:2238:4164:16877    163     SL4.0ch00       18287   255     12M725N139M     =       19069   931     CTCAATTATATGGTGTAGACGCACAGTTCGGTGATCCTCCCGCCTAGGATATCTACTCTGCTGATTGGGAGAGCTCCACTGTTCCGGAGCCCAGTCATTTTGGTACATAACTTTTGTGTAGTCTTTTGCTCGTGTATGGGTATGGCGGGGC     FFFFFFFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:FFFFFFFFFFFFF:F:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:FFFFFFFF:FFFFFF NH:i:1  HI:i:1  AS:i:298   nM:i:0
+A01088:17:HHVG3DRXX:1:2238:4164:16877    83      SL4.0ch00       19069   255     149M    =       18287   -931    CTGCTGATTGGGAGAGCTCCACTGTTCCGGAGCCCAGTCATTTTGGTACATAACTTTTGTGTAGTCTTTTGCTCGTGTATGGGTATGGCGGGGCCCTGTCCCGTCGAGTTTCACTAATGTACTCTTAGAGGTCTGTGGACATTATGTGG       FFFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFFF   NH:i:1  HI:i:1  AS:i:298        nM:i:0
+AA01088:17:HHVG3DRXX:1:2143:6876:32440   163     SL4.0ch00       19077   255     125M    =       19077   125     TGGGAGAGCTCCACTGTTCCGGAGCCCAGTCATTTTGGTACATAACTTTTGTGTAGTCTTTTGCTCGTGTATGGGTATGGCGGGGCCCTGTCCCGTCGAGTTTCACTAATGTACTCTTAGAGGTC       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,FFFFFFFFFFFF:FFFFFF:FF,FFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:F:FFFFFF,FFFFFF:F   NH:i:1  HI:i:1  AS:i:248        nM:i:0
+AA01088:17:HHVG3DRXX:1:2143:6876:32440   83      SL4.0ch00       19077   255     125M    =       19077   -125    TGGGAGAGCTCCACTGTTCCGGAGCCCAGTCATTTTGGTACATAACTTTTGTGTAGTCTTTTGCTCGTGTATGGGTATGGCGGGGCCCTGTCCCGTCGAGTTTCACTAATGTACTCTTAGAGGTC       :FFFFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,:FFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF   NH:i:1  HI:i:1  AS:i:248        nM:i:0</code></pre>
+<details>
+<summary>
+Click here for info on all SAM columns
+</summary>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Col. nr.</th>
+<th>Field</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>QNAME</td>
+<td>Query (=aligned read) name</td>
+<td>….</td>
+</tr>
+<tr class="even">
+<td><strong>2</strong></td>
+<td><strong>FLAG</strong></td>
+<td><strong>Bitwise flag</strong></td>
+<td>99</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>RNAME</td>
+<td>Reference sequence name</td>
+<td>chr1</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>POS</td>
+<td>Mapping position (leftmost)</td>
+<td>46317</td>
+</tr>
+<tr class="odd">
+<td><strong>5</strong></td>
+<td><strong>MAPQ</strong></td>
+<td><strong>Mapping quality</strong></td>
+<td>255</td>
+</tr>
+<tr class="even">
+<td><strong>6</strong></td>
+<td><strong>CIGAR</strong></td>
+<td><strong>CIGAR string</strong></td>
+<td>150M</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>RNEXT</td>
+<td>Name of read’s mate</td>
+<td>=</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>PNEXT</td>
+<td>Position of read’s mate</td>
+<td>46517</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>TLEN</td>
+<td>Template length</td>
+<td>450</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>SEQ</td>
+<td>Sequence of the read</td>
+<td>AGTTACCGATCCT…</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>QUAL</td>
+<td>Base quality of the read</td>
+<td>FFFF@HHHHHHHH…</td>
+</tr>
+<tr class="even">
+<td><em>(optional)</em></td>
+<td><em>TAG</em></td>
+<td><em>Optional information</em></td>
+<td><em>SM:i:37</em></td>
+</tr>
+</tbody>
+</table>
+</details>
+<p><br></p>
+</section>
+</section>
+<section id="our-fastq-files" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="our-fastq-files"><span class="header-section-number">2</span> Our FASTQ files</h2>
+<section id="listing-your-fastq-files" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="listing-your-fastq-files"><span class="header-section-number">2.1</span> Listing your FASTQ files</h3>
+<p>First, let’s take another look at your list of FASTQ files:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>total 6.1G
+-rw-r--r-- 1 jelmer PAS2250 205M Feb  4 11:47 SM04_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 242M Feb  4 11:46 SM04_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 188M Feb  4 11:46 SM1030_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 221M Feb  4 11:46 SM1030_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 187M Feb  4 11:46 SM1031_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 221M Feb  4 11:46 SM1031_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 187M Feb  4 11:46 SM1038_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 224M Feb  4 11:46 SM1038_R2.fastq.gz
+# [...output truncated...]</code></pre>
+<p>In the file listing above:</p>
+<ul>
+<li><p>The files all have a <code>.gz</code> extension, indicating they have been compressed with the gzip utility.</p></li>
+<li><p>If you look closely at the file names, it looks like we have two FASTQ files per sample: one with <code>_R1</code> at the end of the file name, and one with <code>_R2</code>.</p></li>
+</ul>
+<details>
+<summary>
+What might each of the two files per sample represent/contain? <em>(Click for the solution)</em>
+</summary>
+<p>These contain the forward reads (<code>_R1.fastq.gz</code>) vs.&nbsp;the reverse reads (<code>_R2.fastq.gz</code>).</p>
+</details>
+<hr style="height:1pt; visibility:hidden;">
+</section>
+<section id="paired-end-data" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="paired-end-data"><span class="header-section-number">2.2</span> Paired-end data</h3>
+<p>In today’s and tomorrow’s labs, we’ll be working with Illumina sequencing data, which can be done in two “modes”: <strong><em>single-end</em></strong> (SE) and <strong><em>paired-end</em></strong> (PE).</p>
+<p>With paired-end sequencing, each DNA fragment is sequenced from two ends in opposite directions (with the total size of the fragment –“insert size”– determining whether these two reads will overlap). The resulting “paired” reads for each fragment are inextricably linked, with the first called the <strong>forward read</strong> and the second the <strong>reverse read</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/forward-reverse-reads.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%"></p>
+<figcaption>How a DNA fragment prepared for paired-end Illumina sequencing will be sequenced. <br>In this example, the insert size is such that the forward and reverse reads do not overlap.</figcaption>
+</figure>
+</div>
+<p>Most commonly for paired-end data, forward and reverse reads are placed in separate files, such that you’ll get two files for each sequenced sample:</p>
+<ul>
+<li>The file with <strong>forward reads has <code>_R1</code></strong> (or sometimes <code>_1</code>) in its name, e.g.&nbsp;<code>SM04_R1.fastq.gz</code></li>
+<li>The file with <strong>reverse reads has <code>_R2</code></strong> (or sometimes <code>_2</code>) in its name, e.g.&nbsp;<code>SM04_R2.fastq.gz</code><br>
+(i.e., the file name should be identical to that for the forward read, except for the read direction identifier).</li>
+</ul>
+<hr style="height:1pt; visibility:hidden;">
+</section>
+<section id="viewing-fastq-files" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="viewing-fastq-files"><span class="header-section-number">2.3</span> Viewing FASTQ files</h3>
+<p>Next, we’ll take a peak inside one of these FASTQ files.</p>
+<section id="basic-commands-to-view-files" class="level4">
+<h4 class="anchored" data-anchor-id="basic-commands-to-view-files">Basic commands to view files</h4>
+<p>Let’s consider our options to look inside one of these files:</p>
+<ul>
+<li><strong><code>cat</code></strong> prints the entire contents of a file to screen — probably not a good idea for such a large file.</li>
+<li><strong><code>head</code></strong> and <strong><code>tail</code></strong> print just the first and last lines of a file, respectively, which could perhaps be a good start?</li>
+</ul>
+<p>Let’s try to print 8 lines, which should show us two reads:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 8 data/fastq/SM04_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>�
+Խے�8�E��_1f�"�QD�J��D�fs{����Yk����d��*��
+|��x���l޴�j�N������?������ٔ�bUs�Ng�Ǭ���i;_��������������|&lt;�v����3��������|���ۧ��3ĐHyƕ�bIΟD�%����Sr#~��7��ν��1y�Ai,4
+w\]"b�#Q����8��+[e�3d�4H���̒�l�9LVMX��U*�M����_?���\["��7�s\&lt;_���:�$���N��v�}^����sw�|�n;&lt;�&lt;�oP����
+i��k��q�ְ(G�ϫ��L�^��=��&lt;���K��j�_/�[ۭV�ns:��U��G�z�ݎ�j����&amp;��~�F��٤ZN�'��r2z}�f\#��:�9$�����H�݂�"�@M����H�C�
+�0�pp���1�O��I�H�P됄�.Ȣe��Q�&gt;���
+�'�;@D8���#��St�7k�g��|�A䉻���_���d�_c������a\�|�_�mn�]�9N������l�٢ZN�c�9u�����n��n�`��
+"gͺ�
+    ���H�?2@�FC�S$n���Ԓh�       nԙj��望��f      �?N@�CzUlT�&amp;�h�Pt!�r|��9~)���e�A�77�h{��~��     ��
+# [...output truncated...]</code></pre>
+<details>
+<summary>
+Ouch! 😳 What went wrong here? <em>(Click for the solution)</em>
+</summary>
+<p>What happened here is that we are directly seeing the contents of the <em>compressed</em> file, which is simply not human-readable.</p>
+</details>
+<hr style="height:1pt; visibility:hidden;">
+<p>To get around this, we might be inclined to <strong>uncompress</strong> these files, which we could do with the <strong><code>gunzip</code> command</strong>. However, uncompressed files take up several times as much disk storage space as compressed ones.</p>
+<p>Fortunately, there are other approaches available. First, almost any bioinformatics tool will accept compressed FASTQ files. Also, the following commands and strategies should help you to do some basic exploration of your FASTQ files without uncompressing them.</p>
+<hr style="height:1pt; visibility:hidden;">
+</section>
+<section id="the-less-pager" class="level4">
+<h4 class="anchored" data-anchor-id="the-less-pager">The <code>less</code> pager</h4>
+<p>Here, we’ll use the <code>less</code> command, which will automatically display gzip-compressed files in human-readable form — let’s try it:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> <span class="at">-S</span> data/fastq/SM04_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Avoid line-wrapping with <code>less -S</code> <em>(Click to expand)</em>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Depending on your zoom level and the length of reads in your FASTQ file, some lines may contain too many characters to fit on your screen. If that’s the case, <code>less</code> will by default “wrap” those lines onto the next line on your screen, so characters won’t run off the screen on the right-hand side.</p>
+<p>That may be useful when the file contains text you’re trying to read in full, but it is often confusing for files like FASTQ as well as for tabular files. That’s why we turned off line-wrapping with the <code>-S</code> option.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-explore-the-file-with-less" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="exercise-explore-the-file-with-less"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Exercise</strong>: Explore the file with <code>less</code></h4>
+<p><code>less</code> doesn’t print stuff to screen but instead opens it in a “pager”. After running the command above, you should be viewing the file inside the <code>less</code> pager.</p>
+<p>You can move around in the file in several ways: by scrolling with your mouse, with up and down arrows, or, if you have them, <kbd>PgUp</kbd> and <kbd>PgDn</kbd> keys (also, <kbd>u</kbd> will move up half a page and <kbd>d</kbd> down half a page).</p>
+<p>If you find yourself scrolling down and down to try and reach the <strong>end of the file</strong>, you can instead press <kbd>G</kbd> to go to the very end right away (and <kbd>g</kbd> to go back to the top).</p>
+<p>Notice you won’t get your shell prompt back until you <strong>press</strong> <kbd>q</kbd> to quit <code>less</code>.</p>
+</section>
+<hr style="height:1pt; visibility:hidden;">
+<section id="zcat-and-related-commands" class="level4">
+<h4 class="anchored" data-anchor-id="zcat-and-related-commands"><code>zcat</code> and related commands</h4>
+<p><code>cat</code> has a counterpart that prints the uncompressed contents of a compressed file: <strong><code>zcat</code></strong>.</p>
+<p>Of course, <code>cat</code>’s behavior of printing all the contents of a file isn’t great for large FASTQ files. But <code>zcat</code> is nevertheless very useful for FASTQ files when we <strong>combine it with the pipe, <code>|</code></strong>.</p>
+<p>For example, we can pipe the output of <code>zcat</code> to the <code>head</code> command to view the first 8 lines (2 reads) as follows:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">zcat</span> data/fastq/SM04_R1.fastq.gz <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 8</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>@M06129:165:000000000-K9L4J:1:1101:13571:1001 1:N:0:24
+NTGCTGACATCCACTATTGAGCCCATCAGGAACCGAGCATGTCAGACGCTATTCACTCCTACGAGCCATCCAAGGGTCACGGCCTGCCGCACGACCCGTTCAACGCGATTGTAGGCCCACGCCCGATTGGCTGGATTTCGTCGCAGGATGCCAACGGCAAACTCAACCTGGCACCTTACAGCTTCTTCAACGCGTTCAACTACGTGCCGCCGATCATCGGCTTCTGCAGCGTGGGTCGCAAAGACAGCCTCAATAATATCGAGCAAACCGGCCAGTTCGTCTGGAACCTGGCGACCCGCC
++
+#8ACCGGGFGGGGGGGGDGGGGEGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGEGGGGGGGGGGGGGGGGGGCFGGGGGGGGGGGF:FDFGD@FFGGGGGGGDG=FDGFF=FGGFFGCFFGFGGGEGGGGCAFGGGGGDGGEEEFFGGGFGGD&gt;8DFGGGGGGGFGFGGC55CCEEFGGGG?&lt;FGGGGGGGGDGGGFC&lt;D7;FGFG?F?EDFF:&gt;55;&gt;;B@(06::?(37?&gt;FA46)4.,(,4&lt;??B(1((-1,640-,.(34,(-(.(14,(3((((
+@M06129:165:000000000-K9L4J:1:1101:9227:1001 1:N:0:24
+NGAAACCTATGGTTTCGTCAATCGCCTTGCAGACGGTCGCTACATGCTCGCGAGCGAAGTCATGCGCCTCAATGCGGTCTATCAGGATGCCCTGGATCTTGAGCGGCATGTGTTGCCAAGGTTGCACAAGCTGACCGGAGAAACCGGCGAGACCGCCTCTTTTTATGTGAAACACGGTGCCTATCGGTTGTGTCAGTACCGGGTCAACTCTCCTCACCGTCTGCGATTGCACATGCAGCCTGGAGACATGCGCCCCATGGACGGTGCGGCGAGTGCCGAAGCATTGCGTACACCGTATGC
++
+#8BCCGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGFGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGDGGGGGGGGGGGGGGGGGGCGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGDEFGGGGDGGGGGGGGGGGFFGBGFFFFFFFFFFFFFFFF&lt;FFFFF&lt;&gt;9EFFFFFBBF?BFFBF9;61364,6A9;B&gt;BF&lt;A?&lt;&lt;9(((.:;?::?F</code></pre>
+<p>Along the same lines, we can count the number of lines in a FASTQ file like so:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">zcat</span> data/fastq/SM04_R1.fastq.gz <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>4124516</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+More about the Unix pipe, <code>|</code> <em>(Click to expand)</em>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The <strong><code>|</code> (pipe)</strong> takes the output of one command and passes it on (“pipes”) as input for a subsequent command.</p>
+<p>The most common way to use many shell commands that take input (which is most of them) is to pass that input as a file name — below, <code>wc -l</code> will operate on the FASTA file:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> data/fastq/SM04_R1.fastq.gz </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>However, <code>wc -l</code> (and almost any other command) will also operate on input that is passed to it though a pipe, so the above and below are completely equivalent:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> data/fastq/SM04_R1.fastq.gz <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The pipe is incredibly useful because it avoids the need write/read intermediate files — this saves typing and also makes the operation much quicker.</p>
+</div>
+</div>
+</div>
+<hr style="height:1pt; visibility:hidden;">
+</section>
+<section id="exercise-the-number-of-reads-in-a-fastq-file" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="exercise-the-number-of-reads-in-a-fastq-file"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Exercise</strong> : The number of reads in a FASTQ file</h4>
+<ul>
+<li>Given the output of the command above, how many reads are in this FASTQ file?</li>
+</ul>
+<details>
+<summary>
+Solution
+</summary>
+<p>There are 4,124,516 / 4 = 1,031,129 reads in this file, so a little more than a million.</p>
+</details>
+<ul>
+<li>What line count do you get when you run <code>wc -l</code> directly on the compressed file?</li>
+</ul>
+<details>
+<summary>
+Solution
+</summary>
+<p>You’ll get a line count of 880,721, quite a ways off from the number of lines in the uncompressed file! So, don’t do this when you want to count lines/reads!</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> data/fastq/SM04_R1.fastq.gz </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>880721 data/fastq/SM04_R1.fastq.gz</code></pre>
+</details>
+</section>
+<p><br></p>
+</section>
+</section>
+<section id="running-fastqc" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="running-fastqc"><span class="header-section-number">3</span> Running FastQC</h2>
+<section id="intro-to-fastqc" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="intro-to-fastqc"><span class="header-section-number">3.1</span> Intro to FastQC</h3>
+<p>FastQC is a ubiquitous tools for <strong>quality control of FASTQ files</strong>. Running FastQC or a similar program is the first step in nearly any high-throughput sequencing project. FastQC is also a good first example of a tool with a command-line interface.</p>
+<p>For each FASTQ file, FastQC outputs an <strong>HTML file</strong> that you can open in your browser with about a dozen graphs showing different QC metrics. The most important one is the <strong>per-base quality score graph</strong> shown below.</p>
+<div id="fig-fastqc" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fastqc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="img/fastqc_good.png" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="img/fastqc_bad.png" class="img-fluid figure-img"></p>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fastqc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: A FastQC per-base quality score graph for files with reasonably good (left) and very poor (right) quality reads. The y-axis shows Phred quality scores (higher is better, see also the color-coding) and the x-axis shows the position along the read.
+</figcaption>
+</figure>
+</div>
+<hr style="height:1pt; visibility:hidden;">
+</section>
+<section id="building-our-fastqc-command" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="building-our-fastqc-command"><span class="header-section-number">3.2</span> Building our FastQC command</h3>
+<p>To run FastQC, we can use the command <code>fastqc</code>.</p>
+<p>If you want to analyze one of your FASTQ files with default FastQC settings, a complete FastQC command to do so would simply be <code>fastqc</code> followed by the name of the file:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (Don't run this)</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> data/fastq/SM04_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>However, an annoying FastQC <strong>default behavior</strong> is that it writes its output files in the dir where the input files are — in general, it’s not great practice to directly mix your primary data and results like that!</p>
+<p>To figure out how we can change that behavior, first consider that many commands and bioinformatics tools alike have an <strong>option <code>-h</code> and/or <code>--help</code></strong> to print usage information to the screen.</p>
+<section id="exercise-fastqc-help-and-output-dir" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="exercise-fastqc-help-and-output-dir"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Exercise</strong>: FastQC help and output dir</h4>
+<p>Print FastQC’s help info, and figure out which option you can use to specify a custom output directory.</p>
+<details>
+<summary>
+<em>Click for the solution</em>
+</summary>
+<p><code>fastqc -h</code> and <code>fastqc --help</code> will both work to show the help info.</p>
+<p>You’ll get quite a bit of output printed to screen, including the snippet about output directories that is reproduced below:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>  -o --outdir     Create all output files in the specified output directory.
+                    Please note that this directory must exist as the program
+                    will not create it.  If this option is not set then the 
+                    output file for each sequence file is created in the same
+                    directory as the sequence file which was processed.</code></pre>
+<p>So, you can use <code>-o</code> or equivalently, <code>--outdir</code> to specify an output dir.</p>
+</details>
+</section>
+<hr style="height:1pt; visibility:hidden;">
+<p>So, our final FastQC command will be:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="dt">\</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--outdir</span> results/fastqc_pretrim <span class="dt">\</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  data/fastq/SM04_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Spreading commands across multiple lines with <code>\</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Above, I spread the command across multiple lines, which makes it a little easier to read. You can run the command exactly like that: we use the backslashes (<strong><code>\</code></strong>) at the end of all but the last line to indicate to the shell that our command will continue on the next line.</p>
+</div>
+</div>
+<hr style="height:1pt; visibility:hidden;">
+</section>
+<section id="running-our-fastqc-command" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="running-our-fastqc-command"><span class="header-section-number">3.3</span> Running our FastQC command</h3>
+<p>Now, let’s try to run that command:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="dt">\</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--outdir</span> results/fastqc_pretrim <span class="dt">\</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  data/fastq/SM04_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>bash: fastqc: command not found...</code></pre>
+<p>However, there is a wrinkle, as you can see above. While FastQC <em>is</em> installed at OSC<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, we have to <strong>“load it”</strong> with the <code>module load</code> command before we can use it.</p>
+<p>However, we will be using a whole array of bioinformatics programs, and we are going to use a (nearly) one-stop solution: a so-called “Conda environment” that has all of those programs installed.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Conda and software management
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We won’t have time to get into this now, but you want to learn more about Conda / software usage at supercomputers, see <a href="./ref_software.html">this reference page elsewhere on the website</a>.</p>
+</div>
+</div>
+<p><strong>Here’s how we can load that Conda software environment</strong> — we first load OSC’s (mini)conda installation, and then we can load (“activate”) the Conda environment that I created for you:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load miniconda3</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> activate /fs/ess/PAS0471/jelmer/conda/cabana</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now, let’s try again:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="dt">\</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--outdir</span> results/fastqc_pretrim <span class="dt">\</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  data/fastq/SM04_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>Specified output directory 'results/fastqc_pretrim' does not exist</code></pre>
+<hr style="height:1pt; visibility:hidden;">
+<section id="exercise-fixing-the-fastqc-error" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="exercise-fixing-the-fastqc-error"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Exercise</strong>: Fixing the FastQC error</h4>
+<p>Now what is going on this time? 😨 Or had you perhaps seen this coming given the help text we saw earlier? At any rate, can you try to fix the problem?</p>
+<details>
+<summary>
+<em>Click here for a hint</em>
+</summary>
+<p>You’ll need to create a new directory, which you can do either by using the buttons in the VS Code side bar, or with the <code>mkdir</code> command — here, try it as <strong><code>mkdir -p</code></strong> followed by the name (path) of the directory you want to create.</p>
+</details>
+<details>
+<summary>
+<em>Click here for the solution</em>
+</summary>
+<ul>
+<li><p>The problem, as the error fairly clearly indicates, is that the output directory that we specified with <code>--outdir</code> does not currently exist. We might have expected FastQC to be smart/flexible enough to create this dir for us (many bioinformatics tools <em>are</em>), but alas. On the other hand, if we had read the help text clearly, it did warn us about this.</p></li>
+<li><p>With the <code>mkdir</code> command, to create “two levels” of dirs at once, like we need to here (both <code>results</code> and then <code>fastqc</code> within there), we need its <code>-p</code> option:</p></li>
+</ul>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/fastqc_pretrim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</section>
+<hr style="height:1pt; visibility:hidden;">
+<p>And for our final try before we give up and throw our laptop out of the window (make sure to run the code in the exercise solution before you retry!):</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="dt">\</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--outdir</span> results/fastqc_pretrim <span class="dt">\</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  data/fastq/SM04_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>application/gzip
+Started analysis of SM04_R1.fastq.gz
+Approx 5% complete for SM04_R1.fastq.gz
+Approx 10% complete for SM04_R1.fastq.gz
+Approx 15% complete for SM04_R1.fastq.gz
+[...truncated...]
+Analysis complete for SM04_R1.fastq.gz</code></pre>
+<p>Success!! 🎉</p>
+<hr style="height:1pt; visibility:hidden;">
+</section>
+<section id="fastqc-output-files" class="level3" data-number="3.4">
+<h3 data-number="3.4" class="anchored" data-anchor-id="fastqc-output-files"><span class="header-section-number">3.4</span> FastQC output files</h3>
+<p>Let’s take a look at the files in the output dir we specified:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> results/fastqc_pretrim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>total 1.2M
+-rw-r--r-- 1 jelmer PAS0471 713K Feb  4 14:02 SM04_R1_fastqc.html
+-rw-r--r-- 1 jelmer PAS0471 431K Feb  4 14:02 SM04_R1_fastqc.zip</code></pre>
+<ul>
+<li>There is a <code>.zip</code> file, which contains <strong>tables</strong> with FastQC’s data summaries</li>
+<li>There is an <code>.html</code> (HTML) file, which contains <strong>plots</strong> — this is what we’ll look at next</li>
+</ul>
+<hr style="height:1pt; visibility:hidden;">
+<section id="exercise-a-script-another-fastqc-run" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="exercise-a-script-another-fastqc-run"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Exercise</strong>: A script &amp; another FastQC run</h4>
+<p><strong>A)</strong> We should always save all the code we run as part of our analysis pipeline, i.e.&nbsp;whatever is needed for all steps to be repeated later (or if possible, by someone else).</p>
+<p>Therefore, create a new file by clicking &nbsp; <i class="fa-solid fa-bars" aria-label="bars"></i> &nbsp; =&gt; &nbsp; <code>File</code> &nbsp; =&gt; &nbsp; <code>New Text File</code>. Then, save the file straight away &nbsp; <i class="fa-solid fa-bars" aria-label="bars"></i> &nbsp; =&gt; &nbsp; <code>File</code> &nbsp; =&gt; &nbsp; <code>Save</code> as <code>workflow/workflow.sh</code>.</p>
+<p>Then, copy the following code into the script:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the Conda environment</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load miniconda3</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> activate /fs/ess/PAS0471/jelmer/conda/cabana</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Run FastQC</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/fastqc_pretrim</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="dt">\</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--outdir</span> results/fastqc_pretrim <span class="dt">\</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  data/fastq/SM04_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr style="height:1pt; visibility:hidden;">
+<p><strong>B)</strong> Run FastQC for the corresponding R2 FASTQ file. Would you use the same output dir?</p>
+<details>
+<summary>
+<em>Click for the solution</em>
+</summary>
+<p>Yes, it makes sense to use the same output dir, since as you could see above, the output file names have the input file identifiers in them. As such, we don’t need to worry about overwriting files, and it will be easier to have all the results in a single dir.</p>
+<p>To run FastQC for the R2 (reverse-read) file:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="dt">\</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--outdir</span> results/fastqc_pretrim <span class="dt">\</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  data/fastq/SM04_R2.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>Started analysis of SM04_R2.fastq.gz
+Approx 5% complete for SM04_R2.fastq.gz
+Approx 10% complete for SM04_R2.fastq.gz
+Approx 15% complete for SM04_R2.fastq.gz
+[...truncated...]
+Analysis complete for SM04_2.fastq.gz</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> results/fastqc_pretrim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>-rw-r--r-- 1 jelmer PAS0471 241K Jan 21 21:50 SM04_R1_fastqc.html
+-rw-r--r-- 1 jelmer PAS0471 256K Jan 21 21:50 SM04_R1_fastqc.zip
+-rw-r--r-- 1 jelmer PAS0471 234K Jan 21 21:53 SM04_R2_fastqc.html
+-rw-r--r-- 1 jelmer PAS0471 244K Jan 21 21:53 SM04_R2_fastqc.zip</code></pre>
+<p>Now, we have four files: two for each of our preceding successful FastQC runs.</p>
+</details>
+</section>
+<p><br></p>
+
+
+</section>
+</section>
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Note that because individual sequence entries are commonly spread across multiple lines, FASTA entries do not necessarily cover 2 lines (cf.&nbsp;FASTQ).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>For a full list of installed software at OSC: <a href="https://www.osc.edu/resources/available_software/software_list" class="uri">https://www.osc.edu/resources/available_software/software_list</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

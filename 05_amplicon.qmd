@@ -68,6 +68,8 @@ cd /fs/scratch/PAS2250/cabana/$USER
 
 ```bash
 ls ../mizarra/***usuario_nuevo***/reads
+
+# Por ejemplo: ../mizarra/01_RFlores/reads
 ```
 
 -   Contig de secuencia de referencia:
@@ -91,14 +93,13 @@ mkdir Phytophthora
 #### **Comando 1: Reads**
 
 ```bash
-cp -r ../mizarra/***usuario_nuevo***/reads Phytophthora/reads
+cp -rv ../mizarra/***usuario_nuevo***/reads Phytophthora/reads
 ```
-
 
 #### **Comando 2: Referencia**
 
 ```bash
-cp -r ../mizarra/***usuario_nuevo***/ref Phytophthora/ref
+cp -rv ../mizarra/***usuario_nuevo***/ref Phytophthora/ref
 ```
 
 ## *Softwares utilizados*
@@ -146,7 +147,7 @@ cd ../reads
 
 ```bash
 for file in *.fq.gz; do
-    bwa mem ../ref/Pinf2021refs.fa "$file" > "${file/%fq.gz/sam}"
+    bwa mem ../ref/Pinf2021refs.fa "$file" > "${file/fq.gz/sam}"
 done
 ```
 
@@ -154,7 +155,7 @@ done
 
 ```bash
 for file in *.sam; do
-    samtools sort -o "${file/%sam/sorted.sam}" "$file"
+    samtools sort -o "${file/sam/sorted.sam}" "$file"
 done
 ```
 
@@ -162,7 +163,7 @@ done
 
 ```bash
 for file in *sorted.sam; do
-    samtools view -bt ../ref/Pinf2021refs.fa.fai -o "${file/%sorted.sam/bam}" "$file"
+    samtools view -bt ../ref/Pinf2021refs.fa.fai -o "${file/sorted.sam/bam}" "$file"
 done
 ```
 
@@ -183,7 +184,7 @@ cp *.bam /fs/scratch/PAS2250/cabana/Phytophthora/reads
 -   Ubicarnos en la carpeta que tiene todos los archivos bam
 
 ```bash
-ls /fs/scratch/PAS2250/cabana/Phytophthora/reads*.bam > listbam
+ls /fs/scratch/PAS2250/cabana/Phytophthora/reads/*.bam > listbam
 ```
 
 #### Llamado de Variantes SNPs
@@ -198,8 +199,9 @@ bcftools mpileup -Ou -f ../ref/Pinf2021refs.fa -b listbam |
 #### Filtrar posiciones de SNP
 
 ```bash
-bcftools filter -Ov -o perupop_filtered.vcf -s LOWQUAL -e 'QUAL\<10 \|\| DP \<10' \
-  --SnpGap 5 --set-GTs . perupop.vcf
+bcftools filter -Ov -o perupop_filtered.vcf -s LOWQUAL \
+  -e 'QUAL<10 || DP <10'  --SnpGap 5 --set-GTs \
+  . perupop.vcf
 ```
 
 #### Mantener sólo los SNP con calidad chequeada
@@ -215,13 +217,15 @@ bcftools view -f PASS perupop_filtered.vcf > perupop_filtered_final.vcf
 ### Crear una carpeta llamada *Rstudio*
 
 ```bash
-mkdir /fs/scratch/PAS2250/cabana/$USER/Rstudio
+mkdir ../Rstudio
 ```
 
 ### Copiar el archivo *.vcf
 
 ```bash
-cp perupop_filtered_final.vcf /fs/scratch/PAS2250/cabana/$USER/Rstudio
+cp perupop_filtered_final.vcf ../Rstudio/
+
+cp /fs/scratch/PAS2250/cabana/Phytophthora/new_names_peru.csv ../../Rstudio/
 ```
 
 ### Cargar Rstudio en el OSC OnDemand
@@ -236,16 +240,20 @@ cp perupop_filtered_final.vcf /fs/scratch/PAS2250/cabana/$USER/Rstudio
 
 ![](img_myriam/Rstudio-OnDemand.png){fig-align="center" width="100%"}
 
-![](img_myriam/Rstudio-OnDemand_access.png)
-
 ### Cargar las librerias
 
 ```{r}
 # Cargar modulos - <https://www.osc.edu/resources/available_software/software_list/r#import_modules>
-source(file.path(Sys.getenv("LMOD_PKG"), "init/R")) module("load", "gdal/3.3.1") module("load", "proj/8.1.0") module("load", "geos/3.9.1") module("load", "sqlite/3.36.0")
+source(file.path(Sys.getenv("LMOD_PKG"), "init/R"))
+module("load", "gdal/3.3.1")
+module("load", "proj/8.1.0")
+module("load", "geos/3.9.1")
+module("load", "sqlite/3.36.0")
 
-# Cargar links de libreria dinamica dyn.load("/apps/proj/8.1.0/lib/libproj.so.22", local=FALSE)
-dyn.load("/apps/gdal/3.3.1/lib/libgdal.so.29", local=FALSE) dyn.load("/apps/geos/3.9.1/lib/libgeos_c.so", local=FALSE)
+# Cargar links de libreria dinamica
+dyn.load("/apps/proj/8.1.0/lib/libproj.so.22", local=FALSE)
+dyn.load("/apps/gdal/3.3.1/lib/libgdal.so.29", local=FALSE)
+dyn.load("/apps/geos/3.9.1/lib/libgeos_c.so", local=FALSE)
 
 # Definir y configurar el directorio de la libreria
 libdir <- "/fs/ess/PAS0471/jelmer/R/peru"
@@ -264,6 +272,13 @@ library(directlabels)
 library(viridisLite)
 ```
 
+### Analysis {-}
+
+```{r}
+# Replace usuario_nuevo with your username!
+setwd("/fs/scratch/PAS2250/cabana/usuario_nuevo")
+```
+
 ```{r }
 # Cargar el archivo vcf generado con bcftools
 perupop.VCF <- read.vcfR("perupop_filtered_final.vcf")
@@ -280,8 +295,6 @@ ploidy(gl.perupop) <- 2
 
 ```{r}
 # Renombrar las muestras
-#El archivo: new_names_peru.csv: Esta localizado aqui:
-#*/fs/scratch/PAS2250/cabana/Phytophthora/new_names_peru.csv*
 gl.perupop_recoded <- gl.recode.ind(gl.perupop,
                                     ind.recode="new_names_peru.csv", 
                                     mono.rm = T, verbose=0)

@@ -22,26 +22,38 @@ website:
           - text: "VS Code"
             href: 02_vscode.qmd
           - text: "Unix shell refresher"
+            href: 03_shell.qmd
           - text: "FASTQ files and quality control"
+            href: 04_fastq.qmd
+          - text: "-----------"
           - text: "_Phytophthora_ amplicon sequencing"
             href: 05_amplicon.qmd
       - text: "Thu Feb 8"
         menu: 
-          - text: "Bacterial genome analysis (slides)"
-          - text: "Shell scripts, batch jobs, and loops"
-          - text: "Intro to Bactopia"
-          - text: "Running Bactopia"
-          - text: "Interpeting the Bactopia results"
+          - text: "Bacterial whole-genome sequencing (slides)"
+          - text: "Read preprocessing"
+          - text: "Genome assembly and assembly QC"
+          - text: "Genome annotation"
+          - text: "Pangenomics & phylogenetics"
     right:
-      - text: Other Pages
+      - text: "Homework"
+        href: homework.qmd
+      - text: Reference Pages
         menu:
-          - text: "Homework"
-            href: homework.qmd
-          - text: "Opening a Unix Shell at OSC"
+          - text: "Opening a Unix shell at OSC"
             href: open_shell.qmd
           - text: "Starting an RStudio session at OSC"
             href: rstudio.qmd
-          - text: "Overview of common Unix shell commands"
+          - text: "---------------"
+          - text: "Continued Unix shell intro"
+            href: ref_shell2.qmd
+          - text: "Unix shell overview/reference"
+            href: ref_shell.qmd
+          - text: "--------------"
+          - text: "Software management"
+            href: ref_software.qmd
+          - text: "Data management"
+            href: ref_data.qmd
       - text: About
         href: about.qmd
     tools:
@@ -62,4 +74,4 @@ format:
     grid:
       body-width: 900px
 
-editor: visual
+editor: source

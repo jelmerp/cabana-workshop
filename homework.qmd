@@ -5,7 +5,7 @@ date: 2024-01-27
 number-sections: false
 ---
 
-<hr style="height:1pt; visibility:hidden;" />
+<br>
 
 **If you have very limited or no experience with R and/or the Unix shell**, please go through the following homework before you need these skills in the workshop on Wednesday.
 
@@ -32,7 +32,7 @@ You should be able to install R and RStudio regardless of your operating system 
 But in case you are having trouble, you can also use R and RStudio through your browser with the Ohio Supercomputer Center (OSC). To start an RStudio session at OSC, follow [these instructions elsewhere on this website](rstudio.qmd).
 :::
 
-<br>
+<hr style="height:1pt; visibility:hidden;" />
 
 ## Unix shell
 
@@ -55,5 +55,3 @@ If your computer uses the Windows operating system, you will not have a Unix she
 :::
 
 [^1]: If you have a Mac or Linux computer, you *should* have a Unix shell installed.
-
-<br> <br>

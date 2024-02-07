@@ -8,80 +8,58 @@ execute:
 knitr:
   opts_chunk:
     out.width: "85%"
-    class-output: bash-out
 editor_options: 
   chunk_output_type: console
 ---
 
 <br>
 
-## Overview & setting up
+## Introduction {.unnumbered}
 
-Many of the things you typically do by pointing and clicking can alternatively
-be done by typing commands.
-The Unix shell allows you to interact with computers via commands.
+Many of the things you typically do by pointing and clicking can alternatively be done by typing commands. The Unix shell allows you to interact with computers via commands.
 
-Working effectively on a remote supercomputer tends to simply _require_ using a
-command line interface.
-But there are more **advantages to doing command line computing**
-than just allowing you to work on a supercomputer, such as:
+Working effectively on a remote supercomputer tends to require using a command line interface. But there are more **reasons to command line computing**, such as:
 
-  - Working efficiently with large files
-  - Achieving better reproducibility in research
-  - Performing general computing tasks more efficiently (once you get the hang of it...)
-  - Making it easier to repeat similar tasks across files, samples, and projects
-  - For bioinformatics, being able to use (the latest) command-line programs directly
-    without having to depend on "GUI wrappers" written by third parties,
-    that often cost money and also lag behind in functionality
+-   Working efficiently with large files
+-   Making it easier to repeat (& automate) similar tasks across files, samples, and projects
+-   Achieving better reproducibility in research
+-   At least in bioinformatics, being able to use access the largest and most recent set of approaches and all their options --- many graphical user interface programs lag behind in functionality and may cost money as well.
+
+::: {.callout-tip collapse="true"}
+#### Side note: Some Unix shell terminology *(Click to expand)*
+
+We're going to focus on the practice of doing command line computing, and not get too bogged down in terminology, but let's highlight a few interrelated terms you're likely to run across:
+
+-   **Command Line** — the most general term, an interface[^1] where you type commands
+-   **Terminal** — the program/app/window that can run a Unix shell
+-   **Shell** — a command line interface to your computer
+-   **Unix Shell** — the types of shells on Unix family (Linux + Mac) computers
+-   **Bash** — the specific Unix shell language that is most common on Unix computers
+
+While it might not fly for a computer science class, for day-to-day computing/bioinformatics, you'll probably hear all these terms used somewhat interchangeably.
+:::
+
+[^1]: Command-line Interface (CLI), as opposed to Graphical User Interface (GUI)
+
+<hr style="height:1pt; visibility:hidden;" />
 
 #### Starting a VS Code session in OSC OnDemand
 
-**We'll use a Unix shell at OSC inside VS Code**.
-You should have an active VS Code session in the folder `/fs/scratch/PAS2250/cabana/<user>`,
-and with an open Terminal &mdash; if not, see the instructions in the dropdown
-box right below.
+**We'll use a Unix shell at OSC inside VS Code**. You should have an active VS Code session in the folder `/fs/scratch/PAS2250/cabana/<user>`, and with an open Terminal — if not, see the instructions right below.
 
-:::{.callout-tip collapse="true"}
-## Starting VS Code at OSC - with a Terminal _(Click to expand)_
-1. Log in to OSC's OnDemand portal at <https://ondemand.osc.edu>.
-2. In the blue top bar, select `Interactive Apps`
-   and then near the bottom of the dropdown menu, click `Code Server`.
-3. In the form that appears on a new page:
-   - Select OSC project `PAS2250`
-   - The starting directory: `/fs/scratch/PAS2250/cabana/<user>`
-   - `Number of hours`: `10`
-   - Click `Launch`.
-4. On the next page, once the top bar of the box has turned green
-   and says `Runnning`, click `Connect to VS Code`.
-5. Open a Terminal by clicking
-   &nbsp; {{< fa bars >}} &nbsp; => `Terminal` => `New Terminal`.
-   (Or use one of the keyboard shortcuts:
-   <kbd>Ctrl</kbd>+<kbd>\`</kbd> (backtick) or
-   <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>.)
-6. Type `pwd` to check where you are.
-   If you are not in `/fs/scratch/PAS2250/cabana/<user>`,
-   click `Open folder...` in the `Welcome` tab,
-   or &nbsp; {{< fa bars >}} &nbsp; => &nbsp; `File` &nbsp; => &nbsp; `Open Folder`,
-   then type/select `/fs/scratch/PAS2250/cabana/<user>` and press Ok.
-:::
+::: {.callout-note collapse="true"}
+## Starting VS Code at OSC - with a Terminal *(Click to expand)*
 
-::: {.callout-note}
-#### Some Unix shell terminology
-
-We're going to focus on the practice of doing command line computing here,
-and not get too bogged down in terminology,
-but let's highlight a few interrelated terms you're likely to run across:
-
-  - **Command Line** &mdash; the most general term, an interface where you type commands
-  - **Terminal** &mdash; the program/app/window that can run a Unix shell 
-  - **Shell** &mdash; a command line interface to your computer
-  - **Unix Shell** &mdash; the types of shells on Unix family (Linux + Mac) computers 
-  - **Bash** &mdash; the specific Unix shell language that is most common on Unix computers
-  
-While it might not fly for a computer science class,
-for day-to-day computing/bioinformatics,
-you'll probably hear all these terms used somewhat interchangeably.
-
+1.  Log in to OSC's OnDemand portal at <https://ondemand.osc.edu>.
+2.  In the blue top bar, select `Interactive Apps` and then near the bottom of the dropdown menu, click `Code Server`.
+3.  In the form that appears on a new page:
+    -   Select OSC project `PAS2250`
+    -   The starting directory: `/fs/scratch/PAS2250/cabana/<user>`
+    -   `Number of hours`: `10`
+    -   Click `Launch`.
+4.  On the next page, once the top bar of the box has turned green and says `Runnning`, click `Connect to VS Code`.
+5.  Open a Terminal by clicking   {{< fa bars >}}   =\> `Terminal` =\> `New Terminal`. (Or use one of the keyboard shortcuts: <kbd>Ctrl</kbd>+<kbd>\`</kbd> (backtick) or <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>.)
+6.  Type `pwd` to check where you are. If you are not in `/fs/scratch/PAS2250/cabana/<user>` (where `<user>` is your OSC username), click `Open folder...` in the `Welcome` tab, or   {{< fa bars >}}   =\>   `File`   =\>   `Open Folder`, then type/select `/fs/scratch/PAS2250/cabana/<user>` and press OK.
 :::
 
 <br>
@@ -90,40 +68,23 @@ you'll probably hear all these terms used somewhat interchangeably.
 
 ### The prompt
 
-Inside your terminal, the "prompt" indicates that the shell is ready for a command.
-What is shown exactly varies a bit across shells and can also be customized,
-but our prompts at OSC should show the following:
+Inside your terminal, the "prompt" indicates that the shell is ready for a command. What is shown exactly varies across shells and can also be customized, but our prompts at OSC should show the following information:
 
-``` {.bash-in-nocolor}
-[<username>@<node-name> <working-dir>]$
-```
+`<username>@<node-name> <working-dir>]$`
 
 For example:
 
-``` {.bash-in-nocolor}
+``` bash-in-nocolor
 [jelmer@p0080 jelmer]$ 
 ```
 
-We type our commands after the dollar sign,
-and then press <kbd>Enter</kbd> to execute the command.
-When the command has finished executing,
-we'll get our prompt back and can type a new command.
+We type our commands after the dollar sign, and then press <kbd>Enter</kbd> to execute the command. When the command has finished executing, we'll get our prompt back and can type a new command.
 
-::: callout-tip
-#### How shell code is shown on this website
-
--   The gray boxes like the ones shown above will be used to show the command line expressions that you should type.
-
--   In upcoming boxes, the prompt itself (`[...]$`) will not be shown, but only the command line expressions that you type. This is to save space and to allow you for copy-and-pasting (but I recommend typing!).
-
--   Paler gray boxes (below the boxes with command have & with italic text) show the *output* of commands.
-:::
-
-<br>
+<hr style="height:1pt; visibility:hidden;" />
 
 ### A few simple commands: `date`, `whoami`, `pwd`
 
-The Unix shell comes with hundreds of "commands": small programs that perform specific actions. If you're familiar with R or Python, a Unix command is like an R/Python function.
+The Unix shell comes with hundreds of "commands": small programs that perform specific actions. If you're familiar with R or Python, a Unix *command* is like an R/Python *function*.
 
 Let's start with a few simple commands:
 
@@ -134,7 +95,7 @@ date
 ```
 
 ``` bash-out
-Fri Jan 26 14:31:51 EST 2024
+Wed Feb 7 09:11:51 EST 2024
 ```
 
 -   The `whoami` (who-am-i) command prints your username:
@@ -160,18 +121,20 @@ pwd
 All 3 of those commands provided us with some output. That output was **printed to screen**, which is the default behavior for nearly every Unix command.
 
 ::: callout-note
-#### Working directory and paths
+#### Working directory and paths (we'll talk more about paths later)
 
--   When working in a Unix shell, you are always "in" a specific directory and this is called your **working directory**.
--   In a **path** (= location of a file or directory) such as that output by `pwd`, directories are separated by forward slashes **`/`**. (And a *leading* forward slash, if present, indicates the computer's *root directory*.)
+-   When working in a Unix shell, you are always "in" a specific directory: your **working directory** ("working dir" for short).
+-   In a **path** (= location of a file or directory) such as that output by `pwd`, directories are separated by forward slashes **`/`**.
 :::
 
 ::: callout-tip
-#### General shell tips
+#### Case and spaces
 
 -   Everything in the shell is **case-sensitive**, including commands and file names.
--   **Avoid spaces** in file and directory names! Use e.g. underscores or capitalization to distinguish words.
+-   **Avoid spaces** in file and directory names![^2] Use e.g. underscores to distinguish words (`my_long_filename`).
 :::
+
+[^2]: It's certainly *possible* to have spaces in file names, but it's a bad idea, and will get you into trouble sooner or later.
 
 <br>
 
@@ -182,12 +145,14 @@ In the above three command line expressions:
 -   We merely typed a command and nothing else
 -   The command provided some information, which was printed to screen
 
-But many commands perform an **action** other than providing information. For example, you can use the command **`cd`** to Change Directory (i.e. change your *working* dir). And like many commands that perform an action, `cd` normally has **no output** at all.
+But many commands perform an **action** other than providing information.
+For example, you can use the command **`cd`** to Change Directory (i.e. change your *working* dir).
+And like many commands that perform an action, `cd` normally has **no output** at all.
 
 Let's use `cd` to move to another directory by specifying the *path* to that directory after the `cd` command:
 
 ``` bash
-cd /fs/scratch/PAS2250/cabana/share
+cd /fs/scratch/PAS2250/cabana/bact
 ```
 
 ``` bash
@@ -195,32 +160,32 @@ pwd
 ```
 
 ``` bash-out
-/fs/scratch/PAS2250/cabana/share
+/fs/scratch/PAS2250/cabana/bact
 ```
 
 ::: callout-note
 #### I will demonstrate "tab completion"!
 :::
 
-In more abstract terms, what we did above was to provide `cd` with an **argument**, namely the path of the dir to move to. Arguments generally tell commands what file or directory to operate on.
+In more abstract terms, what we did above was to provide `cd` with an **argument**, namely the path of the dir to move to. Arguments generally tell commands what file(s) or directory/ies to operate on.
 
 As we've seen, then, `cd` gives no output when it succesfully changed the working directory. But let's also see what happens when it does not succeed — it gives an error:
 
 ``` bash
-cd /fs/Scratch/PAS2250
+cd /fs/scratch/pas2250
 ```
 
 ``` bash-out
-bash: cd: /fs/Scratch/PAS2250: No such file or directory
+bash: cd: /fs/scratch/pas2250: No such file or directory
 ```
 
 <details>
 
-<summary>**Your Turn**: What was the problem with the path we specified? *(Click to see the answer)*</summary>
+<summary>What was the problem with the path we specified? *(Click to see the answer)*</summary>
 
-We used a capital S in `/Scratch/` — this should have been `/scratch/`.
+We used lowercase in `/pas2250/` — this should have been `/PAS2250/`.
 
-As pointed out above, paths (dir and file specifications) are **case-sensitive** on Unix systems!
+As pointed out above, everything, including paths, is **case-sensitive** in the Unix shell!
 
 </details>
 
@@ -240,21 +205,49 @@ ls
 data  README.md
 ```
 
-*(You should still be in `/fs/scratch/PAS2250/cabana/share`. If not, `cd` there first.)*
+*(You should still be in `/fs/scratch/PAS2250/cabana/bact`. If not, `cd` there first.)*
 
 ::: {.callout-tip collapse="true"}
 #### Side note: `ls` output colors *(click to expand)*
 
-Unfortunately, the `ls` output shown above does not show the different colors you should see in your shell — here are some of the most common ones:
+The `ls` output above does not show the different colors you should see in your shell — the most common ones are:
 
 -   Entries in [blue]{style="color: #0328fc"} are directories (like `data` and `metadata` above)
 -   Entries in black are regular files (like `README.md` above)
 -   Entries in [red]{style="color: #d92118"} are compressed files (we'll see an example soon).
 :::
 
-This default way that `ls` shows the output can be changed by providing `ls` with **options**.
+By default, `ls` will list files and dirs in your current working dir, and in the way shown above. *For which dir* `ls` lists files and dirs can be changed with **arguments**, and *how* `ls` shows the output can be changed with **options**.
 
-#### Options (to `ls`)
+::: exercise
+#### Intermezzo: `cat` and a quick intro to the data
+
+To find out what data is contained in this dir,
+let's take a look at the `README.md` file.
+
+There are several commands to view the contents of files ---
+the simplest is `cat`, which will print the entire contents of a file to screen:
+
+```bash
+cat README.md
+```
+```bash-out
+# README for /fs/scratch/PAS2250/cabana/bact
+
+This directory contains:
+
+- Illumina FASTQ files for 16 _Pseudomonas syringae pv. syringae_ samples (`data/fastq`)
+- 10 _Pseudomonas_ genome assemblies downloaded from NCBI (`data/ref`)
+- Metadata on both the focal samples and the downloaded genomes (`data/meta`)
+```
+
+This is the dataset we will work with (mostly) tomorrow for our bacterial
+whole-genome analysis sessions.
+:::
+
+<hr style="height:1pt; visibility:hidden;" />
+
+#### Options
 
 In general, whereas arguments tell a command *what to operate on*, options will *modify its behavior*. For example, we can call `ls` with the **option `-l`** (a dash followed by a lowercase L):
 
@@ -264,13 +257,13 @@ ls -l
 
 ``` bash-out
 total 17
-drwxr-xr-x 5 jelmer PAS0471 4096 Jan 21 12:39 data
--rw-r--r-- 1 jelmer PAS0471 1502 Jan 22 11:04 README.md
+drwxr-xr-x 5 jelmer PAS2250 4096 Feb  4 11:46 data
+-rw-r--r-- 1 jelmer PAS2250  318 Feb  6 08:57 README.md
 ```
 
-Notice that it lists the same items as our first `ls` call above, but **printed in a different format**: one item per line, with additional information included, such as the date and time each file was last modified, and the file sizes in bytes (to the left of the date).
+Notice that it lists the same items as above, but **printed in a different format**: one item per line, with additional information such as the date and time each file was last modified, and file sizes in bytes (to the left of the date).
 
-Let's add another option, `-h`:
+Let's add another option, **`-h`**:
 
 ``` bash
 ls -l -h
@@ -278,13 +271,13 @@ ls -l -h
 
 ``` bash-out
 total 17K
-drwxr-xr-x 5 jelmer PAS0471 4.0K Jan 21 12:39 data
--rw-r--r-- 1 jelmer PAS0471 1.5K Jan 22 11:04 README.md
+drwxr-xr-x 5 jelmer PAS2250 4.0K Feb  4 11:46 data
+-rw-r--r-- 1 jelmer PAS2250  318 Feb  6 08:57 README.md
 ```
 
 <details>
 
-<summary>**Your Turn**: What is different about the output, and what do you think that means? *(Click to see the answer)*</summary>
+<summary>What is different about the output, and what do you think that means? *(Click to see the answer)*</summary>
 
 The only difference is in the format of the column reporting the sizes of the items listed.
 
@@ -292,15 +285,19 @@ We now have "Human-readable filesizes" (hence `-h`), where sizes on the scale of
 
 </details>
 
-Conveniently, options can be pasted together as follows:
+Conveniently, options can be **"pasted together"** as follows:
 
 ``` bash
 ls -lh
 ```
 
-#### Combining options and arguments
+<hr style="height:1pt; visibility:hidden;" />
 
-Arguments to `ls` should be **dirs or files to operate on**. For example, if we wanted to see what's inside the `data` dir, instead of inside our working dir, we could type:
+#### Arguments
+
+Arguments to `ls` should be **dirs or files to operate on**. For example, if we wanted to see what's inside the `data` dir, instead of inside our working dir, we could type[^3]:
+
+[^3]:  Beginners will often `cd` into a dir just to list its contents, but the method shown below is much quicker.
 
 ``` bash
 ls data
@@ -317,200 +314,640 @@ ls data/fastq
 ```
 
 ``` bash-out
-ERR10802863_R1.fastq.gz  ERR10802865_R2.fastq.gz  ERR10802868_R1.fastq.gz  ERR10802870_R2.fastq.gz  ERR10802875_R1.fastq.gz  ERR10802877_R2.fastq.gz  ERR10802880_R1.fastq.gz  ERR10802882_R2.fastq.gz  ERR10802885_R1.fastq.gz
-ERR10802863_R2.fastq.gz  ERR10802866_R1.fastq.gz  ERR10802868_R2.fastq.gz  ERR10802871_R1.fastq.gz  ERR10802875_R2.fastq.gz  ERR10802878_R1.fastq.gz  ERR10802880_R2.fastq.gz  ERR10802883_R1.fastq.gz  ERR10802885_R2.fastq.gz
-ERR10802864_R1.fastq.gz  ERR10802866_R2.fastq.gz  ERR10802869_R1.fastq.gz  ERR10802871_R2.fastq.gz  ERR10802876_R1.fastq.gz  ERR10802878_R2.fastq.gz  ERR10802881_R1.fastq.gz  ERR10802883_R2.fastq.gz  ERR10802886_R1.fastq.gz
-ERR10802864_R2.fastq.gz  ERR10802867_R1.fastq.gz  ERR10802869_R2.fastq.gz  ERR10802874_R1.fastq.gz  ERR10802876_R2.fastq.gz  ERR10802879_R1.fastq.gz  ERR10802881_R2.fastq.gz  ERR10802884_R1.fastq.gz  ERR10802886_R2.fastq.gz
-ERR10802865_R1.fastq.gz  ERR10802867_R2.fastq.gz  ERR10802870_R1.fastq.gz  ERR10802874_R2.fastq.gz  ERR10802877_R1.fastq.gz  ERR10802879_R2.fastq.gz  ERR10802882_R1.fastq.gz  ERR10802884_R2.fastq.gz
+SM04_R1.fastq.gz    SM1031_R1.fastq.gz  SM1042_R1.fastq.gz  SM155_R1.fastq.gz  SM181_R1.fastq.gz  SM191_R1.fastq.gz  SM207_R1.fastq.gz  SM51_R1.fastq.gz
+SM04_R2.fastq.gz    SM1031_R2.fastq.gz  SM1042_R2.fastq.gz  SM155_R2.fastq.gz  SM181_R2.fastq.gz  SM191_R2.fastq.gz  SM207_R2.fastq.gz  SM51_R2.fastq.gz
+SM1030_R1.fastq.gz  SM1038_R1.fastq.gz  SM109_R1.fastq.gz   SM156_R1.fastq.gz  SM190_R1.fastq.gz  SM205_R1.fastq.gz  SM226_R1.fastq.gz  SM914_R1.fastq.gz
+SM1030_R2.fastq.gz  SM1038_R2.fastq.gz  SM109_R2.fastq.gz   SM156_R2.fastq.gz  SM190_R2.fastq.gz  SM205_R2.fastq.gz  SM226_R2.fastq.gz  SM914_R2.fastq.gz
 ```
 
 Ah, FASTQ files! These contain our sequence data, and we'll go and explore them in a bit.
 
-Finally, we can **combine options and arguments**, and let's do so take a closer look at our dir with FASTQ files — now the `-h` option is especially useful and allows us see that the FASTQ files are 21-22 Mb in size:
+<hr style="height:1pt; visibility:hidden;" />
+
+#### Combining options and arguments
+
+We'll combine options and arguments to take a closer look at our dir with FASTQ files — now the **`-h`** option is especially useful and allows us to see that the FASTQ files are roughly around 200 Mb in size:
 
 ``` bash
 ls -lh data/fastq
 ```
 
 ``` bash-out
-total 941M
--rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:34 ERR10802863_R1.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802863_R2.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:34 ERR10802864_R1.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802864_R2.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802865_R1.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802865_R2.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:34 ERR10802866_R1.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802866_R2.fastq.gz
-[...output truncated...]
+total 6.1G
+-rw-r--r-- 1 jelmer PAS2250 205M Feb  4 11:47 SM04_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 242M Feb  4 11:46 SM04_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 188M Feb  4 11:46 SM1030_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 221M Feb  4 11:46 SM1030_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 187M Feb  4 11:46 SM1031_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 221M Feb  4 11:46 SM1031_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 187M Feb  4 11:46 SM1038_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS2250 224M Feb  4 11:46 SM1038_R2.fastq.gz
+# [...output truncated...]
 ```
+
+<hr style="height:1pt; visibility:hidden;" />
+
+::: exercise
+#### {{< fa user-edit >}} **Exercise**: Listing files
+
+List the files in the `data/ref` dir:
+
+-   What are the file sizes?
+-   Do you know what kind of files these are?
 
 <details>
 
-<summary>{{< fa user-edit >}} **Your Turn**: List the files in the `data/ref` dir. What are the file sizes? *(Click for the solution)*</summary>
+<summary>*Click for the solution*</summary>
 
 ``` bash
 ls -lh data/ref
 ```
 
 ``` bash-out
-total 670M
--rw-r--r-- 1 jelmer PAS0471 547M Jan 20 22:34 GCF_016801865.2.fna
--rw-r--r-- 1 jelmer PAS0471 123M Jan 20 22:34 GCF_016801865.2.gtf
+total 60M
+-rw-r--r-- 1 jelmer PAS2250 6.4M Feb  4 11:46 GCA_000007805.fna
+-rw-r--r-- 1 jelmer PAS2250 6.0M Feb  4 11:46 GCA_000012205.fna
+-rw-r--r-- 1 jelmer PAS2250 5.9M Feb  4 11:46 GCA_000012245.fna
+-rw-r--r-- 1 jelmer PAS2250 5.7M Feb  4 11:46 GCA_000145825.fna
+-rw-r--r-- 1 jelmer PAS2250 5.6M Feb  4 11:46 GCA_000156995.fna
+-rw-r--r-- 1 jelmer PAS2250 5.8M Feb  4 11:46 GCA_000988395.fna
+-rw-r--r-- 1 jelmer PAS2250 5.9M Feb  4 11:46 GCA_000988485.fna
+-rw-r--r-- 1 jelmer PAS2250 6.5M Feb  4 11:46 GCA_002763655.fna
+-rw-r--r-- 1 jelmer PAS2250 6.1M Feb  4 11:46 GCA_018603495.fna
+-rw-r--r-- 1 jelmer PAS2250 6.0M Feb  4 11:46 GCA_023277945.fna
 ```
 
-The `.fna` file (this is the genome assembly nucleotide FASTA file) is 547 Mb (not bases but bytes!), and the `.gtf` file (this is the annotation file) is 123 Mb.
+-   The files are round 5-6 Mb in size.
+
+-   These are FASTA files with nucleotide sequences (hence the extension `.fna`).
+
+    (More specifically, they are genome assembly sequences downloaded from NCBI: the `GCA_` prefix indicates that they are from NCBI's GenBank.)
 
 </details>
+:::
 
 <hr style="height:1pt; visibility:hidden;" />
 
-### A few more general shell tips
+### Miscellaneous tips
 
--   **Command history:** If you hit the <kbd>⇧</kbd> (up arrow) once, you'll retrieve your most recent command, and if you keep hitting it, you'll go further back. The<kbd>⇩</kbd> (down arrow) will go the other way: towards the present.
+-   **Command history:** If you hit the **<kbd>⇧</kbd>** (up arrow) once,
+    you'll retrieve your most recent command, and if you keep hitting it, you'll go further back.
+    The **<kbd>⇩</kbd>** (down arrow) will go the other way: towards the present.
 
--   Your cursor can be anywhere on a line (not just at the end) when you press <kbd>Enter</kbd> to execute a command!
+-   Your **cursor** can be anywhere on a line (not just at the end) when you press <kbd>Enter</kbd> to execute a command!
 
--   If your **prompt is missing**, the shell is either still busy executing your command, or you typed an incomplete command. To abort in either of these two scenarios, press <kbd>Ctrl</kbd>+<kbd>C</kbd> and you'll get your prompt back.
+-   Any text that comes after a **`#`** is considered a **comment** instead of code!
 
--   Anything that comes after a `#` is considered a comment instead of code!
+    ``` bash
+    # This entire line is a comment - you can run it and nothing will happen
+    pwd    # 'pwd' will be executed but everything after the '#' is ignored
+    ```
 
-``` bash
-# This entire line is a comment - you can run it and nothing will happen
-pwd    # 'pwd' will be executed but everything after the '#' is ignored
-```
-
-``` bash-out
-/fs/scratch/PAS2250/cabana/jelmer
-```
+    ``` bash-out
+    /fs/scratch/PAS2250/cabana/bact
+    ```
 
 <hr style="height:1pt; visibility:hidden;" />
+
+- If your **prompt is "missing"**, the shell is still busy executing your command,
+  _or_ you typed an incomplete command.
+  To abort in either of these scenarios, press **<kbd>Ctrl</kbd>+<kbd>C</kbd>** and you will get your prompt back.
+
+  To simulate a long-running command that we may want to abort, we can use the `sleep` command,
+  which will make the computer wait for a specified amount of time until giving your prompt back.
+  Run the below command and instead of waiting for the full 60 seconds,
+  press <kbd>Ctrl</kbd> + <kbd>C</kbd> to get your prompt back sooner!
+
+  ``` bash
+  sleep 60s
+  ```
+
+  Or, use <kbd>Ctrl</kbd> + <kbd>C</kbd> after running
+  this example of an incomplete command (an opening parenthesis `(`):
+ 
+  ``` bash
+  (
+  ```
+
+<hr style="height:1pt; visibility:hidden;" />
+
+::: exercise
+#### {{< fa user-edit >}} **Exercise**: Changing dirs
+
+**A)** Move into your personal dir in `/fs/scratch/PAS2250/cabana`,
+and then back into the `bact` dir.
 
 <details>
 
-<summary>{{< fa user-edit >}} **Your Turn**: Move into your personal directory, and then back into the `share` dir *(Click for the solution)*</summary>
+<summary>*(Click for the solution)*</summary>
 
 ``` bash
 cd /fs/scratch/PAS2250/cabana/jelmer
-cd /fs/scratch/PAS2250/cabana/share
+cd /fs/scratch/PAS2250/cabana/bact
 ```
 
 </details>
 
+**B)** Use the command history (up arrow) to repeat the previous exercise without retyping your commands.
+:::
+
+
+<br>
+
+## More key commands and concepts
+
+### Paths
+
+#### Absolute (full) paths versus relative paths
+
+-   Paths with a **leading `/`** begin from the computer's root directory, and are called "absolute" or "full paths".\
+    *(They are equivalent to GPS coordinates for a geographical location,* *as they work regardless of where you are*).
+
+-   Paths without a leading **`/`** begin from your current working directory, and are called "relative paths".\
+    *(These work like directions along the lines of "take the second left:"* *they depend on your current location.)*
+
+``` bash
+# Move into the 'cabana' dir with an absolute path:
+cd /fs/ess/PAS2250/cabana
+
+# Then, move into the 'share' dir with a relative path:
+cd bact                   # Absolute path is /fs/ess/PAS2250/cabana/bact
+```
+
+#### Path shortcuts
+
+-   **`~`** (a tilde)\
+    This is a shortcut for your Home directory --- for example, `cd ~` would move you to your Home dir.
+
+-   **`.`** (a single period)\
+    This is a shortcut representing the current working directory.
+    Therefore, `ls ./data` is functionally the same as `ls data`.
+
+-   **`..`** (two periods)\
+    This means the directory "one level up" (towards the computer's root dir).
+    Use `..` to go up in the dir hierarchy in a relative path:
+
+``` bash
+ls ..               # One level up, listing /fs/scratch/PAS2250/cabana
+```
+``` bash-out
+bact          databases  jelmer       mizarra       software
+bact_results  homework   jelmer_prep  Phytophthora
+# (Note: you will see more dirs than this!)
+```
+
+This pattern can be continued all the way to the root of the computer, so `../..` means two levels up:
+
+``` bash
+ls ../..            # Two levels up, listing /fs/scratch/PAS2250/cabana
+```
+
+``` bash-out
+cabana  ENT6703
+```
+
+::: callout-tip
+#### These shortcuts work with all commands
+
+All of the above shortcuts (`.`, `..`, `~`) are *general shell shortcuts* that
+work with **any** command that accepts a path/file name.
+:::
+
+<hr style="height:1pt; visibility:hidden;" />
+
+::: exercise
+#### {{< fa user-edit >}} Exercise: Path shortcuts
+
+-   **A)** Use *relative paths* with `..` to move into your personal dir and back to `bact` once again.
+
 <details>
 
-<summary>{{< fa user-edit >}} **Your Turn**: Use the command history (arrows) to repeat the previous exercise without typing anything.</summary>
+<summary>*(Click for the solution)*</summary>
+
+``` bash
+cd ../jelmer
+cd ../bact
+```
+
+</details>
+
+-   **B)** List the files in your Home dir without moving there.
+
+<details>
+
+<summary>*(Click for the solution)*</summary>
+
+``` bash
+ls ~
+```
+
+</details>
+:::
+
+<hr style="height:1pt; visibility:hidden;" />
+
+### Environment variables
+
+You are likely familiar with the concept of variables in either the Unix shell, R, or another language.
+
+-   Assigning and printing the value of a variable **in R**:
+
+```{r, eval=TRUE}
+#| class-output: styled-output
+# (Don't run this)
+x <- 5
+x
+```
+
+-   Assigning and printing the value of a variable **in the Unix shell**:
+
+``` bash
+x=5
+echo $x
+```
+
+``` bash-out
+5
+```
+
+::: callout-tip
+#### In the Unix shell code above, note that:
+
+-   There cannot be any **spaces** around the **`=`** in `x=5`.
+-   You need the **`echo`** command, a general command to print text, to print the value of `$x` (cf. in R).
+-   You need a **`$` prefix** to *reference* (but not to *assign*) variables in the shell[^4].
+:::
+
+[^4]:  Anytime you see a word/string that starts with a `$` in the shell, you can safely assume that it is a variable.
+
+**Environment variables** are pre-existing variables that have been assigned values automatically. Two examples:
+
+``` bash
+# $HOME contains the path to your Home dir:
+echo $HOME
+```
+
+``` bash-out
+/users/PAS0471/jelmer
+```
+
+``` bash
+# $USER contains your user name:
+echo $USER
+```
+
+``` bash-out
+jelmer
+```
+
+::: exercise
+#### {{< fa user-edit >}} **Exercise**: environment variables
+
+**A)** Use the environment variable `$USER` to list the contents of your personal dir in `/fs/ess/PAS2250/cabana`. What do you expect to see printed?
+
+::: callout-important
+##### If you get an error, make sure to check the solution!
+:::
+
+<details>
+
+<summary>*Click to see the solution*</summary>
+
+``` bash
+ls /fs/ess/PAS2250/cabana/$USER
+```
+
+``` bash-out
+ 
+```
+
+You should not get any output, since you didn't create or copy any files into your personal dir yet.
+
+**However**, if you get an error along these lines...
+
+``` bash-out
+bash: cd: /fs/ess/PAS2250/cabana/jelmer: No such file or directory
+```
+
+...then the dir you created earlier in the OnDemand's Files menu does not (exactly) match your user name!
+
+You can try to rename the folder with the `mv` command or do so in VS Code's file explorer on the left-hand side. Alternatively, you can just (also) create the correct dir as follows:
+
+``` bash
+mkdir /fs/ess/PAS2250/cabana/$USER
+```
+
+And then you can optionally find and remove your other, misnamed dir (you can remove it in the OnDemand File Browser or with the `rmdir` command).
 
 </details>
 
 <hr style="height:1pt; visibility:hidden;" />
 
-<details>
-
-<summary>{{< fa user-edit >}} **Your Turn (Bonus)**: Two periods `..` means the directory "one level up" (towards the computer's root dir): running `cd ..` will move you one dir level up. Try to make use of this move into your personal dir and back to `share` again, instead of using the "full paths" like above. *(Click for the solution)*</summary>
-
-``` bash
-cd ../jelmer
-cd ../share
-```
-
-A little more detail about this, for those that are interested:
-
--   Paths that start with a `/`, i.e. paths that start from the computer's root directory, are called "absolute" or "full paths" (you can think of them as GPS coordinates, they work regardless of where you are located).
-
--   Paths that do not start with `/` (are always supposed to) start from your current working directory and are called "relative paths". We've used them above with `ls data` and `ls data/fastq`. The `..`, then, is a mechanism to go "up" in the dir hierarchy when using a relative path! They work more like directions along the lines of "take the second left" in the sense that they depend on your current location.
-
-</details>
+**B)** Print "Hello there \<your username\>" (e.g. "Hello there marcus") to the screen:
 
 <details>
 
-<summary>{{< fa user-edit >}} **Your Turn (Bonus)**: Practice aborting commands (*Click for the instructions*)</summary>
-
-To simulate a long-running command that we may want to abort, we can use the `sleep` command, which will make the computer wait for a specified amount of time until giving your prompt back:
+<summary>*Click to see the solution*</summary>
 
 ``` bash
-sleep 60s
+# (This would also work without the " " quotes)
+echo "Hello there $USER"
 ```
 
-Run that command and instead of waiting for the full 60 seconds, press <kbd>Ctrl</kbd> + <kbd>C</kbd> to get your prompt back sooner!
-
-Or, an example of an incomplete command (an opening parenthesis `(`):
-
-``` bash
-(
+``` bash-out
+Hello there jelmer
 ```
-
-Run the code above, see what happens, and press <kbd>Ctrl</kbd> + <kbd>C</kbd> to get your prompt back.
 
 </details>
+:::
+
+<hr style="height:1pt; visibility:hidden;" />
+
+### Create dirs with `mkdir`
+
+The `mkdir` command creates new directories.
+For example, to create a `bact` dir in your personal dir
+(for tomorrow's bacterial whole-genome analyses):
+
+``` bash
+cd /fs/scratch/PAS2250/cabana/$USER
+
+mkdir bact
+```
+
+Or two directories at once:
+
+```bash
+mkdir bact/scripts bact/workflow
+```
+
+Let's check what we did:
+
+```bash
+ls
+```
+```bash-out
+bact
+```
+```bash
+ls bact
+```
+```bash-out
+scripts workflow
+```
+
+Or get a nice overview with the `tree` command:
+
+```bash
+tree
+```
+```bash-out
+.
+└── bact
+    ├── scripts
+    └── workflow
+
+3 directories, 0 files
+```
+
+::: {.callout-note collapse="true"}
+#### Side note: Recursive `mkdir` _(Click to expand)_
+By default, `mkdir` does not work recursively:
+that is, it will refuse to make a dir *inside* a dir that does not yet exist.
+And if you try to do so, the resulting error might confuse you:
+
+``` bash
+mkdir bact/sandbox/20240207
+```
+
+``` bash-out
+mkdir: cannot create directory ‘bact/sandbox/20240207’: No such file or directory
+```
+
+> *Why won't you do your job, `mkdir`!?* 😡
+
+Instead, we need to use the `-p` option to `mkdir`:
+
+``` bash
+mkdir -p bact/sandbox/20240207
+```
+The `-p` option also changes `mkdir`'s behavior when you try to create a dir that already exists.
+Without `-p` that will result in an error, and with `-p` it doesn't complain about that
+(and it won't recreate/overwrite the dir either).
+
+:::
+
+<hr style="height:1pt; visibility:hidden;" />
+
+### Copy files and dirs with `cp`
+
+Above, you created your own directory —
+now, let's get you a copy of the data we saw in the `bact` dir.
+
+The `cp` command copies files and/or directories from one location to another.
+It has **two required arguments**: what you want to copy (the *source*),
+and where you want to copy it to (the *destination*).
+So, we can summarize its basic syntax as **`cp <source> <destination>`**.
+
+**`cp` is not recursive by default**,
+so if you want to copy a directory and all of its contents, we need to use its **`-r`** option
+We'll use that option to copy the dir with FASTQ files:
+
+``` bash
+cp -rv ../bact bact
+```
+
+``` bash-out
+‘../bact’ -> ‘bact’
+‘../bact/README.md’ -> ‘bact/README.md’
+‘../bact/data’ -> ‘bact/data’
+‘../bact/data/meta’ -> ‘bact/data/meta’
+‘../bact/data/meta/ncbi_asm_metadata.tsv’ -> ‘bact/data/meta/ncbi_asm_metadata.tsv’
+‘../bact/data/meta/metadata.tsv’ -> ‘bact/data/meta/metadata.tsv’
+‘../bact/data/ref’ -> ‘bact/data/ref’
+‘../bact/data/ref/GCA_000145825.fna’ -> ‘bact/data/ref/GCA_000145825.fna’
+‘../bact/data/ref/GCA_000156995.fna’ -> ‘bact/data/ref/GCA_000156995.fna’
+# [...output truncated...]
+```
+
+::: callout-note
+#### We also used the **`-v` option**, short for **v**erbose, to make `cp` tell us what it did
+:::
+
+Let's get an overview with `tree` again:
+
+``` bash
+tree -C                 # '-C' for colors
+```
+
+![](img/tree_command_output.png){fig-align="center" width="38%"}
+
+<hr style="height:1pt; visibility:hidden;" />
+
+### Globbing with shell wildcard expansion
+
+Shell wildcard expansion is a very useful technique to **select files**.
+Selecting files with wildcard expansion is called _globbing_.
+*Wildcards* are symbols that have a special meaning.
+
+**In globbing, the `*` wildcard matches any number of any character, including nothing.**
+
+The example below will match any files that contain the string "_R1":
+
+```bash
+ls data/fastq/*_R1*
+```
+``` bash-out
+data/fastq/SM04_R1.fastq.gz    data/fastq/SM1038_R1.fastq.gz  data/fastq/SM155_R1.fastq.gz  data/fastq/SM190_R1.fastq.gz  data/fastq/SM207_R1.fastq.gz  data/fastq/SM914_R1.fastq.gz
+data/fastq/SM1030_R1.fastq.gz  data/fastq/SM1042_R1.fastq.gz  data/fastq/SM156_R1.fastq.gz  data/fastq/SM191_R1.fastq.gz  data/fastq/SM226_R1.fastq.gz
+data/fastq/SM1031_R1.fastq.gz  data/fastq/SM109_R1.fastq.gz   data/fastq/SM181_R1.fastq.gz  data/fastq/SM205_R1.fastq.gz  data/fastq/SM51_R1.fastq.gz
+```
+
+Some more file matching examples with `*` — if you would be in your `data/fastq` dir, then:
+
+| Pattern        | Matches files whose names... 
+|----------------|--------------------|
+| `*`            | Contain anything (matches all files) [^6]
+| `*fastq.gz`    | **End in** ".fastq.gz"
+| `SM1*`         | **Start with** "SM1"
+| `*_R1*`        | **Contain** "\_R1"
+
+[^6]: However, it will not match so-called "hidden files" whose names start with a `.`.
+
+<hr style="height:1pt; visibility:hidden;" />
+
+::: exercise
+#### {{< fa user-edit >}} **Exercise**: Practice with `*`
+
+What pattern would you use if you wanted to select
+FASTQ files for the 4 samples (8 files) whose IDs end in a `1` (e.g. `SM1031`)?
+
+<details><summary>*Click here for the solutions*</summary>
+
+We'll need a `*` on either side of our pattern, because the file names neither start not end with the pattern:
+
+```bash
+ls data/fastq/*1_R*
+```
+```bash-out
+data/fastq/SM1031_R1.fastq.gz  data/fastq/SM181_R1.fastq.gz  data/fastq/SM191_R1.fastq.gz  data/fastq/SM51_R1.fastq.gz
+data/fastq/SM1031_R2.fastq.gz  data/fastq/SM181_R2.fastq.gz  data/fastq/SM191_R2.fastq.gz  data/fastq/SM51_R2.fastq.gz
+```
+</details>
+
+:::
+
+<hr style="height:1pt; visibility:hidden;" />
+
+### For loops
+
+Loops are a universal element of programming languages,
+and are used to **repeat operations**.
+Here, we'll only cover the most common type of loop: the `for` loop.
+
+A `for` loop _iterates_ over a collection, such as a list of files,
+and allows you to perform one or more actions for each element in the collection.
+In the example below,
+our "collection" is just a short list of numbers (`1`, `2`, and `3`):
+
+```{bash, eval=TRUE}
+for a_number in 1 2 3; do
+    echo "In this iteration of the loop, the number is $a_number"
+    echo "--------"
+done
+```
+
+The **indented lines** between `do` and `done` contain the code that is being executed
+_as many times as there are items in the collection_:
+in this case 3 times, as you can tell from the output above.
+
+::: callout-tip
+#### What was actually run under the hood is the following:
+
+```bash
+# (Don't run this)
+a_number=1
+echo "In this iteration of the loop, the number is $a_number"
+echo "--------"
+
+a_number=2
+echo "In this iteration of the loop, the number is $a_number"
+echo "--------"
+
+a_number=3
+echo "In this iteration of the loop, the number is $a_number"
+echo "--------"
+```
+:::
+
+#### Combining loops and globbing
+
+A very useful strategy is to loop over files with globbing, for example:
+
+```bash
+for fastq_file in data/fastq/*fastq.gz; do
+    echo "Running an analysis for file $fastq_file"...
+    # Additional commands to process the FASTQ file
+done
+```
+```bash-out
+Running an analysis for file data/fastq/SM04_R1.fastq.gz...
+Running an analysis for file data/fastq/SM04_R2.fastq.gz...
+Running an analysis for file data/fastq/SM1030_R1.fastq.gz...
+Running an analysis for file data/fastq/SM1030_R2.fastq.gz...
+Running an analysis for file data/fastq/SM1031_R1.fastq.gz...
+#[...output truncated...]
+```
+
+::: {.callout-note collapse="true"}
+#### A further explanation of `for` loop syntax _(Click to expand)_
+
+On the first and last, unindented lines,
+`for` loops contain the following mandatory keywords:
+
+| Keyword | Purpose	                            |
+|---------|-------------------------------------|
+| `for`	  | After `for`, we set the **variable name** (an arbitrary name; above we used `a_number`)
+| `in`	  | After `in`, we specify the **collection** (list of items) we are looping over	
+| `do`	  | After `do`, we have one ore more lines specifying what to do with each item	
+| `done`  | Tells the shell we are done with the loop 
+
+:::
+
+
+:::{.exercise}
+#### {{< fa user-edit >}} **Exercise**: A simple loop {-}
+
+Create a loop that will print:
+
+```{.bash-out}
+morel is an Ohio mushroom  
+destroying_angel is an Ohio mushroom  
+eyelash_cup is an Ohio mushroom
+```
+
+<details><summary>Click for the solution</summary>
+
+```bash
+for mushroom in morel destroying_angel eyelash_cup; do
+    echo "$mushroom is an Ohio mushroom"
+done
+```
+```bash-out
+morel is an Ohio mushroom  
+destroying_angel is an Ohio mushroom  
+eyelash_cup is an Ohio mushroom
+```
+</details>
+
+:::
 
 <br>
 
-### Paths
+## Further reading {-}
 
-"Paths" specify the locations of files or dirs on a computer,
-and there are two distinct ways of specifying them:
+See the following two reference pages on this website:
 
-- **Absolute (full) paths**\
-  These always start from the root directory of the computer,
-  which is represented by a _**leading `/`**_, such as in `/fs/scratch/PAS2250/`^[
-  Absolute paths are like GPS coordinates to specify a geographic location on earth: they will provide location information regardless of where we are ourselves.].
+- [Continued introduction](ref_shell2.qmd)
+- [Overview of shell commands](ref_shell.qmd)
 
-- **Relative paths**\
-  These start from your current working directory.
-  When we typed `ls data` earlier,
-  we indicated that we wanted to show the contents of the
-  `data` directory located inside our current working directory^[Relative paths are more like directions to a location that say things like "turn left" &mdash; these instructions depend on our current location.].
-
-There are a couple of "shortcuts" available for relative paths:
-
-- **`.`** (a single period)\
-  This is another way of representing the current working directory.
-  Therefore, for instance, `ls ./data` is functionally the same as `ls data`.
-
-- **`..`** (two periods)\
-  This means one level up in the directory hierarchy, with "up" meaning towards the root directory.
-
-```bash
-ls ..               # One level up, listing /fs/ess/PAS0471/demo
-```
-```{.bash-out}
-202307_rnaseq
-```
-
-This pattern can be continued all the way to the root of the computer,
-so `../..` would list files two levels up:
-
-```bash
-ls ../..            # Two levels up, listing /fs/ess/PAS0471
-```
-```{.bash-out}
-aarevalo       conroy      frederico       Nisha     osu8947              ross
-acl            containers  hsiangyin       osu10028  osu9207              Saranga
-Almond_Genome  danraywill  jelmer          osu10436  osu9207_Lubell_bkup  Shonna
-amine1         data        jelmer_osu5685  osu5685   osu9390              SLocke
-ap_soumya      demo        jlhartman       osu6702   osu9453              sochina
-audreyduff     dhanashree  linda           osu8107   osu9657
-bahodge11      edwin       Maggie          osu8468   pipeline
-calconey       ferdinand   mcic-scripts    osu8548   poonam
-camila         Fiama       Menuka          osu8618   raees
-Cecilia        Flye        nghi            osu8900   rawalranjana44
-```
-
-::: {.callout-tip}
-#### These shortcuts work with all commands
-All of the above shortcuts are *general shell shortcuts* that work with **any**
-command that takes a path.
-
-Also: **`~`** represents your Home directory,
-so `cd ~` would move there and `ls ~` would list the files there.
-:::
-
-::: {.callout-note}
-#### Many bioinformatics programs are basically specialized commands
-In many ways, you can think of using a command-line bioinformatics program as using just another command.
-Therefore, our general skills with Unix commands will very much extend to using
-command-line bioinformatics tools!
-:::
-
-<br>

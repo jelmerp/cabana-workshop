@@ -114,8 +114,15 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./02_vscode.html">
  <span class="dropdown-text">VS Code</span></a>
   </li>  
-        <li class="dropdown-header">Unix shell refresher</li>
-        <li class="dropdown-header">FASTQ files and quality control</li>
+        <li>
+    <a class="dropdown-item" href="./03_shell.html">
+ <span class="dropdown-text">Unix shell refresher</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./04_fastq.html">
+ <span class="dropdown-text">FASTQ files and quality control</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="./05_amplicon.html">
  <span class="dropdown-text"><em>Phytophthora</em> amplicon sequencing</span></a>
@@ -127,33 +134,50 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Thu Feb 8</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-thu-feb-8">    
-        <li class="dropdown-header">Bacterial genome analysis (slides)</li>
-        <li class="dropdown-header">Shell scripts, batch jobs, and loops</li>
-        <li class="dropdown-header">Intro to Bactopia</li>
-        <li class="dropdown-header">Running Bactopia</li>
-        <li class="dropdown-header">Interpeting the Bactopia results</li>
+        <li class="dropdown-header">Bacterial whole-genome sequencing (slides)</li>
+        <li class="dropdown-header">Read preprocessing</li>
+        <li class="dropdown-header">Genome assembly and assembly QC</li>
+        <li class="dropdown-header">Genome annotation</li>
+        <li class="dropdown-header">Pangenomics &amp; phylogenetics</li>
     </ul>
   </li>
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-other-pages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Other Pages</span>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-other-pages">    
-        <li>
-    <a class="dropdown-item" href="./homework.html">
- <span class="dropdown-text">Homework</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="./homework.html"> 
+<span class="menu-text">Homework</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-reference-pages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Reference Pages</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-reference-pages">    
         <li>
     <a class="dropdown-item" href="./open_shell.html">
- <span class="dropdown-text">Opening a Unix Shell at OSC</span></a>
+ <span class="dropdown-text">Opening a Unix shell at OSC</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./rstudio.html">
  <span class="dropdown-text">Starting an RStudio session at OSC</span></a>
   </li>  
-        <li class="dropdown-header">Overview of common Unix shell commands</li>
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./ref_shell2.html">
+ <span class="dropdown-text">Continued Unix shell intro</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ref_shell.html">
+ <span class="dropdown-text">Unix shell overview/reference</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./ref_software.html">
+ <span class="dropdown-text">Software management</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ref_data.html">
+ <span class="dropdown-text">Data management</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -235,7 +259,7 @@ ul.task-list li input[type="checkbox"] {
 <p><br></p>
 <section id="what-is-vs-code" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="what-is-vs-code"><span class="header-section-number">1</span> What is VS Code?</h2>
-<p>VS Code is basically a fancy text editor. Its full name is Visual Studio Code but at OSC it is also referred to as Code Server.</p>
+<p>VS Code is basically a <strong>fancy text editor</strong>. Its full name is Visual Studio Code, but at OSC, it is also referred to as “Code Server”.</p>
 <p>To emphasize the additional functionality relative to basic text editors like Notepad and TextEdit, editors like VS Code are also referred to as “<strong>IDEs</strong>”: <em>Integrated Development Environments</em>. The RStudio program is another good example of an IDE. For our purposes:</p>
 <ul>
 <li>VS code will be our IDE for Unix shell code</li>
@@ -264,11 +288,11 @@ Starting VS Code at OSC - Instructions in brief <em>(Click to expand)</em>
 <li>In the form that appears on a new page:
 <ul>
 <li>Select OSC project <code>PAS2250</code></li>
-<li>The starting directory: <code>/fs/scratch/PAS2250/ENT6703/&lt;your_personal_dir&gt;</code></li>
+<li>The starting directory: <code>/fs/scratch/PAS2250/cabana/&lt;your_personal_dir&gt;</code></li>
 <li><code>Number of hours</code>: <code>10</code></li>
 <li>Click <code>Launch</code>.</li>
 </ul></li>
-<li>On the next page, once the top bar of the box has turned green and says <code>Runnning</code>, click <code>Connect to VS Code</code>.</li>
+<li>On the next page, once the top bar of the box has turned green and says <code>Runnning</code>, click <strong><code>Connect to VS Code</code></strong>.</li>
 </ol>
 </div>
 </div>
@@ -300,25 +324,26 @@ Starting VS Code at OSC - Instructions in brief <em>(Click to expand)</em>
 <p><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Open a terminal</strong> by clicking &nbsp; <i class="fa-solid fa-bars" aria-label="bars"></i> &nbsp; =&gt; <code>Terminal</code> =&gt; <code>New Terminal</code>.</p>
 <hr style="height:1pt; visibility:hidden;">
 </section>
-<section id="your-turn-try-a-few-color-themes" class="level4 exercise">
-<h4 class="anchored" data-anchor-id="your-turn-try-a-few-color-themes"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn</strong>: Try a few color themes</h4>
+<section id="exercise-try-a-few-color-themes" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="exercise-try-a-few-color-themes"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Try a few color themes</h4>
 <ol type="1">
 <li>Access the “Color Themes” option by clicking <i class="fa fa-cog"></i> =&gt; <code>Color Theme</code>.</li>
-<li>Try out a few themes and see what you like!</li>
+<li>Try out a few themes and see pick one you like!</li>
 </ol>
 </section>
 <p><br></p>
 </section>
 <section id="a-folder-as-a-starting-point" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="a-folder-as-a-starting-point"><span class="header-section-number">4</span> A folder as a starting point</h2>
-<p>Conveniently, VS Code takes a specific folder (directory) as a <strong>starting point in all parts of the program</strong>:</p>
+<p>Conveniently, VS Code takes a specific directory as a <strong>starting point in all parts of the program</strong>:</p>
 <ul>
 <li>In the file explorer in the side bar</li>
 <li>In the terminal</li>
 <li>When saving files in the editor pane.</li>
 </ul>
-<p>Your should already be in the appropriate folder (<code>/fs/scratch/PAS2250/cabana/&lt;user&gt;</code>), but if you wanted to switch folder, you could click &nbsp; <i class="fa-solid fa-bars" aria-label="bars"></i> &nbsp; =&gt; &nbsp; <code>File</code> &nbsp; =&gt; &nbsp; <code>Open Folder</code>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
+<p><em>(If you need to switch folders, click &nbsp; <i class="fa-solid fa-bars" aria-label="bars"></i> &nbsp; =&gt; &nbsp; <code>File</code> &nbsp; =&gt; &nbsp; <code>Open Folder</code>.)</em></p>
+<hr style="height:1pt; visibility:hidden;">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -344,7 +369,7 @@ For a single-page PDF overview of keyboard shortcuts for your operating system: 
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Useful keyboard shortcuts <em>(Click to expand)</em>
+Specific useful keyboard shortcuts <em>(Click to expand)</em>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -361,9 +386,6 @@ Useful keyboard shortcuts <em>(Click to expand)</em>
 <li><p><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd> will <strong>delete a line</strong></p></li>
 <li><p><kbd>Alt</kbd>+<kbd>⬆</kbd>/<kbd>⬇</kbd> will <strong>move lines</strong> up or down.</p></li>
 </ul></li>
-<li><p><em>Multiple cursors</em>: Press &amp; hold <kbd>Ctrl</kbd>+<kbd>Shift</kbd>, then <kbd>⬆</kbd>/<kbd>⬇</kbd> arrows to add cursors upwards or downwards.</p></li>
-<li><p><em>Toggle line comment</em> (“comment out” code, and removing those comment signs): <kbd>Ctrl</kbd>+<kbd>/</kbd></p></li>
-<li><p><em>Split the editor window vertically</em>: <kbd>Ctrl</kbd>+<kbd>\</kbd> (See also the options in &nbsp; <i class="fa-solid fa-bars" aria-label="bars"></i> &nbsp; <code>View</code> =&gt; <code>Editor Layout</code>)</p></li>
 </ul>
 </div>
 </div>

@@ -2,25 +2,47 @@
 title: "Feb '24 CABANAnet/STC-CGIAR workshop"
 subtitle: "Wed & Thu material"
 number-sections: false
+toc: false
 ---
 
 <hr style="height:1pt; visibility:hidden;" />
 
 | Day               | Time        | Instructor | Topic and link                                                                    |
-|------------|------------|-----------|-----------------------------------|
-| **Wed Feb 7^th^** | 08:00-08:45 | Jelmer     | [Intro to supercomputing / OSC](01_osc.qmd)                                       |
-|                   | 08:45-09:00 | Jelmer     | [VS Code](02_vscode.qmd)                                                          |
-|                   | 09:00-09:50 | Jelmer     | Unix shell refresher                                                              |
-|                   | 10:10-12:00 | Jelmer     | FASTQ files and quality control                                                   |
-|                   | 13:00-16:30 | Myriam     | [Amplicon sequencing to characterize *P. infestans* populations](05_amplicon.qmd) |
-| **Thu Feb 8^th^** | 08:00-09:00 | Jelmer     | Intro to bacterial genome analysis                                                |
-|                   | 09:00-11:00 | Jelmer     | Scaling up with shell scripts, batch jobs and loops                               |
-|                   | 11:00-12:00 | Jelmer     | Intro to the Bactopia workflow                                                    |
-|                   | 13:00-14:30 | Jelmer     | Running the Bactopia workflow                                                     |
-|                   | 14:50-16:30 | Jelmer     | Interpreting the Bactopia results                                                 |
+|----------------|----------------|----------------|-------------------------|
+| **Wed Feb 7^th^** | 08:00-08:45 | Jelmer     | **[Intro to supercomputing / OSC](01_osc.qmd)**                                       |
+|                   | 08:45-09:00 | Jelmer     | **[VS Code](02_vscode.qmd)**                                                          |
+|                   | 09:00-10:45 | Jelmer     | **[Unix shell refresher](03_shell.qmd)** _(with coffee break)_                        |
+|                   | 10:45-12:00 | Jelmer     | **[FASTQ files and quality control](04_fastq.qmd)**                                   |
+|                   | 13:00-16:30 | Myriam     | **[Amplicon sequencing to characterize *P. infestans* populations](05_amplicon.qmd)** |
+|                   |             |            |                                                                                   |
+| **Thu Feb 8^th^** | 08:00-08:30 | Jelmer     | **Bacterial whole-genome sequencing (slides)**                                        |
+|                   | 08:30-10:20 | Jelmer     | **Read preprocessing**                                           |
+|                   | 10:40-12:00 | Jelmer     | **Genome assembly and assembly QC**                                |
+|                   | 13:00-14:30 | Jelmer     | **Genome annotation**                                            |
+|                   | 14:50-16:30 | Jelmer     | **Pangenomics & phylogenetics**                                       |
 
 <hr style="height:1pt; visibility:hidden;" />
 
 ![](img/logos_all.png){fig-align="center" width="95%"}
 
-<br>
+------------------------------------------------------------------------
+
+### Other pages on this website
+
+::: columns
+
+::: column
+-   [Opening a Unix shell at OSC](href:%20open_shell.qmd)
+-   [Starting an RStudio session at OSC](rstudio.qmd)
+-   [Homework](homework.qmd)
+:::
+
+::: column
+
+
+-   **[Unix shell overview/reference](ref_shell.qmd)**
+-   **[Continued Unix shell intro](ref_shell2.qmd)**
+-   [Software management](ref_software.qmd)
+-   [Data management](ref_data/qmd)
+:::
+:::
