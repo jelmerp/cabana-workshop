@@ -139,13 +139,10 @@ As we discussed yesterday, in the file listing above:
 
 ### Paired-end data
 
-In today's and tomorrow's labs, we'll be working with Illumina sequencing data, which can be done in two "modes": ***single-end*** (SE) and ***paired-end*** (PE).
+In today's and tomorrow's labs, we'll be working with ***paired-end*** (PE)
+Illumina sequencing data.
 
-With paired-end sequencing, each DNA fragment is sequenced from two ends in opposite directions (with the total size of the fragment –"insert size"– determining whether these two reads will overlap). The resulting "paired" reads for each fragment are inextricably linked, with the first called the **forward read** and the second the **reverse read**.
-
-![How a DNA fragment prepared for paired-end Illumina sequencing will be sequenced. <br>In this example, the insert size is such that the forward and reverse reads do not overlap.](img/forward-reverse-reads.png){fig-align="center" width="85%"}
-
-Most commonly for paired-end data, forward and reverse reads are placed in separate files, such that you'll get two files for each sequenced sample:
+Therefore, we have two files for each sequenced sample:
 
 -   The file with **forward reads has `_R1`** (or sometimes `_1`) in its name, e.g. `SM04_R1.fastq.gz`
 -   The file with **reverse reads has `_R2`** (or sometimes `_2`) in its name, e.g. `SM04_R2.fastq.gz`\
@@ -648,7 +645,7 @@ First, you'll unfortunately have to download FastQC's output HTML files to your 
 
 <br>
 
-## Summarizing QC resuls with MultiQC
+## Summarizing QC results with MultiQC
 
 Here are some challenges you may run into after running FastQC:
 

@@ -89,10 +89,6 @@ total 6.1G
 
 ![From [Weisberg et al. 2021](https://www.annualreviews.org/doi/abs/10.1146/annurev-phyto-020620-121736)](img/lit_epidemiology.png)
 
-## Pangenomes
-
-![From [Koonin et al. 2021](https://pubmed.ncbi.nlm.nih.gov/33541841/)](img/lit_pangenomes.png)
-
 # Sequencing technologies {background-color="dimgray"}
 
 ## Genome assemblies through time
@@ -233,14 +229,6 @@ In some cases, the insert size can be:
 
 - Illumina MiSeq sequencing of these isolates: 2x300 bp reads
 
-## Variable genome vs. disease severity
-
-![](img/pss_variablegenome.png)
-
---------
-
-![](img/pss_tree.png)
-
 # Our workflow {background-color="dimgray"}
 
 ## The steps involved
@@ -253,12 +241,25 @@ In some cases, the insert size can be:
 
 4. _Pangenomics and phylogenetics (not included)_
 
-## Workflow overview
+-------------
 
 ![](img/workflow.png){fig-align="center"}
+
+## Variable genome vs. disease severity
+
+![](img/pss_variablegenome.png)
+
+--------
+
+![](img/pss_tree.png)
+
+# Questions? {background-color="dimgray"}
 
 ------
 
 ![[From Petit & Read 2020](https://doi.org/10.1128/mSystems.00190-20)](img/bactopia-workflow.png)
 
-# Questions? {background-color="dimgray"}
+## Pangenomes
+
+![From [Koonin et al. 2021](https://pubmed.ncbi.nlm.nih.gov/33541841/)](img/lit_pangenomes.png)
+

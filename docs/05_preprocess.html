@@ -276,7 +276,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#fastqc-html-modules" id="toc-fastqc-html-modules" class="nav-link" data-scroll-target="#fastqc-html-modules"><span class="header-section-number">4.1</span> FastQC HTML modules</a></li>
   <li><a href="#checking-your-fastqc-results" id="toc-checking-your-fastqc-results" class="nav-link" data-scroll-target="#checking-your-fastqc-results"><span class="header-section-number">4.2</span> Checking your FastQC results</a></li>
   </ul></li>
-  <li><a href="#summarizing-qc-resuls-with-multiqc" id="toc-summarizing-qc-resuls-with-multiqc" class="nav-link" data-scroll-target="#summarizing-qc-resuls-with-multiqc"><span class="header-section-number">5</span> Summarizing QC resuls with MultiQC</a>
+  <li><a href="#summarizing-qc-results-with-multiqc" id="toc-summarizing-qc-results-with-multiqc" class="nav-link" data-scroll-target="#summarizing-qc-results-with-multiqc"><span class="header-section-number">5</span> Summarizing QC results with MultiQC</a>
   <ul class="collapse">
   <li><a href="#running-multiqc" id="toc-running-multiqc" class="nav-link" data-scroll-target="#running-multiqc"><span class="header-section-number">5.1</span> Running MultiQC</a></li>
   <li><a href="#multiqc-output" id="toc-multiqc-output" class="nav-link" data-scroll-target="#multiqc-output"><span class="header-section-number">5.2</span> MultiQC output</a></li>
@@ -470,15 +470,8 @@ FASTQ quality scores <em>(Click to expand)</em>
 </section>
 <section id="paired-end-data" class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="paired-end-data"><span class="header-section-number">2.2</span> Paired-end data</h3>
-<p>In today’s and tomorrow’s labs, we’ll be working with Illumina sequencing data, which can be done in two “modes”: <strong><em>single-end</em></strong> (SE) and <strong><em>paired-end</em></strong> (PE).</p>
-<p>With paired-end sequencing, each DNA fragment is sequenced from two ends in opposite directions (with the total size of the fragment –“insert size”– determining whether these two reads will overlap). The resulting “paired” reads for each fragment are inextricably linked, with the first called the <strong>forward read</strong> and the second the <strong>reverse read</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img/forward-reverse-reads.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%"></p>
-<figcaption>How a DNA fragment prepared for paired-end Illumina sequencing will be sequenced. <br>In this example, the insert size is such that the forward and reverse reads do not overlap.</figcaption>
-</figure>
-</div>
-<p>Most commonly for paired-end data, forward and reverse reads are placed in separate files, such that you’ll get two files for each sequenced sample:</p>
+<p>In today’s and tomorrow’s labs, we’ll be working with <strong><em>paired-end</em></strong> (PE) Illumina sequencing data.</p>
+<p>Therefore, we have two files for each sequenced sample:</p>
 <ul>
 <li>The file with <strong>forward reads has <code>_R1</code></strong> (or sometimes <code>_1</code>) in its name, e.g.&nbsp;<code>SM04_R1.fastq.gz</code></li>
 <li>The file with <strong>reverse reads has <code>_R2</code></strong> (or sometimes <code>_2</code>) in its name, e.g.&nbsp;<code>SM04_R2.fastq.gz</code><br>
@@ -875,8 +868,8 @@ Analysis complete for SM04_2.fastq.gz</code></pre>
 <p><br></p>
 </section>
 </section>
-<section id="summarizing-qc-resuls-with-multiqc" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="summarizing-qc-resuls-with-multiqc"><span class="header-section-number">5</span> Summarizing QC resuls with MultiQC</h2>
+<section id="summarizing-qc-results-with-multiqc" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="summarizing-qc-results-with-multiqc"><span class="header-section-number">5</span> Summarizing QC results with MultiQC</h2>
 <p>Here are some challenges you may run into after running FastQC:</p>
 <ul>
 <li><p>When you have many FASTQ files, you’ll generate a lot of FastQC HTML files to sort through. Our dataset is small with only 16 samples, but this still means 32 FastQC outputs. Other datasets may easily have dozens or even hundreds of samples, in which case checking all of the output becomes a very unpleasant task.</p></li>
