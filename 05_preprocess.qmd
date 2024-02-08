@@ -139,9 +139,7 @@ As we discussed yesterday, in the file listing above:
 
 ### Paired-end data
 
-In today's and tomorrow's labs, we'll be working with ***paired-end*** (PE)
-Illumina sequencing data.
-
+As mentioned, we'll be working with ***paired-end*** (PE) Illumina sequencing data.
 Therefore, we have two files for each sequenced sample:
 
 -   The file with **forward reads has `_R1`** (or sometimes `_1`) in its name, e.g. `SM04_R1.fastq.gz`
@@ -710,7 +708,7 @@ indicating that this is a MultiQC run that summarizes FastQC output]:
 # Run MultiQC to summarize the FastQC results
 multiqc \
   --outdir results/multiqc_fastqc \
-  ../../bact_results/fastqc_pretrim
+  /fs/scratch/PAS2250/cabana/bact_results/fastqc_pretrim
 ```
 
 ![](img/multiqc_stdout.png){fig-align="center" width="100%"}

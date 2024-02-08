@@ -470,8 +470,7 @@ FASTQ quality scores <em>(Click to expand)</em>
 </section>
 <section id="paired-end-data" class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="paired-end-data"><span class="header-section-number">2.2</span> Paired-end data</h3>
-<p>In today’s and tomorrow’s labs, we’ll be working with <strong><em>paired-end</em></strong> (PE) Illumina sequencing data.</p>
-<p>Therefore, we have two files for each sequenced sample:</p>
+<p>As mentioned, we’ll be working with <strong><em>paired-end</em></strong> (PE) Illumina sequencing data. Therefore, we have two files for each sequenced sample:</p>
 <ul>
 <li>The file with <strong>forward reads has <code>_R1</code></strong> (or sometimes <code>_1</code>) in its name, e.g.&nbsp;<code>SM04_R1.fastq.gz</code></li>
 <li>The file with <strong>reverse reads has <code>_R2</code></strong> (or sometimes <code>_2</code>) in its name, e.g.&nbsp;<code>SM04_R2.fastq.gz</code><br>
@@ -927,7 +926,7 @@ Since you ran FastQC on only sample, we’ll be using the FastQC results for all
 <div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run MultiQC to summarize the FastQC results</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="ex">multiqc</span> <span class="dt">\</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--outdir</span> results/multiqc_fastqc <span class="dt">\</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  ../../bact_results/fastqc_pretrim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  /fs/scratch/PAS2250/cabana/bact_results/fastqc_pretrim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="img/multiqc_stdout.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
