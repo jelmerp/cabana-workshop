@@ -150,13 +150,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="./03_shell.html">
  <span class="dropdown-text">Unix shell refresher</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="./04_fastq.html">
- <span class="dropdown-text">FASTQ files and quality control</span></a>
-  </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
-    <a class="dropdown-item" href="./05_amplicon.html">
+    <a class="dropdown-item" href="./04_amplicon.html">
  <span class="dropdown-text"><em>Phytophthora</em> amplicon sequencing</span></a>
   </li>  
     </ul>
@@ -166,11 +162,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Thu Feb 8</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-thu-feb-8">    
-        <li class="dropdown-header">Bacterial whole-genome sequencing (slides)</li>
-        <li class="dropdown-header">Read preprocessing</li>
-        <li class="dropdown-header">Genome assembly and assembly QC</li>
-        <li class="dropdown-header">Genome annotation</li>
-        <li class="dropdown-header">Pangenomics &amp; phylogenetics</li>
+        <li>
+    <a class="dropdown-item" href="./bact_slides.html">
+ <span class="dropdown-text">Bacterial whole-genome sequencing (slides)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./05_preprocess.html">
+ <span class="dropdown-text">Read QC &amp; preprocessing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./06_assembly.html">
+ <span class="dropdown-text">Genome assembly and assembly QC</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./07_annotation.html">
+ <span class="dropdown-text">Genome annotation</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -252,6 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#move-with-mv-and-cpmv-tips" id="toc-move-with-mv-and-cpmv-tips" class="nav-link" data-scroll-target="#move-with-mv-and-cpmv-tips"><span class="header-section-number">3</span> Move with <code>mv</code>, and <code>cp</code>/<code>mv</code> tips</a></li>
   <li><a href="#remove-files-with-rm" id="toc-remove-files-with-rm" class="nav-link" data-scroll-target="#remove-files-with-rm"><span class="header-section-number">4</span> Remove files with <code>rm</code></a></li>
   <li><a href="#finding-text-with-grep-zgrep" id="toc-finding-text-with-grep-zgrep" class="nav-link" data-scroll-target="#finding-text-with-grep-zgrep">Finding text with <code>grep</code> / <code>zgrep</code></a></li>
+  <li><a href="#the-sambam-format" id="toc-the-sambam-format" class="nav-link" data-scroll-target="#the-sambam-format"><span class="header-section-number">5</span> The SAM/BAM format</a></li>
   </ul>
 </nav>
     </div>
@@ -534,6 +542,109 @@ removed directory: ‘my new dir2’</code></pre>
 <pre class="bash-out"><code>56691</code></pre>
 <p>We could also create a new FASTQ file whose sequences match our search by printing one line before each match (<code>-B1</code>) and two lines after it (<code>-A2</code>):</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">zgrep</span> <span class="at">-B1</span> <span class="at">-A2</span> <span class="at">--no-group-separator</span> <span class="st">"CCAGTA"</span> data/fastq/SM04_R1.fastq.gz <span class="op">&gt;</span> CCAGTA.fastq </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+</section>
+<section id="the-sambam-format" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="the-sambam-format"><span class="header-section-number">5</span> The SAM/BAM format</h2>
+<p>The SAM/BAM format is a format for <strong>alignments</strong>, typically of reads from FASTQ files to a reference genome FASTA file.</p>
+<ul>
+<li>SAM (Sequence Alignment/Map) is an <strong>uncompressed</strong> text file</li>
+<li>BAM (Binary Alignment/Map) is its <strong>binary, compressed</strong> counterpart. BAM files are not human-readable but most software can work with them directly.</li>
+</ul>
+<p>After a header with metadata, the main part of the file contains one line per alignment, with information such as to which contig/scaffold/chromosome and position the read mapped, and the full sequence of the original read is also included:</p>
+<pre class="bash-out-solo"><code>A01088:17:HHVG3DRXX:1:2238:4164:16877    163     SL4.0ch00       18287   255     12M725N139M     =       19069   931     CTCAATTATATGGTGTAGACGCACAGTTCGGTGATCCTCCCGCCTAGGATATCTACTCTGCTGATTGGGAGAGCTCCACTGTTCCGGAGCCCAGTCATTTTGGTACATAACTTTTGTGTAGTCTTTTGCTCGTGTATGGGTATGGCGGGGC     FFFFFFFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:FFFFFFFFFFFFF:F:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:FFFFFFFF:FFFFFF NH:i:1  HI:i:1  AS:i:298   nM:i:0
+A01088:17:HHVG3DRXX:1:2238:4164:16877    83      SL4.0ch00       19069   255     149M    =       18287   -931    CTGCTGATTGGGAGAGCTCCACTGTTCCGGAGCCCAGTCATTTTGGTACATAACTTTTGTGTAGTCTTTTGCTCGTGTATGGGTATGGCGGGGCCCTGTCCCGTCGAGTTTCACTAATGTACTCTTAGAGGTCTGTGGACATTATGTGG       FFFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFFF   NH:i:1  HI:i:1  AS:i:298        nM:i:0
+AA01088:17:HHVG3DRXX:1:2143:6876:32440   163     SL4.0ch00       19077   255     125M    =       19077   125     TGGGAGAGCTCCACTGTTCCGGAGCCCAGTCATTTTGGTACATAACTTTTGTGTAGTCTTTTGCTCGTGTATGGGTATGGCGGGGCCCTGTCCCGTCGAGTTTCACTAATGTACTCTTAGAGGTC       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,FFFFFFFFFFFF:FFFFFF:FF,FFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:F:FFFFFF,FFFFFF:F   NH:i:1  HI:i:1  AS:i:248        nM:i:0
+AA01088:17:HHVG3DRXX:1:2143:6876:32440   83      SL4.0ch00       19077   255     125M    =       19077   -125    TGGGAGAGCTCCACTGTTCCGGAGCCCAGTCATTTTGGTACATAACTTTTGTGTAGTCTTTTGCTCGTGTATGGGTATGGCGGGGCCCTGTCCCGTCGAGTTTCACTAATGTACTCTTAGAGGTC       :FFFFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,:FFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF   NH:i:1  HI:i:1  AS:i:248        nM:i:0</code></pre>
+<details>
+<summary>
+Click here for info on all SAM columns
+</summary>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Col. nr.</th>
+<th>Field</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>QNAME</td>
+<td>Query (=aligned read) name</td>
+<td>….</td>
+</tr>
+<tr class="even">
+<td><strong>2</strong></td>
+<td><strong>FLAG</strong></td>
+<td><strong>Bitwise flag</strong></td>
+<td>99</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>RNAME</td>
+<td>Reference sequence name</td>
+<td>chr1</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>POS</td>
+<td>Mapping position (leftmost)</td>
+<td>46317</td>
+</tr>
+<tr class="odd">
+<td><strong>5</strong></td>
+<td><strong>MAPQ</strong></td>
+<td><strong>Mapping quality</strong></td>
+<td>255</td>
+</tr>
+<tr class="even">
+<td><strong>6</strong></td>
+<td><strong>CIGAR</strong></td>
+<td><strong>CIGAR string</strong></td>
+<td>150M</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>RNEXT</td>
+<td>Name of read’s mate</td>
+<td>=</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>PNEXT</td>
+<td>Position of read’s mate</td>
+<td>46517</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>TLEN</td>
+<td>Template length</td>
+<td>450</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>SEQ</td>
+<td>Sequence of the read</td>
+<td>AGTTACCGATCCT…</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>QUAL</td>
+<td>Base quality of the read</td>
+<td>FFFF@HHHHHHHH…</td>
+</tr>
+<tr class="even">
+<td><em>(optional)</em></td>
+<td><em>TAG</em></td>
+<td><em>Optional information</em></td>
+<td><em>SM:i:37</em></td>
+</tr>
+</tbody>
+</table>
+</details>
 
 
 </section>

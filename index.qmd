@@ -9,17 +9,16 @@ toc: false
 
 | Day               | Time        | Instructor | Topic and link                                                                    |
 |----------------|----------------|----------------|-------------------------|
-| **Wed Feb 7^th^** | 08:00-08:45 | Jelmer     | **[Intro to supercomputing / OSC](01_osc.qmd)**                                       |
-|                   | 08:45-09:00 | Jelmer     | **[VS Code](02_vscode.qmd)**                                                          |
-|                   | 09:00-10:45 | Jelmer     | **[Unix shell refresher](03_shell.qmd)** _(with coffee break)_                        |
-|                   | 10:45-12:00 | Jelmer     | **[FASTQ files and quality control](04_fastq.qmd)**                                   |
-|                   | 13:00-16:30 | Myriam     | **[Amplicon sequencing to characterize *P. infestans* populations](05_amplicon.qmd)** |
+| **Wed Feb 7^th^** | 08:15-09:00 | Jelmer     | **[Intro to supercomputing / OSC](01_osc.qmd)**                                       |
+|                   | 09:00-09:30 | Jelmer     | **[VS Code](02_vscode.qmd)**                                                          |
+|                   | 09:30-12:00 | Jelmer     | **[Unix shell refresher](03_shell.qmd)** _(with coffee break)_                        |
+|                   | 13:30-17:00 | Myriam     | **[Amplicon sequencing to characterize *P. infestans* populations](04_amplicon.qmd)** |
 |                   |             |            |                                                                                   |
-| **Thu Feb 8^th^** | 08:00-08:30 | Jelmer     | **Bacterial whole-genome sequencing (slides)**                                        |
-|                   | 08:30-10:20 | Jelmer     | **Read preprocessing**                                           |
-|                   | 10:40-12:00 | Jelmer     | **Genome assembly and assembly QC**                                |
-|                   | 13:00-14:30 | Jelmer     | **Genome annotation**                                            |
-|                   | 14:50-16:30 | Jelmer     | **Pangenomics & phylogenetics**                                       |
+| **Thu Feb 8^th^** | 08:15-09:15 | Myriam     | **[Amplicon sequencing: R part](04_amplicon.qmd#rstudio)**
+|                   | 09:15-09:45 | Jelmer     | **[Bacterial whole-genome sequencing (slides)](bact_slides.qmd)**                      |
+|                   | 10:00-12:00 | Jelmer     | **[Read QC & preprocessing](05_preprocess.qmd)**                                           |
+|                   | 13:30-15:30 | Jelmer     | **[Genome assembly and assembly QC](06_assembly.qmd)**                                |
+|                   | 15:50-16:30 | Jelmer     | **[Genome annotation](07_annotation.qmd)**                                            |
 
 <hr style="height:1pt; visibility:hidden;" />
 

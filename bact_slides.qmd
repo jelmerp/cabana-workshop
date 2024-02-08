@@ -1,7 +1,7 @@
 ---
-title: "Bacterial whole-genome analysis"
+title: "Bacterial <br> whole-genome analysis"
 author: Jelmer Poelstra
-date: 2024-02-01
+date: 2024-02-08
 institute: "MCIC Wooster, Ohio State University, USA"
 editor: visual
 format:
@@ -23,56 +23,242 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Introduction
+# Bacterial isolate whole-genome sequencing {background-color="dimgray"}
 
-Today, we will ...
+## Introduction
+
+Today, we will assemble a bacterial genome from one of the pairs of FASTQ files
+that you copied yesterday morning:
+
+``` bash-out
+total 6.1G
+-rw-r--r-- 1 jelmer PAS0471 205M Feb  7 11:21 SM04_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 242M Feb  7 11:21 SM04_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 188M Feb  7 11:21 SM1030_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 221M Feb  7 11:21 SM1030_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 187M Feb  7 11:21 SM1031_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 221M Feb  7 11:21 SM1031_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 187M Feb  7 11:21 SM1038_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 224M Feb  7 11:21 SM1038_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 176M Feb  7 11:21 SM1042_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 199M Feb  7 11:21 SM1042_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 172M Feb  7 11:21 SM109_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 198M Feb  7 11:21 SM109_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 157M Feb  7 11:21 SM155_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 181M Feb  7 11:21 SM155_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 155M Feb  7 11:21 SM156_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 185M Feb  7 11:21 SM156_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 146M Feb  7 11:21 SM181_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 159M Feb  7 11:21 SM181_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 195M Feb  7 11:21 SM190_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 241M Feb  7 11:21 SM190_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 192M Feb  7 11:21 SM191_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 234M Feb  7 11:21 SM191_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 194M Feb  7 11:21 SM205_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 242M Feb  7 11:21 SM205_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 176M Feb  7 11:21 SM207_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 210M Feb  7 11:21 SM207_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 137M Feb  7 11:21 SM226_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 165M Feb  7 11:21 SM226_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 192M Feb  7 11:21 SM51_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 224M Feb  7 11:21 SM51_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 193M Feb  7 11:21 SM914_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 226M Feb  7 11:21 SM914_R2.fastq.gz
+```
 
 ## Why sequence full genomes?
 
-- 
-- Pangenome analysis
-- Gene content
+**Best possible resolution for, e.g.:**
+
+- Phylogenetics
+- Population structure
+- Epidemiology
+- Association analyses like GWAS
+
+. . .
+
+<hr style="height:1pt; visibility:hidden;" />
+
+**The only way to:**
+
+- Comprehensively detect virulence genes, AMR genes, etc
+- Comprehensively compare gene content among genomes
+- Perform a pangenome analysis
+
+## Epidemiology
+
+![From [Weisberg et al. 2021](https://www.annualreviews.org/doi/abs/10.1146/annurev-phyto-020620-121736)](img/lit_epidemiology.png)
 
 ## Pangenomes
 
-## Sequencing technologies
+![From [Koonin et al. 2021](https://pubmed.ncbi.nlm.nih.gov/33541841/)](img/lit_pangenomes.png)
 
-(Link to 'assembling the perfect genome')
-
-## Illumina error profile
+# Sequencing technologies {background-color="dimgray"}
 
 ## Genome assemblies through time
 
-![](img/lit_nrgenomes.png)
+![From [Koonin et al. 2021](https://pubmed.ncbi.nlm.nih.gov/33541841/)](img/lit_nrgenomes.png)
 
-## The steps involved
+## Most frequent sequencing technologies 
 
-## Workflow overview
+::: columns
+::: {.column width="52%"}
 
-## Bactopia
+![](img/lit_seqtech1.png)
 
-## Our dataset (from Ranjit et al. in prep, Ohio State)
+::: legend2
+From [Amoutzias et al. 2022](https://pubmed.ncbi.nlm.nih.gov/35630482)
+:::
 
-- _Pseudomonas syringae_ causes disease in a wide range of host plants,
-  from Solanaceae and Leguminosae plants to citrus and stone fruit trees.
+:::
 
-- _Pseudomonas syringae pv. syringae_ (Pss) is an emerging phytopathogen that causes
-  Pseudomonas leaf spot (PLS) disease in pepper plants (_Capsicum annuum var. annuum_). 
-  
-Currently, copper-based (copper sulfate or copper hydroxide) or streptomycin-based antimicrobials are used as chemical control methods for Pss in peppers.
-However, in recent years, the intensive application of copper-based antimicrobials to reduce PLS during the growing season has resulted in the emergence of copper-resistant strains of Pss, making copper-based antimicrobial agents less effective (8, 14).
+::: {.column width="48%"}
+![](img/lit_seqtech2.png)
+:::
+:::
 
-- 16 Pss samples were isolated from pepper plants harboring characteristic PLS symptoms
-  in Ohio between 2013 and 2021.
-  
-## Variation in virulence
+## The current best way?
 
-![](img/pss_cfu.png)
+![From [Wick et al. 2023](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010905)](img/lit_perfectgenome_header.png)
 
-## Variable genome
+## The current best way? (cont.)
+
+![From [Wick et al. 2023](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010905)](img/lit_perfectgenome.PNG)
+
+# A few notes on Illumina sequencing {background-color="dimgray"}
+
+## Sequencing adapters - recap
+
+After library prep, each DNA fragment is flanked by several types of short
+sequences that together make up the "**adapters**":
+
+<br>
+
+![](img/adapters2.png){fig-align="center"}
+
+## Paired-end vs. single-end sequencing
+
+In Illumina sequencing, DNA fragments can be sequenced from both ends as shown below —
+this is called **"paired-end" (PE) sequencing**:
+
+![](img/pairedend.png){fig-align="center"}
+
+. . .
+
+<hr style="height:1pt; visibility:hidden;" />
+
+When sequencing is instead **single-end (SE)**, no reverse read is produced:
+
+![](img/singleend.png){fig-align="center"}
+
+## Paired-end sequencing
+
+-   Paired-end sequencing is a way to **effectively increase the read length**. 
+
+-   The total size of the biological DNA fragment (without adapters) is often called the **insert size:**
+
+![](img/insert_size.png){fig-align="center"}
+
+## Insert size variation
+
+Insert size varies based on the library prep protocol aims,
+and because of variation due to limited precision in size selection.
+In some cases, the insert size can be:
+
+-   Shorter than the *combined* read length, leading to **overlapping reads**:
+
+![](img/insert_size_overlap.png){fig-align="center" width="70%"}
+
+. . .
+
+-   Shorter than the *single* read length, leading to "**adapter read-through**"
+    (i.e., the ends of the resulting reads will consist of adapter sequence, which should be removed):
+
+![](img/insert_size_adapter-read-through.png){fig-align="center" width="58%"}
+
+## Illumina error profile
+
+![](img/illumina_seq3_2.png){fig-align="center"}
+
+## Illumina error profile (cont.)
+
+::: columns
+::: {.column width="50%"}
+-   The different templates within a cluster get out of sync because occasionally:
+
+    -   They miss a base incorporation
+
+    -   They incorporate two bases at once
+
+<hr style="height:1pt; visibility:hidden;" />
+
+-   Base incorporation may also terminate before the end of the template is reached
+:::
+
+::: {.column width="50%"}
+![](img/illumina_errors.png){fig-align="center" width="75%"}
+:::
+:::
+
+. . .
+
+::: callout-tip
+## This error profile is why, for Illumina:
+
+-   There are hard limits on read lengths
+-   Base quality scores typically decrease along the read
+:::
+
+# Our dataset {background-color="dimgray"}
+
+## Our pathogen
+
+-   *Pseudomonas syringae* causes disease in a wide range of host plants,
+    from Solanaceae and Leguminosae plants to citrus and stone fruit trees.
+
+-   *Pseudomonas syringae pv. syringae* (Pss) is an emerging phytopathogen that causes
+    Pseudomonas leaf spot (PLS) disease in pepper plants (*Capsicum annuum var. annuum*).
+
+-   Copper-based antimicrobials are used as chemical control methods for Pss in peppers.
+    This has resulted in the emergence of copper-resistant strains of Pss.
+
+![](img/peppers_psuedomonas3_zoom.jpg){fig-align="center"}
+
+## Our dataset
+
+- From Ranjit et al. in prep, Ohio State University
+
+- 16 Pss samples were isolated from pepper plants harboring characteristic PLS
+  symptoms in Ohio between 2013 and 2021.
+
+- Illumina MiSeq sequencing of these isolates: 2x300 bp reads
+
+## Variable genome vs. disease severity
 
 ![](img/pss_variablegenome.png)
 
-## Phylogenetic tree
+--------
 
-![](img/tree.core_phylogroup.png)
+![](img/pss_tree.png)
+
+# Our workflow {background-color="dimgray"}
+
+## The steps involved
+
+1. QC and preprocessing of the FASTQ files
+2. Assembly and assembly QC
+3. Annotation
+
+. . .
+
+4. _Pangenomics and phylogenetics (not included)_
+
+## Workflow overview
+
+![](img/workflow.png){fig-align="center"}
+
+------
+
+![[From Petit & Read 2020](https://doi.org/10.1128/mSystems.00190-20)](img/bactopia-workflow.png)
+
+# Questions? {background-color="dimgray"}

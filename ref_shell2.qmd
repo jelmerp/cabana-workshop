@@ -342,3 +342,44 @@ printing one line before each match (`-B1`) and two lines after it (`-A2`):
 ``` bash
 zgrep -B1 -A2 --no-group-separator "CCAGTA" data/fastq/SM04_R1.fastq.gz > CCAGTA.fastq 
 ```
+<br>
+
+## The SAM/BAM format
+
+The SAM/BAM format is a format for **alignments**,
+typically of reads from FASTQ files to a reference genome FASTA file.
+ 
+- SAM (Sequence Alignment/Map) is an **uncompressed** text file
+- BAM (Binary Alignment/Map) is its **binary, compressed** counterpart.
+  BAM files are not human-readable but most software can work with them directly.
+
+After a header with metadata, the main part of the file contains one line per alignment,
+with information such as to which contig/scaffold/chromosome and position the read mapped,
+and the full sequence of the original read is also included:
+
+``` bash-out-solo
+A01088:17:HHVG3DRXX:1:2238:4164:16877    163     SL4.0ch00       18287   255     12M725N139M     =       19069   931     CTCAATTATATGGTGTAGACGCACAGTTCGGTGATCCTCCCGCCTAGGATATCTACTCTGCTGATTGGGAGAGCTCCACTGTTCCGGAGCCCAGTCATTTTGGTACATAACTTTTGTGTAGTCTTTTGCTCGTGTATGGGTATGGCGGGGC     FFFFFFFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:FFFFFFFFFFFFF:F:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:FFFFFFFF:FFFFFF NH:i:1  HI:i:1  AS:i:298   nM:i:0
+A01088:17:HHVG3DRXX:1:2238:4164:16877    83      SL4.0ch00       19069   255     149M    =       18287   -931    CTGCTGATTGGGAGAGCTCCACTGTTCCGGAGCCCAGTCATTTTGGTACATAACTTTTGTGTAGTCTTTTGCTCGTGTATGGGTATGGCGGGGCCCTGTCCCGTCGAGTTTCACTAATGTACTCTTAGAGGTCTGTGGACATTATGTGG       FFFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFFF   NH:i:1  HI:i:1  AS:i:298        nM:i:0
+AA01088:17:HHVG3DRXX:1:2143:6876:32440   163     SL4.0ch00       19077   255     125M    =       19077   125     TGGGAGAGCTCCACTGTTCCGGAGCCCAGTCATTTTGGTACATAACTTTTGTGTAGTCTTTTGCTCGTGTATGGGTATGGCGGGGCCCTGTCCCGTCGAGTTTCACTAATGTACTCTTAGAGGTC       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,FFFFFFFFFFFF:FFFFFF:FF,FFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:F:FFFFFF,FFFFFF:F   NH:i:1  HI:i:1  AS:i:248        nM:i:0
+AA01088:17:HHVG3DRXX:1:2143:6876:32440   83      SL4.0ch00       19077   255     125M    =       19077   -125    TGGGAGAGCTCCACTGTTCCGGAGCCCAGTCATTTTGGTACATAACTTTTGTGTAGTCTTTTGCTCGTGTATGGGTATGGCGGGGCCCTGTCCCGTCGAGTTTCACTAATGTACTCTTAGAGGTC       :FFFFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,:FFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF   NH:i:1  HI:i:1  AS:i:248        nM:i:0
+```
+
+
+<details><summary>Click here for info on all SAM columns</summary>
+
+| Col. nr. | Field | Description                 | Example    |
+|----------|-------|-----------------------------|------------|
+| 1        | QNAME | Query (=aligned read) name  | ....
+| **2**    | **FLAG**  | **Bitwise flag**        | 99
+| 3        | RNAME | Reference sequence name     | chr1
+| 4        | POS   | Mapping position (leftmost) | 46317
+| **5**        | **MAPQ**  |**Mapping quality**  | 255
+| **6**    | **CIGAR** | **CIGAR string**        | 150M
+| 7        | RNEXT | Name of read's mate         | =
+| 8        | PNEXT | Position of read's mate     | 46517
+| 9        | TLEN  | Template length             | 450
+| 10       | SEQ   | Sequence of the read        | AGTTACCGATCCT...
+| 11       | QUAL  | Base quality of the read    | FFFF@HHHHHHHH...
+| *(optional)*  | *TAG*  | *Optional information*      | *SM:i:37*
+
+</details>

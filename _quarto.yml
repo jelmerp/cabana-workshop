@@ -23,18 +23,19 @@ website:
             href: 02_vscode.qmd
           - text: "Unix shell refresher"
             href: 03_shell.qmd
-          - text: "FASTQ files and quality control"
-            href: 04_fastq.qmd
           - text: "-----------"
           - text: "_Phytophthora_ amplicon sequencing"
-            href: 05_amplicon.qmd
+            href: 04_amplicon.qmd
       - text: "Thu Feb 8"
         menu: 
           - text: "Bacterial whole-genome sequencing (slides)"
-          - text: "Read preprocessing"
+            href: bact_slides.qmd
+          - text: "Read QC & preprocessing"
+            href: 05_preprocess.qmd
           - text: "Genome assembly and assembly QC"
+            href: 06_assembly.qmd
           - text: "Genome annotation"
-          - text: "Pangenomics & phylogenetics"
+            href: 07_annotation.qmd
     right:
       - text: "Homework"
         href: homework.qmd
