@@ -390,7 +390,7 @@ Otherwise, we will use the following options:
 ```bash
 # Run Busco
 busco \
-    --in results/spades/SM04/contigs.fasta \
+    --in ../spades/SM04/contigs.fasta \
     --out SM04 \
     --lineage_dataset pseudomonadales \
     --mode genome
@@ -514,8 +514,18 @@ Kraken requires a reference database.
 Ready-made databases can be downloaded from
 [this site](https://benlangmead.github.io/aws-indexes/) ---
 in this case, I already downloaded one for you, which we can use.
-   
-We will start by making an output dir for Kraken:
+
+**Check that you are back in your `bact` dir, and have the cabana Conda environment active.**
+
+```bash
+pwd
+```
+```bash-out
+# Should be:
+/fs/scratch/PAS2250/cabana/$USER/bact/bact
+```
+
+We will start by creating an output dir for Kraken:
 
 ```bash
 # (If we don't create the output dir, Kraken will not produce output files!)
@@ -528,7 +538,7 @@ mkdir results/kraken
 
 We'll run Kraken2 with the following options:
 
-- `--db ../../databases/kraken_std` --- the database for Kraken2
+- `--db /fs/scratch/PAS2250/cabana/databases/kraken_std` --- the database for Kraken2
 - `--minimum-hit-groups 3` (Following recommendations from [Lu et al. 2022](https://www.nature.com/articles/s41596-022-00738-y))
 - `--confidence 0.15` (Following recommendations from [Wright et al. 2023](https://www.microbiologyresearch.org/content/journal/mgen/10.1099/mgen.0.000949))
 - `--report` and `--output` to indicate where the output files should go
@@ -539,7 +549,7 @@ We'll run Kraken2 with the following options:
 # Run Kraken2 -- like with Spades, we will run it as a batch job
 sbatch -A PAS2250 -t 5 -c 20 -o slurm-kraken.out --wrap="
   kraken2 \
-    --db ../../databases/kraken_std \
+    --db /fs/scratch/PAS2250/cabana/databases/kraken_std \
     --minimum-hit-groups 3 \
     --confidence 0.15 \
     --threads 20 \

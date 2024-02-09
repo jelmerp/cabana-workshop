@@ -89,7 +89,7 @@ you'll have to run the following to make sure your assembly is in the expected s
 
 ```bash
 mkdir results/decontam
-cp results/spades/SM04/contigs.fasta results/decontam/SM04.fastq
+cp results/spades/SM04/contigs.fasta results/decontam/SM04.fasta
 ```
 
 _(That is, you're simply copying your original assembly to a new dir.)_

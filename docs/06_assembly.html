@@ -605,7 +605,7 @@ Click for the solution
 </ul>
 <div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run Busco</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">busco</span> <span class="dt">\</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--in</span> results/spades/SM04/contigs.fasta <span class="dt">\</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--in</span> ../spades/SM04/contigs.fasta <span class="dt">\</span></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> SM04 <span class="dt">\</span></span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--lineage_dataset</span> pseudomonadales <span class="dt">\</span></span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--mode</span> genome</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -712,35 +712,39 @@ Filtering on contig size <em>(Click to expand)</em>
 <p>To identify contaminant contigs, we will run the program Kraken2 (<a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1891-0">Wood et al.&nbsp;2019</a>, <a href="https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown">manual</a>). This is a general purpose lowest-common ancestor (LCA) <strong>taxonomic classifier of sequences</strong> (can be reads, contigs, etc).</p>
 <p>(It is also possible to run Kraken2 or a similar program on the <em>reads</em> rather than on the assembly, but this can be more error-prone due to errors and their shorter lengths compared to (most) contigs.)</p>
 <p>Kraken requires a reference database. Ready-made databases can be downloaded from <a href="https://benlangmead.github.io/aws-indexes/">this site</a> — in this case, I already downloaded one for you, which we can use.</p>
-<p>We will start by making an output dir for Kraken:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (If we don't create the output dir, Kraken will not produce output files!)</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> results/kraken</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Check that you are back in your <code>bact</code> dir, and have the cabana Conda environment active.</strong></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code># Should be:
+/fs/scratch/PAS2250/cabana/$USER/bact/bact</code></pre>
+<p>We will start by creating an output dir for Kraken:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (If we don't create the output dir, Kraken will not produce output files!)</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> results/kraken</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr style="height:1pt; visibility:hidden;">
 </section>
 <section id="running-kraken" class="level3" data-number="6.2">
 <h3 data-number="6.2" class="anchored" data-anchor-id="running-kraken"><span class="header-section-number">6.2</span> Running Kraken</h3>
 <p>We’ll run Kraken2 with the following options:</p>
 <ul>
-<li><code>--db ../../databases/kraken_std</code> — the database for Kraken2</li>
+<li><code>--db /fs/scratch/PAS2250/cabana/databases/kraken_std</code> — the database for Kraken2</li>
 <li><code>--minimum-hit-groups 3</code> (Following recommendations from <a href="https://www.nature.com/articles/s41596-022-00738-y">Lu et al.&nbsp;2022</a>)</li>
 <li><code>--confidence 0.15</code> (Following recommendations from <a href="https://www.microbiologyresearch.org/content/journal/mgen/10.1099/mgen.0.000949">Wright et al.&nbsp;2023</a>)</li>
 <li><code>--report</code> and <code>--output</code> to indicate where the output files should go</li>
 <li><code>--threads 20</code> to use 20 threads</li>
 <li>And finally, the input file (our assembly) is passed as an argument at the end of the command</li>
 </ul>
-<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run Kraken2 -- like with Spades, we will run it as a batch job</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">-A</span> PAS2250 <span class="at">-t</span> 5 <span class="at">-c</span> 20 <span class="at">-o</span> slurm-kraken.out <span class="at">--wrap</span><span class="op">=</span><span class="st">"</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="st">  kraken2 </span><span class="dt">\</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="st">    --db ../../databases/kraken_std </span><span class="dt">\</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="st">    --minimum-hit-groups 3 </span><span class="dt">\</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="st">    --confidence 0.15 </span><span class="dt">\</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="st">    --threads 20 </span><span class="dt">\</span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="st">    --report results/kraken/SM04_report.txt </span><span class="dt">\</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="st">    --output results/kraken/SM04_main.txt </span><span class="dt">\</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="st">    results/spades/SM04/contigs.fasta</span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run Kraken2 -- like with Spades, we will run it as a batch job</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">-A</span> PAS2250 <span class="at">-t</span> 5 <span class="at">-c</span> 20 <span class="at">-o</span> slurm-kraken.out <span class="at">--wrap</span><span class="op">=</span><span class="st">"</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="st">  kraken2 </span><span class="dt">\</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="st">    --db /fs/scratch/PAS2250/cabana/databases/kraken_std </span><span class="dt">\</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="st">    --minimum-hit-groups 3 </span><span class="dt">\</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="st">    --confidence 0.15 </span><span class="dt">\</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="st">    --threads 20 </span><span class="dt">\</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="st">    --report results/kraken/SM04_report.txt </span><span class="dt">\</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="st">    --output results/kraken/SM04_main.txt </span><span class="dt">\</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="st">    results/spades/SM04/contigs.fasta</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Once its done (this should only take 1-2 minutes), the Slurm log file should contain the following:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> slurm-kraken.out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> slurm-kraken.out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>Loading database information... done.
 86 sequences (5.97 Mbp) processed in 0.619s (8.3 Kseq/m, 578.49 Mbp/m).
   84 sequences classified (97.67%)
@@ -750,7 +754,7 @@ Filtering on contig size <em>(Click to expand)</em>
 <section id="interpreting-the-kraken-output" class="level3" data-number="6.3">
 <h3 data-number="6.3" class="anchored" data-anchor-id="interpreting-the-kraken-output"><span class="header-section-number">6.3</span> Interpreting the Kraken output</h3>
 <p>Let’s take a look at the output files:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> results/kraken</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> results/kraken</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>-rw-r--r-- 1 jelmer PAS0471 3.0M Feb  5 15:41 SM04_main.txt
 -rw-r--r-- 1 jelmer PAS0471 3.5K Feb  5 15:41 SM04_report.txt</code></pre>
 <p>The report file (<code>report.txt</code>) file has a summary of taxonomic assignments, whereas the main output file (<code>main.txt</code>) has one line for each contig with its taxonomic assignment.</p>
@@ -763,7 +767,7 @@ Filtering on contig size <em>(Click to expand)</em>
 <li>NCBI taxonomic ID number</li>
 <li>Indented scientific name</li>
 </ol>
-<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> <span class="at">-S</span> results/kraken/SM04_report.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> <span class="at">-S</span> results/kraken/SM04_report.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <details>
 <summary>
 Click to show the contents of the file
@@ -834,7 +838,7 @@ Ouch! While the majority of our contigs have been classified as <em>Pseudomonas 
 <hr style="height:1pt; visibility:hidden;">
 <p>The 5th column of the Kraken report has the NCBI taxonomic IDs, and that of human (on the last line) is <code>9606</code>.</p>
 <p>The <code>main.txt</code> output file reports the taxonomic ID in the 3rd column, so we can use the following command to print just the lines where the 3rd column is <code>9606</code>:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'$3 == 9606'</span> results/kraken/SM04_main.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'$3 == 9606'</span> results/kraken/SM04_main.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>C       NODE_28_length_766_cov_1.003130 9606    766     9606:4 131567:5 9606:1 131567:36 9606:11 131567:1 9606:20 131567:47 9606:16 131567:2 9606:5 131567:1 9606:1 131567:1 9606:6 131567:32 9606:68 131567:18 9606:95 131567:146 9606:12 131567:4 9606:11 131567:96 9606:28 131567:5 9606:11 131567:2 9606:29 131567:2 9606:1 131567:5 9606:10
 C       NODE_33_length_621_cov_0.706478 9606    621     9606:180 0:1 9606:3 0:17 9606:1 0:2 9606:12 0:32 9606:199 131567:5 9606:21 131567:2 1:1 9606:111
 C       NODE_36_length_567_cov_0.784091 9606    567     0:6 9606:527
@@ -879,13 +883,13 @@ Note that Kraken doesn’t use this kind of information at all, so this provides
 <li><code>-t</code> — NCBI taxonomic ID (<code>9606</code> = human)</li>
 <li><code>--exclude</code> — exclude (rather than extract) contigs with the specified taxonomic ID</li>
 </ul>
-<div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> results/decontam</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="ex">extract_kraken_reads.py</span> <span class="dt">\</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">-k</span> results/kraken/SM04_main.txt <span class="dt">\</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">-s</span> results/spades/SM04/contigs.fasta <span class="dt">\</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">-o</span> results/decontam/SM04.fasta <span class="dt">\</span></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">-t</span> 9606 <span class="dt">\</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--exclude</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> results/decontam</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="ex">extract_kraken_reads.py</span> <span class="dt">\</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">-k</span> results/kraken/SM04_main.txt <span class="dt">\</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">-s</span> results/spades/SM04/contigs.fasta <span class="dt">\</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">-o</span> results/decontam/SM04.fasta <span class="dt">\</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">-t</span> 9606 <span class="dt">\</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--exclude</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>PROGRAM START TIME: 02-05-2024 22:16:21
         1 taxonomy IDs to parse
 &gt;&gt; STEP 1: PARSING KRAKEN FILE FOR READIDS results/kraken/SM04.main.txt
@@ -897,7 +901,7 @@ Note that Kraken doesn’t use this kind of information at all, so this provides
         Generated file: results/decontam/SM04.fasta
 PROGRAM END TIME: 02-05-2024 22:16:21</code></pre>
 <p>Let’s check that we indeed have 65 contigs left:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span> <span class="st">"&gt;"</span> results/decontam/SM04.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span> <span class="st">"&gt;"</span> results/decontam/SM04.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>65</code></pre>
 <p><br></p>
 

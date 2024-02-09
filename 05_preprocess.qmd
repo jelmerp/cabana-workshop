@@ -250,7 +250,8 @@ A FastQC per-base quality score graph for files with reasonably good (left) and 
 
 To run FastQC, we can use the command `fastqc`.
 
-If you want to analyze one of your FASTQ files with default FastQC settings, a complete FastQC command to do so would simply be `fastqc` followed by the name of the file:
+If you want to analyze one of your FASTQ files with default FastQC settings,
+a complete FastQC command to do so would simply be `fastqc` followed by the name of the file:
 
 ``` bash
 # (Don't run this)
@@ -261,64 +262,11 @@ However, an annoying FastQC **default behavior** is that it writes its output fi
 
 To figure out how we can change that behavior, first consider that many commands and bioinformatics tools alike have an **option `-h` and/or `--help`** to print usage information to the screen.
 
-::: exercise
-#### {{< fa user-edit >}} **Exercise**: FastQC help and output dir
-
-Print FastQC's help info, and figure out which option you can use to specify a custom output directory.
-
-<details>
-
-<summary>*Click for the solution*</summary>
-
-`fastqc -h` and `fastqc --help` will both work to show the help info.
-
-You'll get quite a bit of output printed to screen, including the snippet about output directories that is reproduced below:
+Let's try that:
 
 ``` bash
 fastqc -h
 ```
-
-``` bash-out
-  -o --outdir     Create all output files in the specified output directory.
-                    Please note that this directory must exist as the program
-                    will not create it.  If this option is not set then the 
-                    output file for each sequence file is created in the same
-                    directory as the sequence file which was processed.
-```
-
-So, you can use `-o` or equivalently, `--outdir` to specify an output dir.
-
-</details>
-:::
-
-<hr style="height:1pt; visibility:hidden;" />
-
-So, our final FastQC command will be:
-
-``` bash
-fastqc \
-  --outdir results/fastqc_pretrim \
-  data/fastq/SM04_R1.fastq.gz
-```
-
-::: callout-note
-#### Spreading commands across multiple lines with `\`
-
-Above, I spread the command across multiple lines, which makes it a little easier to read. You can run the command exactly like that: we use the backslashes (**`\`**) at the end of all but the last line to indicate to the shell that our command will continue on the next line.
-:::
-
-<hr style="height:1pt; visibility:hidden;" />
-
-### Running our FastQC command
-
-Now, let's try to run that command:
-
-``` bash
-fastqc \
-  --outdir results/fastqc_pretrim \
-  data/fastq/SM04_R1.fastq.gz
-```
-
 ``` bash-out
 bash: fastqc: command not found...
 ```
@@ -347,17 +295,54 @@ module load miniconda3
 source activate /fs/ess/PAS0471/jelmer/conda/cabana
 ```
 
-Now, let's try again:
+::: exercise
+#### {{< fa user-edit >}} **Exercise**: FastQC help and output dir
+
+Again try to print FastQC's help info,
+and figure out which option you can use to specify a custom output directory.
+
+<details><summary>*Click for the solution*</summary>
+
+`fastqc -h` and `fastqc --help` will both work to show the help info.
+
+You'll get quite a bit of output printed to screen,
+including the snippet about output directories that is reproduced below:
+
+``` bash
+fastqc -h
+```
+
+``` bash-out
+  -o --outdir     Create all output files in the specified output directory.
+                    Please note that this directory must exist as the program
+                    will not create it.  If this option is not set then the 
+                    output file for each sequence file is created in the same
+                    directory as the sequence file which was processed.
+```
+
+So, you can use `-o` or equivalently, `--outdir` to specify an output dir.
+
+</details>
+:::
+
+<hr style="height:1pt; visibility:hidden;" />
+
+With the added `--outdir` (or `-o`) option, let's try to run the following FastQC command:
 
 ``` bash
 fastqc \
   --outdir results/fastqc_pretrim \
   data/fastq/SM04_R1.fastq.gz
 ```
-
 ``` bash-out
 Specified output directory 'results/fastqc_pretrim' does not exist
 ```
+
+::: callout-note
+#### Spreading commands across multiple lines with `\`
+
+Above, I spread the command across multiple lines, which makes it a little easier to read. You can run the command exactly like that: we use the backslashes (**`\`**) at the end of all but the last line to indicate to the shell that our command will continue on the next line.
+:::
 
 <hr style="height:1pt; visibility:hidden;" />
 
