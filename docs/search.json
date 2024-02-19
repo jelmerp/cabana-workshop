@@ -123,7 +123,7 @@
     "href": "about.html",
     "title": "About this website",
     "section": "",
-    "text": "This website contains the teaching materials of Jelmer Poelstra (MCIC Wooster, Ohio State University) and Myriam Izarra (CGIAR) in the CABANAnet/STC-CGIAR workshop Latin American workshop on high throughput sequencing for plant pathogen identification and analysis.\nThis workshop was held from Feb 5th to Feb 9th, 2024, in Chachapoyas, Peru.\nThe source code for this website can be found at https://github.com/jelmerp/cabana-workshop.\n\n\n\n\n\n\n\n\n Back to top"
+    "text": "This website contains the teaching materials of Jelmer Poelstra (MCIC Wooster, Ohio State University) and Myriam Izarra (CGIAR) in the CABANAnet/STC-CGIAR workshop Latin American workshop on high throughput sequencing for plant pathogen identification and analysis.\nThis workshop was held from Feb 5th to Feb 9th, 2024, in Chachapoyas, Peru.\nThe source code for this website can be found at https://github.com/jelmerp/cabana-workshop.\n\n\n\n\n\n\n\n\n\n\n\n\n\n Back to top"
   },
   {
     "objectID": "06_assembly.html#introduction",
@@ -361,7 +361,7 @@
     "href": "index.html",
     "title": "Feb ’24 CABANAnet/STC-CGIAR workshop",
     "section": "",
-    "text": "Day\nTime\nInstructor\nTopic and link\n\n\n\n\nWed Feb 7th\n08:15-09:00\nJelmer\nIntro to supercomputing / OSC\n\n\n\n09:00-09:30\nJelmer\nVS Code\n\n\n\n09:30-12:00\nJelmer\nUnix shell refresher (with coffee break)\n\n\n\n13:30-17:00\nMyriam\nAmplicon sequencing to characterize P. infestans populations\n\n\n\n\n\n\n\n\nThu Feb 8th\n08:15-09:15\nMyriam\nAmplicon sequencing: R part\n\n\n\n09:15-09:45\nJelmer\nBacterial whole-genome sequencing (slides)\n\n\n\n10:00-12:00\nJelmer\nRead QC & preprocessing\n\n\n\n13:30-15:40\nJelmer\nGenome assembly and assembly QC\n\n\n\n16:00-17:00\nJelmer\nGenome annotation\n\n\n\n\n\n\n\n\n\n\n\nOther pages on this website\n\n\n\nOpening a Unix shell at OSC\nStarting an RStudio session at OSC\nHomework\n\n\n\nUnix shell overview/reference\nContinued Unix shell intro\nSoftware management\nData management\n\n\n\n\n\n\n\n Back to top"
+    "text": "Day\nTime\nInstructor\nTopic and link\n\n\n\n\nWed Feb 7th\n08:15-09:00\nJelmer\nIntro to supercomputing / OSC\n\n\n\n09:00-09:30\nJelmer\nVS Code\n\n\n\n09:30-12:00\nJelmer\nUnix shell refresher (with coffee break)\n\n\n\n13:30-17:00\nMyriam\nAmplicon sequencing to characterize P. infestans populations\n\n\n\n\n\n\n\n\nThu Feb 8th\n08:15-09:15\nMyriam\nAmplicon sequencing: R part\n\n\n\n09:15-09:45\nJelmer\nBacterial whole-genome sequencing (slides)\n\n\n\n10:00-12:00\nJelmer\nRead QC & preprocessing\n\n\n\n13:30-15:40\nJelmer\nGenome assembly and assembly QC\n\n\n\n16:00-17:00\nJelmer\nGenome annotation\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOther pages on this website\n\n\n\nOpening a Unix shell at OSC\nStarting an RStudio session at OSC\nHomework\n\n\n\nUnix shell overview/reference\nContinued Unix shell intro\nSoftware management\nData management\n\n\n\n\n\n\n\n Back to top"
   },
   {
     "objectID": "03_shell.html#introduction",

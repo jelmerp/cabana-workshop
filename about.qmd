@@ -10,4 +10,6 @@ This workshop was held from Feb 5^th^ to Feb 9^th^, 2024, in Chachapoyas, Peru.
 
 *The source code for this website can be found at <https://github.com/jelmerp/cabana-workshop>.*
 
+![](img/course_banner.png){fig-align="center" width="95%"}
+
 ![](img/logos_all.png){fig-align="center" width="95%"}

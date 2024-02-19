@@ -22,6 +22,8 @@ toc: false
 
 <hr style="height:1pt; visibility:hidden;" />
 
+![](img/course_banner.png){fig-align="center" width="95%"}
+
 ![](img/logos_all.png){fig-align="center" width="95%"}
 
 ------------------------------------------------------------------------
